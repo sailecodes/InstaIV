@@ -1,6 +1,6 @@
-### Instagram Clone-ish
+# Instagram Clone-ish
 
-# Client-side
+### Client-side
 
 - _Pages/Components_
   - Login (`/login`)
@@ -12,7 +12,7 @@
       - Create post (`/create-post`)
       - Profile (`/profile`)
 
-# Server-side
+### Server-side
 
 - _Models_
   - User
