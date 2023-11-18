@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
-import Home from "../icons/Home";
-import Create from "../icons/Create";
-import Messages from "../icons/Messages";
+import HomeIcon from "../icons/HomeIcon";
+import CreateIcon from "../icons/CreateIcon";
+import MessagesIcon from "../icons/MessagesIcon";
 
 const DashboardLowerNavWrapper = styled.nav`
   .dashboard--lower-nav-link-container {
@@ -28,13 +28,13 @@ const DashboardLowerNav = () => {
         <NavLink
           to="/dashboard"
           end>
-          <Home />
+          <HomeIcon />
         </NavLink>
         <NavLink to="/dashboard/create-post">
-          <Create />
+          <CreateIcon />
         </NavLink>
         <NavLink to="/dashboard/messages">
-          <Messages />
+          <MessagesIcon />
         </NavLink>
         <NavLink to="/dashboard/profile">
           <ProfilePicture

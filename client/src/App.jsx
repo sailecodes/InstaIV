@@ -5,8 +5,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Login from "./components/pages/auth/Login";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import Home from "./components/pages/dashboard/Home";
-import CreatePost from "./components/pages/dashboard/CreatePost";
+import Search from "./components/pages/dashboard/Search";
 import Messages from "./components/pages/dashboard/Messages";
+import CreatePost from "./components/pages/dashboard/CreatePost";
 import Profile from "./components/pages/dashboard/Profile";
 
 const queryClient = new QueryClient();
@@ -25,12 +26,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "create-post",
-        element: <CreatePost />,
+        path: "search",
+        element: <Search />,
       },
       {
         path: "messages",
         element: <Messages />,
+      },
+      {
+        path: "create-post",
+        element: <CreatePost />,
       },
       {
         path: "profile",

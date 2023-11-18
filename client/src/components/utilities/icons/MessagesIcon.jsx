@@ -1,4 +1,4 @@
-const Messages = () => {
+const MessagesIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +15,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default MessagesIcon;

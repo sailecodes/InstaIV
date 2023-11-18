@@ -69,6 +69,7 @@ const DashboardWrapper = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 5.5rem;
 
       height: 100vh;
 
