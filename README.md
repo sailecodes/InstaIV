@@ -1,10 +1,12 @@
 # Instagram Clone-ish
 
+## An IG clone with basic functionalities and slightly different layouts. See below for details.
+
 ### Client-side
 
-- _Pages/Components_
+- **Pages/Components**
   - Login (`/login`)
-  - Dashboard
+  - Dashboard (`/dashboard`)
     - Side nav
       - Home (`/`)
       - Search (`/search`)
@@ -14,7 +16,7 @@
 
 ### Server-side
 
-- _Models_
+- **Models**
   - User
     - Email (type _String_)
     - Password (type _String_)
@@ -42,7 +44,7 @@
   - Message
     - User (type _User_)
     - Message (type _String_)
-- _Controllers_
+- **Controllers**
   - Auth route (`/api/v1/auth`)
     - Register (`/register`)
     - Login (`/login`)
