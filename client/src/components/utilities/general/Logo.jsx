@@ -8,10 +8,12 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const Logo = ({full}) => {
+const Logo = () => {
   return (
     <LogoWrapper>
-      <p>{full ? "InstaIV" : "IV"}</p>
+      <p className="logo">
+        <span>Insta</span>IV
+      </p>
     </LogoWrapper>
   );
 };

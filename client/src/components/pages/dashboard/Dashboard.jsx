@@ -68,13 +68,21 @@ const DashboardWrapper = styled.div`
 
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       gap: 5.5rem;
 
       height: 100vh;
 
       padding: 2rem 2rem 2rem 2rem;
       border-right: 1px solid var(--color-dark-gray);
+    }
+
+    .logo span {
+      display: none;
+    }
+
+    .dashboard--side-nav .full {
+      display: none;
     }
 
     .dashboard--lower-nav {
@@ -85,6 +93,20 @@ const DashboardWrapper = styled.div`
   @media (min-width: 1264px) {
     .dashboard--container {
       grid-template-columns: 22rem 1fr 18rem;
+    }
+
+    .logo span {
+      display: unset;
+    }
+
+    .dashboard--side-nav a {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .dashboard--side-nav .full {
+      display: unset;
     }
   }
 `;

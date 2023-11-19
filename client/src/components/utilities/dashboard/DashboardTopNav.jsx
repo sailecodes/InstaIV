@@ -18,7 +18,7 @@ const DashboardTopNavWrapper = styled.nav`
 const DashboardTopNav = () => {
   return (
     <DashboardTopNavWrapper className="dashboard--top-nav">
-      <Logo full={true} />
+      <Logo />
       <SearchBar />
     </DashboardTopNavWrapper>
   );
