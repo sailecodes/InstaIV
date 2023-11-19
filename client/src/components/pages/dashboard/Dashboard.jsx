@@ -44,7 +44,7 @@ const DashboardWrapper = styled.div`
     .dashboard--container {
       display: grid;
       grid-template-columns: 7.3rem 1fr 18rem;
-      grid-template-rows: 4.8rem 1fr;
+      grid-template-rows: 6rem 1fr;
     }
 
     .dashboard--profile-full {
@@ -75,6 +75,13 @@ const DashboardWrapper = styled.div`
 
       padding: 2rem 2rem 2rem 2rem;
       border-right: 1px solid var(--color-dark-gray);
+    }
+
+    .logo {
+      width: 3rem;
+      height: 3rem;
+
+      text-align: center;
     }
 
     .logo span {

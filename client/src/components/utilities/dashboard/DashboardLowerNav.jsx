@@ -38,8 +38,8 @@ const DashboardLowerNav = () => {
         </NavLink>
         <NavLink to="/dashboard/profile">
           <ProfilePicture
-            width="3rem"
-            height="3rem"
+            width="2.6rem"
+            height="2.6rem"
           />
         </NavLink>
       </div>

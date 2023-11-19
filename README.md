@@ -1,18 +1,17 @@
-# Instagram Clone-ish
+# InstaIV
 
-## An IG clone with basic functionalities and slightly different layouts. See below for details.
+## A basic social media app inspired by Instagram.
 
 ### Client-side
 
 - **Pages/Components**
   - Login (`/login`)
   - Dashboard (`/dashboard`)
-    - Side nav
-      - Home (`/`)
-      - Search (`/search`)
-      - Messages (`/messages`)
-      - Create post (`/create-post`)
-      - Profile (`/profile`)
+    - Home (`/`)
+    - Search (`/search`)
+    - Messages (`/messages`)
+    - Create post (`/create-post`)
+    - Profile (`/profile`)
 
 ### Server-side
 
@@ -21,15 +20,20 @@
     - Email (type _String_)
     - Password (type _String_)
     - Username (type _String_)
-    - Bio (type _[String]_)
+    - Bio (type _String_)
     - Number of posts (type _Number_)
     - Followers (type _[User]_)
     - Following (type _[User]_)
+    - Posts (type _[Post]_)
     - Saved posts (type _[Post]_)
     - Chats (type _[Chat]_)
+  - Content
+    - PublicId (type _String_)
+      - From cloudinary
+    - ImageUrl (type _String_)
+      - From cloudinary
   - Post
-    - Content
-      - `TODO`
+    - Content (type _Content_)
     - User (type _User_)
     - Description (type _String_)
     - Number of likes (type _Number_)
