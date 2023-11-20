@@ -81,3 +81,15 @@ export const validateLoginInput = validate([
     .isLength({ min: 10 })
     .withMessage("Password must be at least 10 characters"),
 ]);
+
+// ==============================================
+// User routes validation
+// ==============================================
+
+export const validateFollowedUserId = validate([
+  body("followedUserId").custom((followedUserId) => {
+    if (!mongoose.Types.ObjectId.isValid(followedUserId)) throw new UnauthenticatedError("Authentication invalid");
+
+    return true;
+  }),
+]);

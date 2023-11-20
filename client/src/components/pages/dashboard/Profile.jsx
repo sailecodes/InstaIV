@@ -68,7 +68,7 @@ const ProfileWrapper = styled.div`
 
     font-size: var(--font-sm-0);
 
-    max-width: 50rem;
+    max-width: 44.5rem;
   }
 
   /* =================== */
