@@ -12,7 +12,7 @@ import l3 from "../../../assets/imgs/luffy-3.jpeg";
 import l4 from "../../../assets/imgs/luffy-4.jpg";
 
 const ProfileWrapper = styled.div`
-  /* max-width: 93.5rem; */
+  /* max-width: 93rem; */
 
   overflow-y: auto;
 
@@ -100,51 +100,42 @@ const ProfileWrapper = styled.div`
     justify-content: center;
     gap: 4rem;
 
-    padding: 0.8rem 0 0.8rem 0;
+    padding: 0.8rem 2.2rem 0.8rem 0;
   }
 
   .profile--user-content .active svg {
-    stroke: none;
+    stroke: var(--color-blue);
     fill: var(--color-blue);
   }
 
   .profile--content-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.4rem;
-    place-items: center;
-  }
 
-  .profile--content-container > img {
-    /* width: 28.7vw; */
-    max-width: 30.9rem;
-    /* height: 28.7vw; */
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-    /* object-position: center; */
+    /* display: grid;
+    grid-template-columns: repeat(3, 28vw);
+    grid-auto-rows: 28vw;
+    gap: 0.4rem; */
   }
 
   .profile--content-container > div {
-    width: 28.7vw;
+    width: 28vw;
     max-width: 30.9rem;
-    height: 28.7vw;
+    height: 28vw;
     max-height: 30.9rem;
 
-    /* background-image: url("/src/assets/imgs/luffy-4.jpg"); */
+    /* background-color: red; */
+
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
   }
 `;
 
 /*
   TODO:
     - bio should be 370 max
-    - crop images to fit format
 */
 
 const Profile = () => {

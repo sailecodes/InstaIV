@@ -10,6 +10,8 @@ import Search from "./components/pages/dashboard/Search";
 import Messages from "./components/pages/dashboard/Messages";
 import CreatePost from "./components/pages/dashboard/CreatePost";
 import Profile from "./components/pages/dashboard/Profile";
+import Posts from "./components/pages/dashboard/Posts";
+import SavedPosts from "./components/pages/dashboard/SavedPosts";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +47,16 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+        children: [
+          {
+            index: true,
+            element: <Posts />,
+          },
+          {
+            path: "saved-posts",
+            element: <SavedPosts />,
+          },
+        ],
       },
     ],
   },
