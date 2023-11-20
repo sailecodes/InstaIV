@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
 import * as dotenv from "dotenv";
 
+import errorMiddleware from "./middleware/errorMiddleware.js";
+
 // ==============================================
 // Initialization
 // ==============================================
@@ -33,6 +35,8 @@ app.use("/", (req, res) => {
 app.use("*", (req, res) => {
   res.status(StatusCodes.NOT_FOUND).json({ msg: "(Server message) Route not found" });
 });
+
+app.use(errorMiddleware);
 
 // ==============================================
 // Server initialization

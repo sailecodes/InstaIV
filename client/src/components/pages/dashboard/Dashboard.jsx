@@ -14,7 +14,6 @@ const DashboardWrapper = styled.div`
     display: grid;
     grid-template-rows: 6rem 1fr 5rem;
 
-    max-width: 135rem;
     height: 100vh;
   }
 
