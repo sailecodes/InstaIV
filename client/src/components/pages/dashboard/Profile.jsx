@@ -120,9 +120,9 @@ const ProfileWrapper = styled.div`
   }
 
   .profile--content-container > div {
-    width: 28vw;
+    width: 31vw;
     max-width: 30.9rem;
-    height: 28vw;
+    height: 31vw;
     max-height: 30.9rem;
 
     /* background-color: red; */
@@ -135,7 +135,7 @@ const ProfileWrapper = styled.div`
 
 /*
   TODO:
-    - bio should be 370 max
+    - bio should be 350 max
 */
 
 const Profile = () => {
@@ -155,8 +155,7 @@ const Profile = () => {
         <p className="profile--bio">
           This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my
           bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is
-          my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This
-          is my bio.
+          my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio.
         </p>
       </section>
       <section className="profile--stats">
@@ -186,6 +185,8 @@ const Profile = () => {
         </nav>
         <div className="profile--content-container">
           <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
           <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
           <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
           <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
