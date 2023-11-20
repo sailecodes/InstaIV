@@ -7,6 +7,7 @@ import { StatusCodes } from "http-status-codes";
 import * as dotenv from "dotenv";
 
 import authRouter from "./routers/authRouter.js";
+import postRouter from "./routers/postRouter.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 
 // ==============================================
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/posts", postRouter);
 
 app.use("*", (req, res) => {
   res.status(StatusCodes.NOT_FOUND).json({ msg: "(Server message) Route not found" });

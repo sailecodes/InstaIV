@@ -25,7 +25,7 @@
     - Followers (type _[User]_)
     - Following (type _[User]_)
     - Posts (type _[Post]_)
-    - Saved posts (type _[Post]_)
+    <!-- - Saved posts (type _[Post]_) -->
     - Chats (type _[Chat]_)
   - Content
     - PublicId (type _String_)
@@ -62,9 +62,7 @@
         - Followers
         - Following
         - Posts
-          - `TODO`
-        - Saved posts
-          - `TODO`
+        <!-- - Saved posts -->
   - Chat route (`/api/v1/chats`)
     - Get user chats (`/`)
     - Get chat (`/:id`)
@@ -73,10 +71,19 @@
 - **Routes**
   - Authentication routes
     - Public routes
-    - 3 routes (`/api/v1`)
+    - 3 routes (`/api/v1/auth`)
       - Register (_POST_, `/register`)
       - Login (_POST_, `/login`)
       - Logout (_GET_, `/logout`)
   - User routes
     - Restricted routes
-    -
+    - 3 routes (`/api/v1/users`)
+      - Get user information (_GET_, `/personal-info`)
+      - Get followers (_GET_, `/followers`)
+      - Get following (_GET_, `/following`)
+  - Post routes
+    - Restricted routes
+    - x routes (`/api/v1/posts`)
+      - Create post (_CREATE_, `/create`)
+      - Delete post (_DELETE_, `/delete`)
+      - Update post (_UPDATE_, `/update`)

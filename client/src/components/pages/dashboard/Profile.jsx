@@ -111,22 +111,27 @@ const ProfileWrapper = styled.div`
   }
 
   .profile--content-container {
-    /* display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem; */
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 0.4rem;
   }
 
-  .profile--content-container > div {
-    /* width: 27vw;
+  .profile--content-row-container {
+    align-items: stretch;
+
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    gap: 0.4rem;
+  }
+
+  .profile--content-row-container > div {
+    flex: 1 0 0%;
+
+    width: 27vw;
     height: 27vw;
     max-width: 32.73rem;
-    max-height: 32.73rem; */
-
-    /* background-color: red; */
+    max-height: 32.73rem;
 
     background-repeat: no-repeat;
     background-position: center;
@@ -140,8 +145,6 @@ const ProfileWrapper = styled.div`
 */
 
 const Profile = () => {
-  const screenSize = useScreenSize();
-
   return (
     <ProfileWrapper className="dashboard--outlet">
       <div>
@@ -172,14 +175,21 @@ const Profile = () => {
             </NavLink>
           </nav>
           <div className="profile--content-container">
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-            {/* <Outlet /> */}
+            <div className="profile--content-row-container">
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+            </div>
+            <div className="profile--content-row-container">
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+            </div>
+            <div className="profile--content-row-container">
+              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </section>
       </div>

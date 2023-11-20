@@ -40,10 +40,6 @@ const DashboardWrapper = styled.div`
       grid-template-columns: 7.3rem 1fr;
     }
 
-    .dashboard--container > div:nth-child(2) {
-      background-color: red;
-    }
-
     .dashboard--top-nav {
       display: none;
     }
