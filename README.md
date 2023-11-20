@@ -78,7 +78,7 @@
   - User routes
     - Restricted routes
     - 3 routes (`/api/v1/users`)
-      - Get user information (_GET_, `/personal-info`)
+      - Get profile information (_GET_, `/user-profile`)
       - Get followers (_GET_, `/followers`)
       - Get following (_GET_, `/following`)
   - Post routes

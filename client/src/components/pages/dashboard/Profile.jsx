@@ -178,6 +178,8 @@ const ProfileWrapper = styled.div`
 
       position: relative;
       bottom: 45%;
+
+      height: 7.2rem;
     }
 
     .profile--stats {

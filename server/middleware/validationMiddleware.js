@@ -1,7 +1,9 @@
+import jwt from "jsonwebtoken";
 import { param, body, cookie, validationResult } from "express-validator";
 
 import userModel from "../models/userModel.js";
-import { BadRequestError } from "../custom-errors/customErrors.js";
+import { BadRequestError, UnauthenticatedError } from "../custom-errors/customErrors.js";
+import mongoose from "mongoose";
 
 const validate = (validationValues) => {
   return [
@@ -12,13 +14,36 @@ const validate = (validationValues) => {
       if (!errors.isEmpty()) {
         const errorMessages = errors.array().map((error) => error.msg);
 
-        throw new BadRequestError(errorMessages);
+        if (errorMessages[0].startsWith("Authentication")) throw new UnauthenticatedError("Authentication invalid.");
+        else throw new BadRequestError(errorMessages);
       }
 
       next();
     },
   ];
 };
+
+// ==============================================
+// General validation
+// ==============================================
+
+export const validateUser = validate([
+  cookie("token").custom((token, { req, res }) => {
+    if (!token) throw new UnauthenticatedError("Authentication invalid");
+
+    try {
+      const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!mongoose.Types.ObjectId.isValid(userId)) throw new UnauthenticatedError("Authentication invalid");
+
+      req.userInfo = { userId };
+
+      return true;
+    } catch (error) {
+      throw new UnauthenticatedError("Authentication invalid");
+    }
+  }),
+]);
 
 // ==============================================
 // Authentication routes validation
