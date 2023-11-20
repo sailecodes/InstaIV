@@ -49,5 +49,10 @@ export const validateRegisterInput = validate([
 
 export const validateLoginInput = validate([
   body("email").isEmail().withMessage("Please provide a valid email"),
-  body("password").notEmpty().withMessage("Please provide a password"),
+  body("password")
+    .notEmpty()
+    .withMessage("Please provide a password")
+    .bail()
+    .isLength({ min: 10 })
+    .withMessage("Please provide a password at least 10 characters"),
 ]);
