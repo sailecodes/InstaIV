@@ -17,11 +17,7 @@ const ProfilePictureWrapper = styled.div`
 const ProfilePicture = ({ width = "3rem", height = "3rem" }) => {
   return (
     <ProfilePictureWrapper>
-      <img
-        src={pf}
-        alt="profile picture"
-        style={{ width: width, height: height }}
-      />
+      <img src={pf} alt="profile picture" style={{ width: width, height: height }} />
     </ProfilePictureWrapper>
   );
 };

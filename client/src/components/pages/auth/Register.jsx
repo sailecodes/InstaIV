@@ -1,6 +1,6 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import AuthWrapper from "../../../assets/styles/auth/AuthStyle";
 import axiosFetch from "../../../utilities/axiosFetch";
@@ -9,6 +9,7 @@ import AuthInput from "../../utilities/auth/AuthInput";
 import { useMutation } from "@tanstack/react-query";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
@@ -17,21 +18,27 @@ const Register = () => {
     mutationFn: (registerData) => {
       return axiosFetch.post("/auth/register", registerData);
     },
+    onSuccess: () => {
+      navigate("/login");
+    },
     onError: (error) => {
-      const msgs = error?.response?.data?.msg.split(",");
+      const errors = error?.response?.data?.msg;
+      let msgs = null;
+
+      if (errors) msgs = errors.split(",");
 
       if (msgs[0]) {
-        if (msgs[0].includes("email")) setEmailError(true);
-        else if (msgs[0].includes("password")) setPasswordError(true);
-        else if (msgs[0].includes("username")) setUsernameError(true);
+        if (msgs[0].includes("Email")) setEmailError(true);
+        else if (msgs[0].includes("Password")) setPasswordError(true);
+        else if (msgs[0].includes("Username")) setUsernameError(true);
       }
 
       if (msgs[1]) {
-        if (msgs[1].includes("password")) setPasswordError(true);
-        else if (msgs[1].includes("username")) setUsernameError(true);
+        if (msgs[1].includes("Password")) setPasswordError(true);
+        else if (msgs[1].includes("Username")) setUsernameError(true);
       }
 
-      if (msgs[2] && msgs[2].includes("username")) setUsernameError(true);
+      if (msgs[2] && msgs[2].includes("Username")) setUsernameError(true);
     },
   });
 

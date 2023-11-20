@@ -48,13 +48,15 @@ const DashboardWrapper = styled.div`
 
     .dashboard--profile-full {
       grid-column: 3;
+      grid-row: 1 / -1;
 
       display: flex;
       align-items: center;
       justify-content: flex-end;
       gap: 1rem;
 
-      padding: 2rem 2rem 0 0;
+      padding: 2.5rem 2.5rem 0 0;
+      margin-bottom: auto;
     }
 
     .dashboard--top-nav {
@@ -72,7 +74,7 @@ const DashboardWrapper = styled.div`
 
       height: 100vh;
 
-      padding: 2rem 2rem 2rem 2rem;
+      padding: 2.5rem 2rem 2rem 2.5rem;
       border-right: 1px solid var(--color-dark-gray);
     }
 

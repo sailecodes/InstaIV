@@ -42,9 +42,7 @@ const DashboardSideNav = () => {
     <DashboardSideNavWrapper className="dashboard--side-nav">
       <Logo />
       <div className="dashboard--side-nav-link-container">
-        <NavLink
-          to="/dashboard"
-          end>
+        <NavLink to="/dashboard" end>
           <HomeIcon />
           <p className="full">Home</p>
         </NavLink>
@@ -61,10 +59,7 @@ const DashboardSideNav = () => {
           <p className="full">Create</p>
         </NavLink>
         <NavLink to="/dashboard/profile">
-          <ProfilePicture
-            width="2.6rem"
-            height="2.6rem"
-          />
+          <ProfilePicture />
           <p className="full">Profile</p>
         </NavLink>
       </div>

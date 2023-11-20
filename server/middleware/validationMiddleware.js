@@ -27,20 +27,20 @@ const validate = (validationValues) => {
 export const validateRegisterInput = validate([
   body("email")
     .isEmail()
-    .withMessage("Please provide a valid email")
+    .withMessage("Email not valid")
     .bail()
     .custom(async (email) => {
       if (await userModel.findOne({ email })) throw new BadRequestError("Email already exists");
     }),
   body("password")
     .notEmpty()
-    .withMessage("Please provide a password")
+    .withMessage("Password required")
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Please provide a password at least 10 characters"),
+    .withMessage("Password must be at least 10 characters"),
   body("username")
     .notEmpty()
-    .withMessage("Please provide a username")
+    .withMessage("Username required")
     .bail()
     .custom(async (username) => {
       if (await userModel.findOne({ username })) throw new BadRequestError("Username already exists");
@@ -48,11 +48,11 @@ export const validateRegisterInput = validate([
 ]);
 
 export const validateLoginInput = validate([
-  body("email").isEmail().withMessage("Please provide a valid email"),
+  body("email").isEmail().withMessage("Email not valid"),
   body("password")
     .notEmpty()
-    .withMessage("Please provide a password")
+    .withMessage("Password required")
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Please provide a password at least 10 characters"),
+    .withMessage("Password must be at least 10 characters"),
 ]);

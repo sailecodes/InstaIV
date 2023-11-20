@@ -1,5 +1,5 @@
 import ClipLoader from "react-spinners/ClipLoader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -9,6 +9,7 @@ import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
@@ -16,21 +17,22 @@ const Login = () => {
     mutationFn: (loginData) => {
       return axiosFetch.post("/auth/login", loginData);
     },
+    onSuccess: () => {
+      navigate("/dashboard");
+    },
     onError: (error) => {
       const errors = error?.response?.data?.msg;
       let msgs = null;
 
       if (errors) msgs = errors.split(",");
 
-      console.log(msgs);
-
       if (msgs) {
         if (msgs[0]) {
-          if (msgs[0].includes("email")) setEmailError(true);
-          else if (msgs[0].includes("password") || msgs[0].includes("Password")) setPasswordError(true);
+          if (msgs[0].includes("Email")) setEmailError(true);
+          else if (msgs[0].includes("Password")) setPasswordError(true);
         }
 
-        if (msgs[1] && (msgs[1].includes("password") || msgs[1].includes("Password"))) setPasswordError(true);
+        if (msgs[1] && msgs[1].includes("Password")) setPasswordError(true);
       } else {
         return <h1>Something went wrong, please try again later.</h1>;
       }
