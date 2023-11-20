@@ -112,12 +112,32 @@ const ProfileWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
+    gap: 0.4rem;
+    place-items: center;
   }
 
   .profile--content-container > img {
+    /* width: 28.7vw; */
+    max-width: 30.9rem;
+    /* height: 28.7vw; */
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    /* object-position: center; */
+  }
+
+  .profile--content-container > div {
     width: 28.7vw;
     max-width: 30.9rem;
-    height: auto;
+    height: 28.7vw;
+    max-height: 30.9rem;
+
+    /* background-image: url("/src/assets/imgs/luffy-4.jpg"); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
 `;
 
@@ -174,10 +194,11 @@ const Profile = () => {
           </NavLink>
         </nav>
         <div className="profile--content-container">
-          <img src={l1} />
-          <img src={l2} />
-          <img src={l3} />
-          <img src={l4} />
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
           {/* <Outlet /> */}
         </div>
       </section>
