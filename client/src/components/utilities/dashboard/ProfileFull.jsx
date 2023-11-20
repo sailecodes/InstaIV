@@ -10,11 +10,6 @@ const ProfileFullWrapper = styled.div`
     color: var(--color-gray);
   }
 
-  .dashboard--profile-full > div {
-    display: flex;
-    align-items: center;
-  }
-
   .dashboard--profile-full-name-container {
     display: flex;
     flex-direction: column;
@@ -24,13 +19,11 @@ const ProfileFullWrapper = styled.div`
 const ProfileFull = () => {
   return (
     <ProfileFullWrapper className="dashboard--profile-full">
-      {/* <div> */}
       <ProfilePicture width={"4rem"} height={"4rem"} />
       <div className="dashboard--profile-full-name-container">
         <p>elias.iv</p>
         <p>elias</p>
       </div>
-      {/* </div> */}
     </ProfileFullWrapper>
   );
 };

@@ -12,15 +12,24 @@ const DashboardSideNavWrapper = styled.nav`
   a {
     color: var(--color-white);
 
-    height: 3rem;
+    height: 5rem;
 
     text-decoration: none;
+
+    padding: 1rem;
+    border-radius: 8px;
+
+    transition: background-color 0.2s;
+  }
+
+  a:hover {
+    background-color: var(--color-darker-gray);
   }
 
   .dashboard--side-nav-link-container {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1.5rem;
   }
 
   .active svg {
@@ -32,7 +41,7 @@ const DashboardSideNavWrapper = styled.nav`
     font-weight: 600;
   }
 
-  .full {
+  .dashboard-link.full-screen {
     font-size: var(--font-sm-2);
   }
 `;
@@ -44,23 +53,23 @@ const DashboardSideNav = () => {
       <div className="dashboard--side-nav-link-container">
         <NavLink to="/dashboard" end>
           <HomeIcon />
-          <p className="full">Home</p>
+          <p className="dashboard-link full-screen">Home</p>
         </NavLink>
         <NavLink to="/dashboard/search">
           <SearchIcon />
-          <p className="full">Search</p>
+          <p className="dashboard-link full-screen">Search</p>
         </NavLink>
         <NavLink to="/dashboard/messages">
           <MessagesIcon />
-          <p className="full">Messages</p>
+          <p className="dashboard-link full-screen">Messages</p>
         </NavLink>
         <NavLink to="/dashboard/create-post">
           <CreateIcon />
-          <p className="full">Create</p>
+          <p className="dashboard-link full-screen">Create</p>
         </NavLink>
         <NavLink to="/dashboard/profile">
           <ProfilePicture />
-          <p className="full">Profile</p>
+          <p className="dashboard-link full-screen">Profile</p>
         </NavLink>
       </div>
     </DashboardSideNavWrapper>

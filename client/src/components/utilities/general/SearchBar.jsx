@@ -23,7 +23,7 @@ const SearchBarWrapper = styled.div`
 const SearchBar = () => {
   return (
     <SearchBarWrapper>
-      <input placeholder="Search" />
+      <input placeholder="Search for friends" />
     </SearchBarWrapper>
   );
 };
