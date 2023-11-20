@@ -12,9 +12,11 @@ import l3 from "../../../assets/imgs/luffy-3.jpeg";
 import l4 from "../../../assets/imgs/luffy-4.jpg";
 
 const ProfileWrapper = styled.div`
-  /* max-width: 93rem; */
-
   overflow-y: auto;
+
+  > div {
+    max-width: 99rem;
+  }
 
   .profile--user-information {
     display: grid;
@@ -109,21 +111,20 @@ const ProfileWrapper = styled.div`
   }
 
   .profile--content-container {
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-
-    /* display: grid;
-    grid-template-columns: repeat(3, 28vw);
-    grid-auto-rows: 28vw;
     gap: 0.4rem; */
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
   }
 
   .profile--content-container > div {
-    width: 31vw;
-    max-width: 30.9rem;
-    height: 31vw;
-    max-height: 30.9rem;
+    /* width: 27vw;
+    height: 27vw;
+    max-width: 32.73rem;
+    max-height: 32.73rem; */
 
     /* background-color: red; */
 
@@ -143,57 +144,45 @@ const Profile = () => {
 
   return (
     <ProfileWrapper className="dashboard--outlet">
-      <section className="profile--user-information">
-        <ProfilePicture
-          width={"7.7rem"}
-          height={"7.7rem"}
-        />
-        <div>
-          <p className="profile--username">elias.iv_</p>
-          <button className="profile--edit-btn">Edit profile</button>
-        </div>
-        <p className="profile--bio">
-          This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my
-          bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is
-          my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio.
-        </p>
-      </section>
-      <section className="profile--stats">
-        <ProfileStat
-          stat={7}
-          statOf={"posts"}
-        />
-        <ProfileStat
-          stat={466}
-          statOf={"followers"}
-        />
-        <ProfileStat
-          stat={424}
-          statOf={"following"}
-        />
-      </section>
-      <section className="profile--user-content">
-        <nav>
-          <NavLink
-            to="/dashboard/profile"
-            end>
-            <ProfileContentIcon />
-          </NavLink>
-          <NavLink to="/dashboard/profile/saved-posts">
-            <SavedIcon />
-          </NavLink>
-        </nav>
-        <div className="profile--content-container">
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-          <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-          {/* <Outlet /> */}
-        </div>
-      </section>
+      <div>
+        <section className="profile--user-information">
+          <ProfilePicture width={"7.7rem"} height={"7.7rem"} />
+          <div>
+            <p className="profile--username">elias.iv_</p>
+            <button className="profile--edit-btn">Edit profile</button>
+          </div>
+          <p className="profile--bio">
+            This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my
+            bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is
+            my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio.
+          </p>
+        </section>
+        <section className="profile--stats">
+          <ProfileStat stat={7} statOf={"posts"} />
+          <ProfileStat stat={466} statOf={"followers"} />
+          <ProfileStat stat={424} statOf={"following"} />
+        </section>
+        <section className="profile--user-content">
+          <nav>
+            <NavLink to="/dashboard/profile" end>
+              <ProfileContentIcon />
+            </NavLink>
+            <NavLink to="/dashboard/profile/saved-posts">
+              <SavedIcon />
+            </NavLink>
+          </nav>
+          <div className="profile--content-container">
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+            <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+            {/* <Outlet /> */}
+          </div>
+        </section>
+      </div>
     </ProfileWrapper>
   );
 };
