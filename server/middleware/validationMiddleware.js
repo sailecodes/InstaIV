@@ -25,7 +25,12 @@ const validate = (validationValues) => {
 // ==============================================
 
 export const validateRegisterInput = validate([
-  body("email").isEmail().withMessage("Please provide an email"),
+  body("email")
+    .isEmail()
+    .withMessage("Please provide a valid email")
+    .custom(async (email) => {
+      if (await userModel.findOne({ email })) throw new BadRequestError("Email already exists");
+    }),
   body("password")
     .notEmpty()
     .withMessage("Please provide a password")
@@ -37,8 +42,11 @@ export const validateRegisterInput = validate([
     .withMessage("Please provide a username")
     .bail()
     .custom(async (username) => {
-      const userWithUsername = await userModel.findOne({ username });
-
-      if (userWithUsername) throw new BadRequestError("Username already exists");
+      if (await userModel.findOne({ username })) throw new BadRequestError("Username already exists");
     }),
+]);
+
+export const validateLoginInput = validate([
+  body("email").isEmail().withMessage("Please provide a valid email"),
+  body("password").notEmpty().withMessage("Please provide a password"),
 ]);
