@@ -8,6 +8,7 @@ const SearchBarWrapper = styled.div`
     width: 26.8rem;
     height: 3.6rem;
 
+    font-family: inherit;
     font-size: var(--font-sm-2);
 
     padding: 0 2rem 0 2rem;

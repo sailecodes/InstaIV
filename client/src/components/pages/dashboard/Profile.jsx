@@ -6,15 +6,12 @@ import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import ProfileContentIcon from "../../utilities/icons/ProfileContentIcon";
 import SavedIcon from "../../utilities/icons/SavedIcon";
 
-import l1 from "../../../assets/imgs/luffy-1.jpeg";
-import l2 from "../../../assets/imgs/luffy-2.png";
-import l3 from "../../../assets/imgs/luffy-3.jpeg";
-import l4 from "../../../assets/imgs/luffy-4.jpg";
-
 const ProfileWrapper = styled.div`
-  overflow-y: auto;
+  overflow-y: scroll;
 
   > div {
+    position: relative;
+
     max-width: 99rem;
   }
 
@@ -26,6 +23,7 @@ const ProfileWrapper = styled.div`
     row-gap: 1.5rem;
 
     padding: 2rem;
+    border-bottom: 1px solid var(--color-darker-gray);
   }
 
   .profile--user-information > div:nth-child(1) {
@@ -61,6 +59,10 @@ const ProfileWrapper = styled.div`
     cursor: pointer;
   }
 
+  .profile--user-information-stats {
+    display: none;
+  }
+
   .profile--bio {
     grid-column: 1 / -1;
 
@@ -78,7 +80,6 @@ const ProfileWrapper = styled.div`
 
     height: 6rem;
 
-    border-top: 1px solid var(--color-darker-gray);
     border-bottom: 1px solid var(--color-darker-gray);
   }
 
@@ -86,6 +87,8 @@ const ProfileWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    width: 5.9rem;
 
     font-size: var(--font-sm-1);
   }
@@ -102,7 +105,7 @@ const ProfileWrapper = styled.div`
     justify-content: center;
     gap: 4rem;
 
-    padding: 0.8rem 2.2rem 0.8rem 0;
+    padding: 0.8rem 0 0.8rem 0;
   }
 
   .profile--user-content .active svg {
@@ -129,13 +132,57 @@ const ProfileWrapper = styled.div`
     flex: 1 0 0%;
 
     width: 27vw;
-    height: 27vw;
+    height: 31.8vw;
     max-width: 32.73rem;
     max-height: 32.73rem;
 
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+  }
+
+  @media (min-width: 767px) {
+    .profile--user-information {
+      grid-template-columns: 15rem 1fr;
+      grid-template-rows: 7.8rem 6rem 1fr;
+      column-gap: 2rem;
+      row-gap: 1.5rem;
+    }
+
+    .profile--user-information > div:nth-child(1) {
+      grid-row: 1 / -1;
+
+      position: relative;
+      bottom: 3%;
+    }
+
+    .profile--user-information > div:nth-child(2) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+    }
+
+    .profile--user-information-stats {
+      display: flex;
+      gap: 3rem;
+
+      position: relative;
+      bottom: 20%;
+
+      font-size: var(--font-sm-1);
+    }
+
+    .profile--bio {
+      grid-column: 2 / -1;
+
+      position: relative;
+      bottom: 45%;
+    }
+
+    .profile--stats {
+      display: none;
+    }
   }
 `;
 
@@ -145,14 +192,24 @@ const ProfileWrapper = styled.div`
 */
 
 const Profile = () => {
+  const screenSize = useScreenSize();
+
   return (
     <ProfileWrapper className="dashboard--outlet">
       <div>
         <section className="profile--user-information">
-          <ProfilePicture width={"7.7rem"} height={"7.7rem"} />
+          <ProfilePicture
+            width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+            height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+          />
           <div>
             <p className="profile--username">elias.iv_</p>
             <button className="profile--edit-btn">Edit profile</button>
+          </div>
+          <div className="profile--user-information-stats">
+            <ProfileStat stat={7} statOf={" posts"} />
+            <ProfileStat stat={466} statOf={" followers"} />
+            <ProfileStat stat={424} statOf={" following"} />
           </div>
           <p className="profile--bio">
             This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my
