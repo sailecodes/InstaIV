@@ -12,7 +12,9 @@ import l3 from "../../../assets/imgs/luffy-3.jpeg";
 import l4 from "../../../assets/imgs/luffy-4.jpg";
 
 const ProfileWrapper = styled.div`
-  max-width: 93.5rem;
+  /* max-width: 93.5rem; */
+
+  overflow-y: auto;
 
   .profile--user-information {
     display: grid;
@@ -113,7 +115,7 @@ const ProfileWrapper = styled.div`
   }
 
   .profile--content-container > img {
-    width: 30vw;
+    width: 28.7vw;
     max-width: 30.9rem;
     height: auto;
   }
@@ -129,9 +131,12 @@ const Profile = () => {
   const screenSize = useScreenSize();
 
   return (
-    <ProfileWrapper>
+    <ProfileWrapper className="dashboard--outlet">
       <section className="profile--user-information">
-        <ProfilePicture width={"7.7rem"} height={"7.7rem"} />
+        <ProfilePicture
+          width={"7.7rem"}
+          height={"7.7rem"}
+        />
         <div>
           <p className="profile--username">elias.iv_</p>
           <button className="profile--edit-btn">Edit profile</button>
@@ -144,13 +149,24 @@ const Profile = () => {
         </p>
       </section>
       <section className="profile--stats">
-        <ProfileStat stat={7} statOf={"posts"} />
-        <ProfileStat stat={466} statOf={"followers"} />
-        <ProfileStat stat={424} statOf={"following"} />
+        <ProfileStat
+          stat={7}
+          statOf={"posts"}
+        />
+        <ProfileStat
+          stat={466}
+          statOf={"followers"}
+        />
+        <ProfileStat
+          stat={424}
+          statOf={"following"}
+        />
       </section>
       <section className="profile--user-content">
         <nav>
-          <NavLink to="/dashboard/profile" end>
+          <NavLink
+            to="/dashboard/profile"
+            end>
             <ProfileContentIcon />
           </NavLink>
           <NavLink to="/dashboard/profile/saved-posts">

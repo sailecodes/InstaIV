@@ -16,10 +16,13 @@ const ProfileFullWrapper = styled.div`
   }
 `;
 
-const ProfileFull = () => {
+const ProfileFull = ({ screenSize }) => {
   return (
     <ProfileFullWrapper className="dashboard--profile-full">
-      <ProfilePicture width={"4rem"} height={"4rem"} />
+      <ProfilePicture
+        width={"4rem"}
+        height={"4rem"}
+      />
       <div className="dashboard--profile-full-name-container">
         <p>elias.iv</p>
         <p>elias</p>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
-import ProfileFull from "../../utilities/dashboard/ProfileFull";
 import DashboardTopNav from "../../utilities/dashboard/DashboardTopNav";
 import DashboardLowerNav from "../../utilities/dashboard/DashboardLowerNav";
 import DashboardSideNav from "../../utilities/dashboard/DashboardSideNav";
@@ -15,10 +14,6 @@ const DashboardWrapper = styled.div`
     grid-template-rows: 6rem 1fr 5rem;
 
     height: 100vh;
-  }
-
-  .dashboard--profile-full {
-    display: none;
   }
 
   .dashboard--top-nav {
@@ -42,21 +37,11 @@ const DashboardWrapper = styled.div`
   @media (min-width: 767px) {
     .dashboard--container {
       display: grid;
-      grid-template-columns: 7.3rem 1fr 18rem;
-      grid-template-rows: 6rem 1fr;
+      grid-template-columns: 7.3rem 1fr;
     }
 
-    .dashboard--profile-full {
-      grid-column: 3;
-      grid-row: 1 / -1;
-
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 1rem;
-
-      padding: 2rem 2rem 0 0;
-      margin-bottom: auto;
+    .dashboard--container > div:nth-child(2) {
+      background-color: red;
     }
 
     .dashboard--top-nav {
@@ -65,7 +50,6 @@ const DashboardWrapper = styled.div`
 
     .dashboard--side-nav {
       grid-column: 1 / 2;
-      grid-row: 1 / -1;
 
       display: flex;
       flex-direction: column;
@@ -94,6 +78,13 @@ const DashboardWrapper = styled.div`
       display: none;
     }
 
+    .dashboard--outlet {
+      grid-column: 2;
+      grid-row: 1 / -1;
+
+      padding-left: 2rem;
+    }
+
     .logo {
       width: 3rem;
       height: 3rem;
@@ -108,7 +99,7 @@ const DashboardWrapper = styled.div`
 
   @media (min-width: 1264px) {
     .dashboard--container {
-      grid-template-columns: 22rem 1fr 18rem;
+      grid-template-columns: 22rem 1fr;
     }
 
     .dashboard--side-nav a {
@@ -133,7 +124,6 @@ const Dashboard = () => {
   return (
     <DashboardWrapper>
       <main className="dashboard--container">
-        <ProfileFull />
         <DashboardTopNav />
         <DashboardSideNav />
         <DashboardLowerNav />
