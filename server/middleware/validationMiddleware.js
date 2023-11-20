@@ -28,6 +28,7 @@ export const validateRegisterInput = validate([
   body("email")
     .isEmail()
     .withMessage("Please provide a valid email")
+    .bail()
     .custom(async (email) => {
       if (await userModel.findOne({ email })) throw new BadRequestError("Email already exists");
     }),

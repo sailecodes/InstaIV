@@ -4,7 +4,7 @@ import AuthWrapper from "../../../assets/styles/auth/AuthStyle";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
 
-const Login = () => {
+const Register = () => {
   return (
     <AuthWrapper>
       <div className="auth--container">
@@ -13,15 +13,15 @@ const Login = () => {
           <form>
             <AuthInput name="email" placeholder="Email" />
             <AuthInput name="password" placeholder="Password" />
-            <button type="submit">Login</button>
+            <AuthInput type="text" name="username" placeholder="Username" />
+            <button type="submit">Register</button>
           </form>
           <p>
-            Don&apos;t have an account? <Link to="/register">Sign up</Link>
+            Already have an account? <Link to="/">Login</Link>
           </p>
         </div>
       </div>
     </AuthWrapper>
   );
 };
-
-export default Login;
+export default Register;

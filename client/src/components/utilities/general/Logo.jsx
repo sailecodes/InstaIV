@@ -6,12 +6,16 @@ const LogoWrapper = styled.div`
     font-weight: 600;
     font-style: italic;
   }
+
+  .logo.large {
+    font-size: var(--font-lg-1);
+  }
 `;
 
-const Logo = () => {
+const Logo = ({ isLarge }) => {
   return (
     <LogoWrapper>
-      <p className="logo">
+      <p className={`logo ${isLarge ? "large" : ""}`}>
         <span>Insta</span>IV
       </p>
     </LogoWrapper>
