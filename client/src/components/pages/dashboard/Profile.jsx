@@ -6,6 +6,11 @@ import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import ProfileContentIcon from "../../utilities/icons/ProfileContentIcon";
 import SavedIcon from "../../utilities/icons/SavedIcon";
 
+import l1 from "../../../assets/imgs/luffy-1.jpeg";
+import l2 from "../../../assets/imgs/luffy-2.png";
+import l3 from "../../../assets/imgs/luffy-3.jpeg";
+import l4 from "../../../assets/imgs/luffy-4.jpg";
+
 const ProfileWrapper = styled.div`
   max-width: 93.5rem;
 
@@ -42,6 +47,7 @@ const ProfileWrapper = styled.div`
     height: 3.2rem;
 
     font-family: inherit;
+    font-weight: 500;
 
     border: none;
     border-radius: 8px;
@@ -53,6 +59,8 @@ const ProfileWrapper = styled.div`
 
   .profile--bio {
     grid-column: 1 / -1;
+
+    font-size: var(--font-sm-0);
 
     max-width: 50rem;
   }
@@ -84,15 +92,13 @@ const ProfileWrapper = styled.div`
 
   /* =================== */
 
-  .profile--user-content {
-    padding: 1rem;
-  }
-
   .profile--user-content > nav {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4rem;
+
+    padding: 0.8rem 0 0.8rem 0;
   }
 
   .profile--user-content .active svg {
@@ -105,11 +111,18 @@ const ProfileWrapper = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
   }
+
+  .profile--content-container > img {
+    width: 30vw;
+    max-width: 30.9rem;
+    height: auto;
+  }
 `;
 
 /*
   TODO:
     - bio should be 370 max
+    - crop images to fit format
 */
 
 const Profile = () => {
@@ -145,7 +158,11 @@ const Profile = () => {
           </NavLink>
         </nav>
         <div className="profile--content-container">
-          <Outlet />
+          <img src={l1} />
+          <img src={l2} />
+          <img src={l3} />
+          <img src={l4} />
+          {/* <Outlet /> */}
         </div>
       </section>
     </ProfileWrapper>
