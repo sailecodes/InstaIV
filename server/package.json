@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon server.js"
+    "install-dep": "npm i && cd ../client && npm i",
+    "client": "cd ../client && npm run client",
+    "server": "nodemon server.js",
+    "conc": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
   },
   "keywords": [],
   "author": "",
