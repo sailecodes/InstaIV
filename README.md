@@ -70,3 +70,13 @@
     - Get chat (`/:id`)
   - Post route
     - `TODO`
+- **Routes**
+  - Authentication routes
+    - Public routes
+    - 3 routes (`/api/v1`)
+      - Register (_POST_, `/register`)
+      - Login (_POST_, `/login`)
+      - Logout (_GET_, `/logout`)
+  - User routes
+    - Restricted routes
+    -

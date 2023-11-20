@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
 import * as dotenv from "dotenv";
 
+import authRouter from "./routers/authRouter.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 
 // ==============================================
@@ -28,9 +29,11 @@ app.use(cookieParser());
 // Routes
 // ==============================================
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "(Server message) Home route" });
 });
+
+app.use("/api/v1/auth", authRouter);
 
 app.use("*", (req, res) => {
   res.status(StatusCodes.NOT_FOUND).json({ msg: "(Server message) Route not found" });
