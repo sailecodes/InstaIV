@@ -12,24 +12,31 @@ const userSchema = mongoose.Schema({
   },
   bio: {
     type: String,
+    default: "",
   },
   numPosts: {
     type: Number,
+    default: 0,
   },
   followers: {
     type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
   },
   following: {
     type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
   },
   posts: {
     type: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
+    default: [],
   },
   savedPosts: {
     type: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
+    default: [],
   },
   chats: {
     type: [{ type: mongoose.Types.ObjectId, ref: "Chat" }],
+    default: [],
   },
 });
 
