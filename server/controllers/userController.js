@@ -34,8 +34,6 @@ export const getFollowing = async (req, res) => {
 };
 
 export const followUser = async (req, res) => {
-  console.log(req.body.followedUserId, " ", req.userInfo.userId);
-
   const user = await userModel.findById(req.userInfo.userId);
   const followedUser = await userModel.findById(req.body.followedUserId);
 
@@ -51,4 +49,18 @@ export const followUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "(Server message) Followed user" });
 };
 
-export const unfollowUser = async (req, res) => {};
+export const unfollowUser = async (req, res) => {
+  const user = await userModel.findById(req.userInfo.userId);
+  const followedUser = await userModel.findById(req.body.followedUserId);
+
+  if (!user || !followedUser)
+    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.body.followedUserId} found`);
+
+  user.following = user.following.filter((id) => id.toString() !== req.body.followedUserId);
+  followedUser.followers = followedUser.followers.filter((id) => id.toString() !== req.userInfo.userId);
+
+  await user.save();
+  await followedUser.save();
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Unfollowed user" });
+};
