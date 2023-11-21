@@ -35,12 +35,12 @@ export const getFollowing = async (req, res) => {
 
 export const followUser = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
-  const followedUser = await userModel.findById(req.body.followedUserId);
+  const followedUser = await userModel.findById(req.params.id);
 
   if (!user || !followedUser)
-    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.body.followedUserId} found`);
+    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.params.id} found`);
 
-  user.following.push(req.body.followedUserId);
+  user.following.push(req.params.id);
   followedUser.followers.push(req.userInfo.userId);
 
   await user.save();
@@ -51,12 +51,12 @@ export const followUser = async (req, res) => {
 
 export const unfollowUser = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
-  const followedUser = await userModel.findById(req.body.followedUserId);
+  const followedUser = await userModel.findById(req.params.id);
 
   if (!user || !followedUser)
-    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.body.followedUserId} found`);
+    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.params.id} found`);
 
-  user.following = user.following.filter((id) => id.toString() !== req.body.followedUserId);
+  user.following = user.following.filter((id) => id.toString() !== req.params.id);
   followedUser.followers = followedUser.followers.filter((id) => id.toString() !== req.userInfo.userId);
 
   await user.save();

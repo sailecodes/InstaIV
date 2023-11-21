@@ -78,11 +78,11 @@
   - User routes
     - Restricted routes
     - 3 routes (`/api/v1/users`)
-      - Get user profile (_GET_, `/user-profile`)
       - Get followers (_GET_, `/followers`)
       - Get following (_GET_, `/following`)
-      - Follow user (_UPDATE_, `/follow`)
-      - Unfollow user (_UPDATE_ `/unfollow`)
+      - Follow user (_UPDATE_, `/follow/:id`)
+      - Unfollow user (_UPDATE_ `/unfollow/:id`)
+      - Get user profile (_GET_, `/:id`)
   - Post routes
     - Restricted routes
     - x routes (`/api/v1/posts`)

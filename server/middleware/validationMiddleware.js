@@ -1,9 +1,9 @@
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import { param, body, cookie, validationResult } from "express-validator";
 
 import userModel from "../models/userModel.js";
 import { BadRequestError, UnauthenticatedError } from "../custom-errors/customErrors.js";
-import mongoose from "mongoose";
 
 const validate = (validationValues) => {
   return [
@@ -43,6 +43,12 @@ export const validateUser = validate([
       throw new UnauthenticatedError("Authentication invalid");
     }
   }),
+]);
+
+export const validateParamId = validate([
+  param("id")
+    .custom((id) => mongoose.Types.ObjectId.isValid(id))
+    .withMessage("User doesn't exist"),
 ]);
 
 // ==============================================
@@ -85,11 +91,3 @@ export const validateLoginInput = validate([
 // ==============================================
 // User routes validation
 // ==============================================
-
-export const validateFollowedUserId = validate([
-  body("followedUserId").custom((followedUserId) => {
-    if (!mongoose.Types.ObjectId.isValid(followedUserId)) throw new UnauthenticatedError("Authentication invalid");
-
-    return true;
-  }),
-]);
