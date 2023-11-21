@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
   },
+  profilePicture: {
+    type: mongoose.Types.ObjectId,
+    ref: "Content",
+  },
   bio: {
     type: String,
     default: "",

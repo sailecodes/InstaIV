@@ -3,6 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
+import { v2 as cloudinary } from "cloudinary";
 import { StatusCodes } from "http-status-codes";
 import * as dotenv from "dotenv";
 
@@ -17,6 +19,11 @@ import { validateUser } from "./middleware/validationMiddleware.js";
 // ==============================================
 
 dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 const app = express();
 const port = process.env.PORT || 5100;
 
@@ -27,6 +34,7 @@ const port = process.env.PORT || 5100;
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload({ useTempFiles: true }));
 
 // ==============================================
 // Routes
