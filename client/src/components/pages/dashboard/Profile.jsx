@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
 import { Outlet, NavLink } from "react-router-dom";
 
+import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import ProfileContentIcon from "../../utilities/icons/ProfileContentIcon";
 import SavedIcon from "../../utilities/icons/SavedIcon";
+import ProfileStat from "../../utilities/dashboard/ProfileStat";
+import ProfileStats from "../../utilities/dashboard/ProfileStats";
 
 const ProfileWrapper = styled.div`
   overflow-y: scroll;
@@ -66,7 +70,7 @@ const ProfileWrapper = styled.div`
   .profile--bio {
     grid-column: 1 / -1;
 
-    font-size: var(--font-sm-0);
+    font-size: var(--font-sm-1);
 
     max-width: 44.5rem;
   }
@@ -144,7 +148,7 @@ const ProfileWrapper = styled.div`
   @media (min-width: 767px) {
     .profile--user-information {
       grid-template-columns: 15rem 1fr;
-      grid-template-rows: 7.8rem 6rem 1fr;
+      grid-template-rows: 7.8rem 6rem 5rem;
       column-gap: 2rem;
       row-gap: 1.5rem;
     }
@@ -153,7 +157,7 @@ const ProfileWrapper = styled.div`
       grid-row: 1 / -1;
 
       position: relative;
-      bottom: 3%;
+      bottom: 5%;
     }
 
     .profile--user-information > div:nth-child(2) {
@@ -177,7 +181,7 @@ const ProfileWrapper = styled.div`
       grid-column: 2 / -1;
 
       position: relative;
-      bottom: 45%;
+      bottom: 60%;
 
       height: 7.2rem;
     }
@@ -195,6 +199,20 @@ const ProfileWrapper = styled.div`
 
 const Profile = () => {
   const screenSize = useScreenSize();
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: async () => {
+      const {
+        data: { data },
+      } = await axiosFetch.get("/users/user-profile");
+      console.log(data);
+      return data;
+    },
+  });
+
+  if (isPending) return <h1>Pending...</h1>;
+
+  if (isError) return <h1>Error...</h1>;
 
   return (
     <ProfileWrapper className="dashboard--outlet">
@@ -205,24 +223,16 @@ const Profile = () => {
             height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
           />
           <div>
-            <p className="profile--username">elias.iv_</p>
+            <p className="profile--username">{data.username}</p>
             <button className="profile--edit-btn">Edit profile</button>
           </div>
           <div className="profile--user-information-stats">
-            <ProfileStat stat={7} statOf={" posts"} />
-            <ProfileStat stat={466} statOf={" followers"} />
-            <ProfileStat stat={424} statOf={" following"} />
+            <ProfileStats data={[data.numPosts, data.followers.length, data.following.length]} />
           </div>
-          <p className="profile--bio">
-            This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my
-            bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is
-            my bio. This is my bio. This is my bio. This is my bio. This is my bio. This is my bio.
-          </p>
+          <p className="profile--bio">{!data.bio ? "No bio yet. Add one!" : data.bio}</p>
         </section>
         <section className="profile--stats">
-          <ProfileStat stat={7} statOf={"posts"} />
-          <ProfileStat stat={466} statOf={"followers"} />
-          <ProfileStat stat={424} statOf={"following"} />
+          <ProfileStats data={[data.numPosts, data.followers.length, data.following.length]} />
         </section>
         <section className="profile--user-content">
           <nav>
@@ -253,15 +263,6 @@ const Profile = () => {
         </section>
       </div>
     </ProfileWrapper>
-  );
-};
-
-const ProfileStat = ({ stat, statOf }) => {
-  return (
-    <p>
-      {stat}
-      <span>{statOf}</span>
-    </p>
   );
 };
 

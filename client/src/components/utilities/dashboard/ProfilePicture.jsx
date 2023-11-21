@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import pf from "../../../assets/imgs/pf.jpg";
+import pf from "../../../assets/imgs/default-pf.jpg";
 
 const ProfilePictureWrapper = styled.div`
   display: grid;

@@ -3,6 +3,14 @@ import { StatusCodes } from "http-status-codes";
 import userModel from "../models/userModel.js";
 import { NotFoundError } from "../custom-errors/customErrors.js";
 
+export const getAllUsers = async (req, res) => {
+  const users = await userModel.find({});
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "(Server message) Retrieved all users", data: { users, count: users.length } });
+};
+
 export const getUserProfile = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId).select("-_id -email -password -chats -__v");
 

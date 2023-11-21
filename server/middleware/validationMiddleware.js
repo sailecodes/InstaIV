@@ -73,6 +73,9 @@ export const validateRegisterInput = validate([
     .notEmpty()
     .withMessage("Username required")
     .bail()
+    .isLength({ max: 10 })
+    .withMessage("Username must be at most 10 characters")
+    .bail()
     .custom(async (username) => {
       if (await userModel.findOne({ username })) throw new BadRequestError("Username already exists");
     }),
@@ -87,7 +90,3 @@ export const validateLoginInput = validate([
     .isLength({ min: 10 })
     .withMessage("Password must be at least 10 characters"),
 ]);
-
-// ==============================================
-// User routes validation
-// ==============================================
