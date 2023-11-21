@@ -20,11 +20,19 @@ export const getAllUsers = async (req, res) => {
 // ==============================================
 
 export const getUserProfile = async (req, res) => {
-  const user = await userModel.findById(req.userInfo.userId).select("-_id -email -password -chats -__v");
+  const user = await userModel.findById(req.userInfo.userId).select("-email -password -chats -__v");
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Retrieved user info", data: user });
+};
+
+export const getOtherUserProfile = async (req, res) => {
+  const user = await userModel.findById(req.params.id).select("-email -password -chats -__v");
+
+  if (!user) throw new NotFoundError(`No user with id ${req.params.id} found`);
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Retrieved other user info", data: user });
 };
 
 // ==============================================

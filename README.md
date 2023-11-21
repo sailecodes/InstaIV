@@ -59,14 +59,18 @@
       - Logout (_GET_, `/logout`)
   - User routes
     - Restricted routes
-    - 7 routes (`/api/v1/users`)
-      - Get user profile (_GET_, `/user-profile`)
-      - Create user profile pic (_CREATE_, `/profile-pic`)
-      - Update user profile pic (_UPDATE_, `/profile-pic`)
-      - Get user followers (_GET_, `/followers`)
-      - Get user following (_GET_, `/following`)
-      - Follow a user (_UPDATE_, `/follow/:id`)
-      - Unfollow a user (_UPDATE_ `/unfollow/:id`)
+    - 8 routes (`/api/v1/users`)
+      - Profile
+        - Get user profile (_GET_, `/user`)
+        - Get other user profile (_GET_, `/user/:id`)
+      - Profile picture
+        - Create user profile pic (_POST_, `/profile-pic`)
+        - Update user profile pic (_UPDATE_, `/profile-pic`)
+      - Follow
+        - Get user followers (_GET_, `/followers`)
+        - Get user following (_GET_, `/following`)
+        - Follow a user (_UPDATE_, `/follow/:id`)
+        - Unfollow a user (_UPDATE_ `/unfollow/:id`)
   - Post routes
     - Restricted routes
     - x routes (`/api/v1/posts`)
