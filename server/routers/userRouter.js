@@ -3,8 +3,8 @@ import {
   getAllUsers,
   getUserProfile,
   getOtherUserProfile,
-  createUserProfilePic,
-  updateUserProfilePic,
+  createUserProfilePicture,
+  updateUserProfilePicture,
   getUserFollowers,
   getUserFollowing,
   followUser,
@@ -19,8 +19,8 @@ userRouter.get("/", getAllUsers); // FIXME: For testing, delete later.
 userRouter.get("/user", getUserProfile);
 userRouter.get("/user/:id", validateParamId, getOtherUserProfile);
 
-userRouter.post("/profile-pic", createUserProfilePic);
-userRouter.patch("/profile-pic", updateUserProfilePic);
+userRouter.post("/profile-pic", createUserProfilePicture);
+userRouter.patch("/profile-pic", updateUserProfilePicture);
 
 userRouter.get("/followers", getUserFollowers);
 userRouter.get("/following", getUserFollowing);

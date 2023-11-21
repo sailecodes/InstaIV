@@ -11,8 +11,8 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   profilePicture: {
-    type: mongoose.Types.ObjectId,
-    ref: "Content",
+    type: [String, { type: mongoose.Types.ObjectId, ref: "Content" }],
+    default: [],
   },
   bio: {
     type: String,

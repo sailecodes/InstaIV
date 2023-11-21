@@ -20,7 +20,7 @@
     - Email (type _String_)
     - Password (type _String_)
     - Username (type _String_)
-    - Profile picture (type _Content_)
+    - Profile picture (type _[String, Content]_)
     - Bio (type _String_)
     - Number of posts (type _Number_)
     - Followers (type _[User]_)
