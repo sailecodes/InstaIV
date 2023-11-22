@@ -20,13 +20,13 @@
     - Email (type _String_)
     - Password (type _String_)
     - Username (type _String_)
-    - Profile picture (type _[String, Content]_)
+    - Profile picture (type _[ProfilePictureSubSchema]_)
     - Bio (type _String_)
     - Number of posts (type _Number_)
     - Followers (type _[User]_)
     - Following (type _[User]_)
-    - Posts (type _[Post]_)
-    - Saved posts (type _[Post]_)
+    - Posts (type _[PostsSubSchema]_)
+    - Saved posts (type _[PostsSubSchema]_)
       - `TODO in a later version`
     - Chats (type _[Chat]_)
   - Content

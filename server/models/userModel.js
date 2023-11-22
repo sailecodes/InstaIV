@@ -1,8 +1,17 @@
 import mongoose from "mongoose";
 
-const userProfilePictureSchema = mongoose.Schema({});
+const userProfilePictureSubSchema = mongoose.Schema({
+  url: {
+    type: String,
+    required: [true, "Url required"],
+  },
+  contentId: {
+    type: mongoose.Types.ObjectId,
+    ref: "Content",
+  },
+});
 
-const userPostsSchema = mongoose.Schema({
+const userPostsSubSchema = mongoose.Schema({
   url: {
     type: String,
     required: [true, "Url required"],
@@ -24,8 +33,7 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   profilePicture: {
-    type: [String, { type: mongoose.Types.ObjectId, ref: "Content" }],
-    default: [],
+    type: userProfilePictureSubSchema,
   },
   bio: {
     type: String,
@@ -44,11 +52,11 @@ const userSchema = mongoose.Schema({
     default: [],
   },
   posts: {
-    type: [userPostsSchema],
+    type: [userPostsSubSchema],
     default: [],
   },
   savedPosts: {
-    type: [userPostsSchema],
+    type: [userPostsSubSchema],
     default: [],
   },
   chats: {

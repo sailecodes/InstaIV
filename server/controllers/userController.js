@@ -24,6 +24,8 @@ export const getUserProfile = async (req, res) => {
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
 
+  console.log(user);
+
   res.status(StatusCodes.OK).json({ msg: "(Server message) Retrieved user info", data: user });
 };
 

@@ -7,6 +7,14 @@ import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
 import { NotFoundError } from "../custom-errors/customErrors.js";
 
+export const getAllPosts = async (req, res) => {
+  const posts = await postModel.find({});
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "(Server message) Retrieved all posts", data: { posts, count: posts.length } });
+};
+
 export const createPost = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
@@ -28,7 +36,7 @@ export const createPost = async (req, res) => {
   });
 
   user.posts.push({ url: cloudinaryResult.secure_url, postId: post._id });
-  user.save();
+  await user.save();
 
   res.status(StatusCodes.CREATED).json({ msg: "(Server message) Post created" });
 };
