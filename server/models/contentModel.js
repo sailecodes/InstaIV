@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const contentSchema = mongoose.Schema({
-  publicId: {
-    type: String,
-    required: [true, "PublicId required"],
-  },
   imageUrl: {
     type: String,
-    required: [true, "ImageUrl required"],
+    required: [true, "Image url required"],
+  },
+  publicId: {
+    type: String,
+    required: [true, "Public id required"],
   },
 });
 

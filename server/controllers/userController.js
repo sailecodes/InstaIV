@@ -6,35 +6,13 @@ import userModel from "../models/userModel.js";
 import contentModel from "../models/contentModel.js";
 import { BadRequestError, NotFoundError } from "../custom-errors/customErrors.js";
 
-// FIXME: For testing purposes, delete later.
+// TODO: For testing purposes, delete later.
 export const getAllUsers = async (req, res) => {
   const users = await userModel.find({});
 
   res
     .status(StatusCodes.OK)
     .json({ msg: "(Server message) Retrieved all users", data: { users, count: users.length } });
-};
-
-// ==============================================
-// User profile
-// ==============================================
-
-export const getUserProfile = async (req, res) => {
-  const user = await userModel.findById(req.userInfo.userId).select("-email -password -chats -__v");
-
-  if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
-
-  console.log(user);
-
-  res.status(StatusCodes.OK).json({ msg: "(Server message) Retrieved user info", data: user });
-};
-
-export const getOtherUserProfile = async (req, res) => {
-  const user = await userModel.findById(req.params.id).select("-email -password -chats -__v");
-
-  if (!user) throw new NotFoundError(`No user with id ${req.params.id} found`);
-
-  res.status(StatusCodes.OK).json({ msg: "(Server message) Retrieved other user info", data: user });
 };
 
 // ==============================================
@@ -166,4 +144,16 @@ export const unfollowUser = async (req, res) => {
   await followedUser.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Unfollowed user" });
+};
+
+// ==============================================
+// User profile
+// ==============================================
+
+export const getUserProfile = async (req, res) => {
+  const user = await userModel.findById(req.params.id).select("-email -password -chats -__v");
+
+  if (!user) throw new NotFoundError(`No user with id ${req.params.id} found`);
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Retrieved user info", data: user });
 };

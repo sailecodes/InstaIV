@@ -7,6 +7,10 @@ import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
 import { NotFoundError } from "../custom-errors/customErrors.js";
 
+// ==============================================
+// General CRUDs
+// ==============================================
+
 export const getAllPosts = async (req, res) => {
   const posts = await postModel.find({});
 
@@ -22,21 +26,26 @@ export const createPost = async (req, res) => {
 
   const cloudinaryResult = await cloudinary.uploader.upload(req.files.content.tempFilePath, {
     use_filename: true,
-    folder: "InstaIV",
+    folder: "InstaIV/Posts",
   });
 
   const content = await contentModel.create({
-    publicId: cloudinaryResult.public_id,
     imageUrl: cloudinaryResult.secure_url,
+    publicId: cloudinaryResult.public_id,
   });
   const post = await postModel.create({
-    content: [cloudinaryResult.secure_url, content._id],
-    user: user._id,
+    contentInfo: {
+      imageUrl: cloudinaryResult.secure_url,
+      contentId: content._id,
+    },
+    userId: user._id,
     caption: req.body.caption,
   });
 
-  user.posts.push({ url: cloudinaryResult.secure_url, postId: post._id });
+  user.posts.push({ imageUrl: cloudinaryResult.secure_url, contentId: content._id, postId: post._id });
   await user.save();
+
+  fs.unlinkSync(req.files.content.tempFilePath);
 
   res.status(StatusCodes.CREATED).json({ msg: "(Server message) Post created" });
 };

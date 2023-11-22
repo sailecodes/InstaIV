@@ -1,6 +1,6 @@
 # InstaIV
 
-## A basic social media app inspired by Instagram.
+## A basic social media app inspired by Instagram. See below for top-level details.
 
 ### Client-side
 
@@ -17,39 +17,37 @@
 
 - **Models**
   - User
-    - Email (type _String_)
-    - Password (type _String_)
-    - Username (type _String_)
-    - Profile picture (type _[ProfilePictureSubSchema]_)
-    - Bio (type _String_)
-    - Number of posts (type _Number_)
-    - Followers (type _[User]_)
-    - Following (type _[User]_)
-    - Posts (type _[PostsSubSchema]_)
-    - Saved posts (type _[PostsSubSchema]_)
+    - Email
+    - Password
+    - Username
+    - Profile picture info
+    - Bio
+    - Number of posts
+    - Followers
+    - Following
+    - Posts info
+    - Saved posts info
       - `TODO in a later version`
-    - Chats (type _[Chat]_)
+    - Chats
   - Content
-    - PublicId (type _String_)
-      - From cloudinary
-    - ImageUrl (type _String_)
-      - From cloudinary
+    - Public id
+    - Image url
   - Post
-    - Content (type _Content_)
-    - User (type _User_)
-    - Description (type _String_)
-    - Number of likes (type _Number_)
-    - Comments (type _[Comment]_)
+    - Content info
+    - User id
+    - Caption
+    - Number of likes
+    - Comments
   - Comment
-    - User (type _User_)
-    - Comment (type _String_)
+    - User
+    - Comment
   - Chat
-    - Name (type _String_)
-    - Users (type _[User]_)
-    - Messages (type _[Message]_)
+    - Name
+    - Users
+    - Messages
   - Message
-    - User (type _User_)
-    - Message (type _String_)
+    - User
+    - Message
 - **Routes**
   - Authentication routes
     - Public routes
@@ -59,13 +57,12 @@
       - Logout (_GET_, `/logout`)
   - User routes
     - Restricted routes
-    - 8 routes (`/api/v1/users`)
+    - 7 routes (`/api/v1/users`)
       - Profile
-        - Get user profile (_GET_, `/user`)
-        - Get other user profile (_GET_, `/user/:id`)
+        - Get user profile (_GET_, `/:id`)
       - Profile picture
-        - Create user profile pic (_POST_, `/profile-pic`)
-        - Update user profile pic (_UPDATE_, `/profile-pic`)
+        - Create user profile picture (_POST_, `/profile-picture`)
+        - Update user profile picture (_UPDATE_, `/profile-picture`)
       - Follow
         - Get user followers (_GET_, `/followers`)
         - Get user following (_GET_, `/following`)
@@ -73,21 +70,31 @@
         - Unfollow a user (_UPDATE_ `/unfollow/:id`)
   - Post routes
     - Restricted routes
-    - x routes (`/api/v1/posts`)
+    - 5 routes (`/api/v1/posts`)
+      - Get all posts (_GET_, `/`)
       - Create post (_CREATE_, `/`)
-      - Get post (_GET_, `/:id`)
-        - `TODO in a later version`
-      - Delete post (_DELETE_, `/:id`)
+        - Upload the image to Cloudinary
+        - Create a Content document
+        - Create a Post document
+        - Add to posts in corresponding User document
+      - Get post (_GET_, `/:id`) -- `TODO in a later version`
       - Update post (_UPDATE_, `/:id`)
+        - Update bio
+      - Delete post (_DELETE_, `/:id`)
+        - Delete image from Cloudinary
+        - Delete the corresponding Content document
+        - Delete the corresponding Post document
+        - Find and delete the corresponding Post document in posts in corresponding User document
 - **Todos**
   - `High`
     - Posts
       - [ ] Impl. validation layer for post routes
         - [x] Impl. for create post
         - [ ] Impl. for update post
-      - [ ] Impl. post to user id check
+      - [ ] Impl. post to user id check for get post
       - [ ] Impl. post controllers
-        - [ ] Impl. create post
+        - [ ] Impl. get all posts
+        - [x] Impl. create post
         - [ ] Impl. update post
         - [ ] Impl. delete post
       - [ ] Impl. axios fetching for create post

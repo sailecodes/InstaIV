@@ -1,12 +1,26 @@
 import mongoose from "mongoose";
 
-const postSchema = mongoose.Schema({
-  content: {
-    type: [String, { type: mongoose.Types.ObjectId, ref: "Content" }],
+const postContentSubSchema = mongoose.Schema({
+  imageUrl: {
+    type: String,
+    required: [true, "Image url required"],
   },
-  user: {
+  contentId: {
+    type: mongoose.Types.ObjectId,
+    ref: "Content",
+    required: [true, "Content id required"],
+  },
+});
+
+const postSchema = mongoose.Schema({
+  contentInfo: {
+    type: postContentSubSchema,
+    required: true,
+  },
+  userId: {
     type: mongoose.Types.ObjectId,
     ref: "User",
+    required: [true, "User id required"],
   },
   caption: {
     type: String,

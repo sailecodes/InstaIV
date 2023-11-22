@@ -48,7 +48,7 @@ export const validateUser = validate([
 export const validateParamId = validate([
   param("id")
     .custom((id) => mongoose.Types.ObjectId.isValid(id))
-    .withMessage("User doesn't exist"),
+    .withMessage("No user with specified id found"),
 ]);
 
 // ==============================================
@@ -68,13 +68,13 @@ export const validateRegisterInput = validate([
     .withMessage("Password required")
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Password must be at least 10 characters"),
+    .withMessage("Password must be minimum 10 characters"),
   body("username")
     .notEmpty()
     .withMessage("Username required")
     .bail()
     .isLength({ max: 10 })
-    .withMessage("Username must be at most 10 characters")
+    .withMessage("Username must be maximum 10 characters")
     .bail()
     .custom(async (username) => {
       if (await userModel.findOne({ username })) throw new BadRequestError("Username already exists");
@@ -88,8 +88,12 @@ export const validateLoginInput = validate([
     .withMessage("Password required")
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Password must be at least 10 characters"),
+    .withMessage("Password must be minimum 10 characters"),
 ]);
+
+// ==============================================
+// Post routes validation
+// ==============================================
 
 // ==============================================
 // Post routes validation
@@ -101,7 +105,7 @@ export const validateCreatePostInput = validate([
     .withMessage("Caption required")
     .bail()
     .isLength({ max: 150 })
-    .withMessage("Caption must be at most 150 characters"),
+    .withMessage("Caption must be maximum 150 characters"),
   body("")
     .custom((_, { req, res }) => {
       // Note: Must use a custom validator for req.files since req.files is not currently supported
