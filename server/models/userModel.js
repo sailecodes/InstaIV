@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userProfilePictureSubSchema = mongoose.Schema({
+const userProfilePictureInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
     required: [true, "Image url required"],
@@ -12,7 +12,7 @@ const userProfilePictureSubSchema = mongoose.Schema({
   },
 });
 
-const userPostsSubSchema = mongoose.Schema({
+const userPostsInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
     required: [true, "Image url required"],
@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   profilePictureInfo: {
-    type: userProfilePictureSubSchema,
+    type: userProfilePictureInfoSubSchema,
   },
   bio: {
     type: String,
@@ -59,11 +59,11 @@ const userSchema = mongoose.Schema({
     default: [],
   },
   postsInfo: {
-    type: [userPostsSubSchema],
+    type: [userPostsInfoSubSchema],
     default: [],
   },
   savedPostsInfo: {
-    type: [userPostsSubSchema],
+    type: [userPostsInfoSubSchema],
     default: [],
   },
   chats: {

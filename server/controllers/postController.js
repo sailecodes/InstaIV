@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import contentModel from "../models/contentModel.js";
 import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
-import { NotFoundError } from "../custom-errors/customErrors.js";
+import { NotFoundError, UnauthorizedError } from "../custom-errors/customErrors.js";
 
 // ==============================================
 // General CRUDs
@@ -51,7 +51,26 @@ export const createPost = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ msg: "(Server message) Post created" });
 };
 
-export const updatePost = async (req, res) => {};
+export const getPost = async (req, res) => {};
+
+export const updatePost = async (req, res) => {
+  const user = await userModel.findById(req.userInfo.userId);
+
+  // Note: Nonexistent users shouldn't be able to create resources
+  if (!user) throw new NotFoundError(`User with id ${req.userInfo.userId} not found`);
+
+  const post = await postModel.findById(req.params.id);
+
+  // Note: Only the post owner can modify the resource if it exists
+  if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
+  else if (post.userId.toString() !== req.userInfo.userId)
+    throw new UnauthorizedError(`Not authorized to access this resource`);
+
+  post.caption = req.body.caption;
+  await post.save();
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Post updated" });
+};
 
 export const deletePost = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
@@ -61,6 +80,8 @@ export const deletePost = async (req, res) => {
   const post = await postModel.findById(req.params.id);
 
   if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
+  else if (post.userId.toString() !== req.userInfo.userId)
+    throw new UnauthorizedError(`Not authorized to access this resource`);
 
   const content = await contentModel.findById(post.contentInfo.contentId);
 

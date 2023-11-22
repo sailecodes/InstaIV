@@ -115,12 +115,7 @@ export const validateProfilePictureInput = validate([
 // ==============================================
 
 export const validateCreatePostInput = validate([
-  body("caption")
-    .notEmpty()
-    .withMessage("Caption required")
-    .bail()
-    .isLength({ max: 150 })
-    .withMessage("Caption must be maximum 150 characters"),
+  body("caption").isLength({ max: 150 }).withMessage("Caption must be maximum 150 characters"),
   body("")
     .custom((_, { req, res }) => {
       return req.files.content;
@@ -131,4 +126,8 @@ export const validateCreatePostInput = validate([
       return req.files.content.mimetype.includes("image");
     })
     .withMessage("File type not supported"),
+]);
+
+export const validateUpdatePostInput = validate([
+  body("caption").isLength({ max: 150 }).withMessage("Caption must be maximum 150 characters"),
 ]);

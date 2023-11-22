@@ -98,7 +98,7 @@
         - [x] Impl. get all posts
         - [x] Impl. create post
         - [ ] Impl. update post
-        - [ ] Impl. delete post
+        - [x] Impl. delete post
       - [ ] Impl. axios fetching for create post
         - [ ] Impl. loading and error handling
       - [x] Impl. UI for create post page
