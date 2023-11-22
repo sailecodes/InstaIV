@@ -1,11 +1,11 @@
 import { Router } from "express";
 import {
   getAllUsers,
-  getUserProfile,
-  createUserProfilePicture,
-  updateUserProfilePicture,
-  getUserFollowers,
-  getUserFollowing,
+  getProfile,
+  createProfilePicture,
+  updateProfilePicture,
+  getFollowers,
+  getFollowing,
   followUser,
   unfollowUser,
 } from "../controllers/userController.js";
@@ -15,14 +15,14 @@ const userRouter = Router();
 
 userRouter.get("/", getAllUsers); // FIXME: For testing, delete later.
 
-userRouter.post("/profile-picture", validateProfilePictureInput, createUserProfilePicture);
-userRouter.patch("/profile-picture", validateProfilePictureInput, updateUserProfilePicture);
+userRouter.post("/profile-picture", validateProfilePictureInput, createProfilePicture);
+userRouter.patch("/profile-picture", validateProfilePictureInput, updateProfilePicture);
 
-userRouter.get("/followers", getUserFollowers);
-userRouter.get("/following", getUserFollowing);
+userRouter.get("/followers", getFollowers);
+userRouter.get("/following", getFollowing);
 userRouter.patch("/follow/:id", validateParamId, followUser);
 userRouter.patch("/unfollow/:id", validateParamId, unfollowUser);
 
-userRouter.get("/:id", validateParamId, getUserProfile);
+userRouter.get("/:id", validateParamId, getProfile);
 
 export default userRouter;

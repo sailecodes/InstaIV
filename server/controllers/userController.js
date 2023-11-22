@@ -21,7 +21,7 @@ export const getAllUsers = async (req, res) => {
 
 // TODO: Impl. safety feature to remove the uploaded image and created Content document when an error
 //       occurs afterwards
-export const createUserProfilePicture = async (req, res) => {
+export const createProfilePicture = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
@@ -44,7 +44,8 @@ export const createUserProfilePicture = async (req, res) => {
   return res.status(StatusCodes.CREATED).json({ msg: "(Server message) Created profile picture" });
 };
 
-export const updateUserProfilePicture = async (req, res) => {
+// TODO: Impl. safety feature to redo any changes if an error occurs
+export const updateProfilePicture = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
@@ -75,7 +76,7 @@ export const updateUserProfilePicture = async (req, res) => {
 // Followers/following
 // ==============================================
 
-export const getUserFollowers = async (req, res) => {
+export const getFollowers = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
@@ -86,7 +87,7 @@ export const getUserFollowers = async (req, res) => {
   });
 };
 
-export const getUserFollowing = async (req, res) => {
+export const getFollowing = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
@@ -101,38 +102,34 @@ export const followUser = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
   const followedUser = await userModel.findById(req.params.id);
 
-  if (!user || !followedUser)
-    throw new NotFoundError(
-      `No user with id ${
-        !user ? (!followedUser ? `${req.userInfo.userId} and ${req.params.id}` : req.userInfo.userId) : req.params.id
-      } found`
-    );
+  if (!user && !followedUser)
+    throw new NotFoundError(`No users with ids ${req.userInfo.userId} and ${req.params.id} found`);
+  else if (!user || !followedUser)
+    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.params.id} found`);
+
+  followedUser.followers.push(req.userInfo.userId);
+  await followedUser.save();
 
   user.following.push(req.params.id);
-  followedUser.followers.push(req.userInfo.userId);
-
   await user.save();
-  await followedUser.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Followed user" });
 };
 
 export const unfollowUser = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
-  const followedUser = await userModel.findById(req.params.id);
+  const unfollowedUser = await userModel.findById(req.params.id);
 
-  if (!user || !followedUser)
-    throw new NotFoundError(
-      `No user with id ${
-        !user ? (!followedUser ? `${req.userInfo.userId} and ${req.params.id}` : req.userInfo.userId) : req.params.id
-      } found`
-    );
+  if (!user && !unfollowedUser)
+    throw new NotFoundError(`No users with ids ${req.userInfo.userId} and ${req.params.id} found`);
+  else if (!user || !unfollowedUser)
+    throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.params.id} found`);
+
+  unfollowedUser.followers = unfollowedUser.followers.filter((id) => id.toString() !== req.userInfo.userId);
+  await unfollowedUser.save();
 
   user.following = user.following.filter((id) => id.toString() !== req.params.id);
-  followedUser.followers = followedUser.followers.filter((id) => id.toString() !== req.userInfo.userId);
-
   await user.save();
-  await followedUser.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Unfollowed user" });
 };
@@ -141,7 +138,7 @@ export const unfollowUser = async (req, res) => {
 // User profile
 // ==============================================
 
-export const getUserProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
   const user = await userModel.findById(req.params.id).select("-email -password -chats -__v");
 
   if (!user) throw new NotFoundError(`No user with id ${req.params.id} found`);

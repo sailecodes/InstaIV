@@ -59,15 +59,15 @@
     - Restricted routes
     - 7 routes (`/api/v1/users`)
       - Profile
-        - Get user profile (_GET_, `/:id`)
+        - Get profile (_GET_, `/:id`)
       - Profile picture
-        - Create user profile picture (_POST_, `/profile-picture`)
-        - Update user profile picture (_UPDATE_, `/profile-picture`)
+        - Create profile picture (_POST_, `/profile-picture`)
+        - Update profile picture (_UPDATE_, `/profile-picture`)
       - Follow
-        - Get user followers (_GET_, `/followers`)
-        - Get user following (_GET_, `/following`)
-        - Follow a user (_UPDATE_, `/follow/:id`)
-        - Unfollow a user (_UPDATE_ `/unfollow/:id`)
+        - Get followers (_GET_, `/followers`)
+        - Get following (_GET_, `/following`)
+        - Follow user (_UPDATE_, `/follow/:id`)
+        - Unfollow user (_UPDATE_ `/unfollow/:id`)
   - Post routes
     - Restricted routes
     - 5 routes (`/api/v1/posts`)
@@ -93,12 +93,13 @@
         - [ ] Impl. for update post
       - [ ] Impl. post to user id check for get post
       - [ ] Impl. post controllers
-        - [ ] Impl. get all posts
+        - [x] Impl. get all posts
         - [x] Impl. create post
         - [ ] Impl. update post
         - [ ] Impl. delete post
       - [ ] Impl. axios fetching for create post
         - [ ] Impl. loading and error handling
+      - [x] Impl. UI for create post page
   - `Medium`
   - `Low`
   - ## `Finished`
