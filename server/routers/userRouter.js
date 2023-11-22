@@ -13,10 +13,12 @@ import { validateParamId, validateProfilePictureInput } from "../middleware/vali
 
 const userRouter = Router();
 
-userRouter.get("/", getAllUsers); // FIXME: For testing, delete later.
+userRouter.get("/", getAllUsers); // TODO: For testing, delete later.
 
-userRouter.post("/profile-picture", validateProfilePictureInput, createProfilePicture);
-userRouter.patch("/profile-picture", validateProfilePictureInput, updateProfilePicture);
+userRouter
+  .route("/profile-picture")
+  .post(validateProfilePictureInput, createProfilePicture)
+  .patch(validateProfilePictureInput, updateProfilePicture);
 
 userRouter.get("/followers", getFollowers);
 userRouter.get("/following", getFollowing);

@@ -52,4 +52,24 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {};
 
-export const deletePost = async (req, res) => {};
+export const deletePost = async (req, res) => {
+  const user = await userModel.findById(req.userInfo.userId);
+
+  if (!user) throw new NotFoundError(`User with id ${req.userInfo.userId} not found`);
+
+  const post = await postModel.findById(req.params.id);
+
+  if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
+
+  const content = await contentModel.findById(post.contentInfo.contentId);
+
+  if (!content) throw new NotFoundError(`Content with id ${post.contentInfo.contentId} not found`);
+
+  await cloudinary.uploader.destroy(content.publicId);
+  await postModel.findByIdAndDelete(req.params.id);
+  await contentModel.findByIdAndDelete(content._id);
+  user.postsInfo.filter((postInfo) => req.params.id !== postInfo.postId);
+  await user.save();
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Post deleted" });
+};

@@ -82,8 +82,8 @@
         - Update bio
       - Delete post (_DELETE_, `/:id`)
         - Delete image from Cloudinary
-        - Delete the corresponding Content document
         - Delete the corresponding Post document
+        - Delete the corresponding Content document
         - Find and delete the corresponding Post document in posts in corresponding User document
 - **Todos**
   - `High`
