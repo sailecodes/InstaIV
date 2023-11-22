@@ -90,3 +90,28 @@ export const validateLoginInput = validate([
     .isLength({ min: 10 })
     .withMessage("Password must be at least 10 characters"),
 ]);
+
+// ==============================================
+// Post routes validation
+// ==============================================
+
+export const validateCreatePostInput = validate([
+  body("caption")
+    .notEmpty()
+    .withMessage("Caption required")
+    .bail()
+    .isLength({ max: 150 })
+    .withMessage("Caption must be at most 150 characters")
+    .bail()
+    .custom((caption, { req, res }) => {
+      // Note: Must use a custom validator for req.files since req.files is not currently supported
+      //       by express-validator
+      return req.files.content;
+    })
+    .withMessage("Image required")
+    .bail()
+    .custom((caption, { req, res }) => {
+      return req.files.content.mimetype.includes("image");
+    })
+    .withMessage("File type not supported"),
+]);

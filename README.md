@@ -74,6 +74,25 @@
   - Post routes
     - Restricted routes
     - x routes (`/api/v1/posts`)
-      - Create post (_CREATE_, `/create`)
-      - Delete post (_DELETE_, `/delete`)
-      - Update post (_UPDATE_, `/update`)
+      - Create post (_CREATE_, `/`)
+      - Get post (_GET_, `/:id`)
+        - `TODO in a later version`
+      - Delete post (_DELETE_, `/:id`)
+      - Update post (_UPDATE_, `/:id`)
+- **Todos**
+  - `High`
+    - Posts
+      - [ ] Impl. validation layer for post routes
+        - [x] Impl. for create post
+        - [x] Impl. for update post
+      - [ ] Impl. post to user id check
+      - [ ] Impl. post controllers
+        - [ ] Impl. create post
+        - [ ] Impl. update post
+        - [ ] Impl. delete post
+      - [ ] Impl. axios fetching for create post
+        - [ ] Impl. loading and error handling
+  - `Medium`
+  - `Low`
+  - `Finished`
+    -

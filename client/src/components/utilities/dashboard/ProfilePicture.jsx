@@ -5,19 +5,19 @@ const ProfilePictureWrapper = styled.div`
   display: grid;
   place-items: center;
 
-  img {
+  > img {
     border-radius: 100px;
-  }
-
-  img:hover {
-    cursor: pointer;
   }
 `;
 
-const ProfilePicture = ({ width = "3rem", height = "3rem" }) => {
+const ProfilePicture = ({ width = "3rem", height = "3rem", url }) => {
   return (
     <ProfilePictureWrapper>
-      <img src={pf} alt="profile picture" style={{ width: width, height: height }} />
+      <img
+        src={url ? url : pf}
+        alt="profile picture"
+        style={{ width: width, height: height }}
+      />
     </ProfilePictureWrapper>
   );
 };

@@ -2,14 +2,13 @@ import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
   content: {
-    type: mongoose.Types.ObjectId,
-    ref: "Content",
+    type: [String, { type: mongoose.Types.ObjectId, ref: "Content" }],
   },
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User",
   },
-  description: {
+  caption: {
     type: String,
     default: "",
   },

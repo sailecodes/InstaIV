@@ -36,8 +36,63 @@ html {
 }
 
 body {
+  background-color: var(--color-black);
   font-family: "Poppins", sans-serif;
 }
+
+/* ============================================== */
+/* ====== UTILITIES */
+/* ============================================== */
+
+.display-none {
+  display: none !important;
+}
+
+/* ============================================== */
+/* ====== INPUTS */
+/* ============================================== */
+
+input {
+  font-family: inherit;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* ============================================== */
+/* ====== LINKS */
+/* ============================================== */
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+/* ============================================== */
+/* ====== BUTTONS */
+/* ============================================== */
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+}
+
+::file-selector-button {
+  font-family: inherit;
+  border: none;
+}
+
+button:hover,
+::file-selector-button:hover {
+  cursor: pointer;
+}
+
+/* ============================================== */
+/* ====== SCROLL STYLINGS */
+/* ============================================== */
 
 ::-webkit-scrollbar {
   width: 1.5rem;

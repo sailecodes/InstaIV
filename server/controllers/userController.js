@@ -58,6 +58,7 @@ export const createUserProfilePicture = async (req, res) => {
 
   fs.unlinkSync(req.files.profilePicture.tempFilePath);
 
+  // TODO: Might not need to return url since we have access to profilePic whenever we view a user's profile
   return res
     .status(StatusCodes.CREATED)
     .json({ msg: "(Server message) Created profile picture", data: { imageUrl: result.secure_url } });
@@ -93,6 +94,7 @@ export const updateUserProfilePicture = async (req, res) => {
 
   fs.unlinkSync(req.files.profilePicture.tempFilePath);
 
+  // TODO: Might not need to return url (for the same reason as above)
   return res
     .status(StatusCodes.CREATED)
     .json({ msg: "(Server message) Updated profile picture", data: { imageUrl: result.secure_url } });

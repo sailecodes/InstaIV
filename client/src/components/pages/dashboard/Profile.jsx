@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import PulseLoader from "react-spinners/PulseLoader";
 import { useQuery } from "@tanstack/react-query";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, Link } from "react-router-dom";
+import { useState } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import ProfileContentIcon from "../../utilities/icons/ProfileContentIcon";
 import SavedIcon from "../../utilities/icons/SavedIcon";
-import ProfileStat from "../../utilities/dashboard/ProfileStat";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
+import Error from "../../utilities/general/Error";
+import Exit from "../../utilities/icons/Exit";
 
 const ProfileWrapper = styled.div`
   overflow-y: scroll;
@@ -17,6 +20,31 @@ const ProfileWrapper = styled.div`
     position: relative;
 
     max-width: 99rem;
+  }
+
+  .profile--perr-container {
+    position: relative;
+    bottom: 5%;
+
+    display: grid;
+    place-items: center;
+
+    height: 100%;
+    width: 100%;
+  }
+
+  .profile--follow-container {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--color-dark-gray);
+
+    width: 30rem;
+    height: 40rem;
+
+    border-radius: 8px;
   }
 
   .profile--user-information {
@@ -30,10 +58,6 @@ const ProfileWrapper = styled.div`
     border-bottom: 1px solid var(--color-darker-gray);
   }
 
-  .profile--user-information > div:nth-child(1) {
-    place-self: center;
-  }
-
   .profile--user-information > div:nth-child(2) {
     display: flex;
     flex-direction: column;
@@ -45,7 +69,7 @@ const ProfileWrapper = styled.div`
     font-size: var(--font-sm-3);
   }
 
-  button {
+  .profile--edit-btn {
     background-color: var(--color-dark-gray);
     color: var(--color-white);
 
@@ -59,11 +83,11 @@ const ProfileWrapper = styled.div`
     border-radius: 8px;
   }
 
-  button:hover {
+  .profile--edit-btn:hover {
     cursor: pointer;
   }
 
-  .profile--user-information-stats {
+  .profile--stats.mid-screen {
     display: none;
   }
 
@@ -75,9 +99,7 @@ const ProfileWrapper = styled.div`
     max-width: 44.5rem;
   }
 
-  /* =================== */
-
-  .profile--stats {
+  .profile--stats.small-screen {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -87,7 +109,12 @@ const ProfileWrapper = styled.div`
     border-bottom: 1px solid var(--color-darker-gray);
   }
 
-  .profile--stats > p {
+  .profile--stats.small-screen > button {
+    color: var(--color-white);
+  }
+
+  .profile--stats.small-screen > p,
+  .profile--stats.small-screen > button {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,13 +122,13 @@ const ProfileWrapper = styled.div`
     width: 5.9rem;
 
     font-size: var(--font-sm-1);
+    font-family: inherit;
   }
 
-  .profile--stats > p span {
+  .profile--stats.small-screen > p span,
+  .profile--stats.small-screen > button span {
     color: var(--color-gray);
   }
-
-  /* =================== */
 
   .profile--user-content > nav {
     display: flex;
@@ -146,11 +173,17 @@ const ProfileWrapper = styled.div`
   }
 
   @media (min-width: 767px) {
+    > div {
+      margin: 0 auto;
+    }
+
     .profile--user-information {
       grid-template-columns: 15rem 1fr;
       grid-template-rows: 7.8rem 6rem 5rem;
       column-gap: 2rem;
       row-gap: 1.5rem;
+
+      padding: 0 2rem 2rem 2rem;
     }
 
     .profile--user-information > div:nth-child(1) {
@@ -167,12 +200,21 @@ const ProfileWrapper = styled.div`
       gap: 2rem;
     }
 
-    .profile--user-information-stats {
+    .profile--stats.mid-screen {
       display: flex;
+      align-items: flex-start;
       gap: 3rem;
 
       position: relative;
       bottom: 20%;
+
+      font-size: var(--font-sm-1);
+    }
+
+    .profile--stats.mid-screen > button {
+      color: var(--color-white);
+
+      height: 2.1rem;
 
       font-size: var(--font-sm-1);
     }
@@ -186,7 +228,7 @@ const ProfileWrapper = styled.div`
       height: 7.2rem;
     }
 
-    .profile--stats {
+    .profile--stats.small-screen {
       display: none;
     }
   }
@@ -198,71 +240,210 @@ const ProfileWrapper = styled.div`
 */
 
 const Profile = () => {
+  const [isFollowListVisible, setIsFollowListVisible] = useState(false);
+  const [isFollowingListClicked, setIsFollowingListClicked] = useState(false);
   const screenSize = useScreenSize();
+
   const { data, isPending, isError } = useQuery({
-    queryKey: ["user-profile"],
+    queryKey: ["user"],
     queryFn: async () => {
       const {
         data: { data },
-      } = await axiosFetch.get("/users/user-profile");
-      console.log(data);
+      } = await axiosFetch.get("/users/user");
       return data;
     },
   });
 
-  if (isPending) return <h1>Pending...</h1>;
-
-  if (isError) return <h1>Error...</h1>;
-
   return (
     <ProfileWrapper className="dashboard--outlet">
-      <div>
-        <section className="profile--user-information">
-          <ProfilePicture
-            width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-            height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+      {isError && (
+        <div className="profile--perr-container">
+          <Error />
+        </div>
+      )}
+      {isPending && (
+        <div className="profile--perr-container">
+          <PulseLoader
+            color="var(--color-blue)"
+            cssOverride={{ transform: "rotate(-90deg)" }}
           />
+        </div>
+      )}
+      {!isError && !isPending && (
+        <>
           <div>
-            <p className="profile--username">{data.username}</p>
-            <button className="profile--edit-btn">Edit profile</button>
+            <FollowContainer
+              listName={isFollowingListClicked ? "Following" : "Followers"}
+              data={[{ username: "IU" }, { username: "yujin" }, { username: "chaewon" }, { username: "kanye west" }]}
+              isFollowListVisible={isFollowListVisible}
+              setIsFollowListVisible={setIsFollowListVisible}
+              setIsFollowingListClicked={setIsFollowingListClicked}
+            />
+            <section className="profile--user-information">
+              <ProfilePicture
+                width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+                height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+                url={data.profilePicture[0]}
+              />
+              <div>
+                <p className="profile--username">{data.username}</p>
+                <button className="profile--edit-btn">Edit profile</button>
+              </div>
+              <ProfileStats
+                screenType={"mid"}
+                data={[data.numPosts, data.followers.length, data.following.length]}
+                setIsFollowListVisible={setIsFollowListVisible}
+                setIsFollowingListClicked={setIsFollowingListClicked}
+              />
+              <p className="profile--bio">{!data.bio ? "No bio yet. Write something!" : data.bio}</p>
+            </section>
+            <ProfileStats
+              screenType={"small"}
+              data={[data.numPosts, data.followers.length, data.following.length]}
+              setIsFollowListVisible={setIsFollowListVisible}
+              setIsFollowingListClicked={setIsFollowingListClicked}
+            />
+            <section className="profile--user-content">
+              <nav>
+                <NavLink
+                  to="/dashboard/profile"
+                  end>
+                  <ProfileContentIcon />
+                </NavLink>
+                <NavLink to="/dashboard/profile/saved-posts">
+                  <SavedIcon />
+                </NavLink>
+              </nav>
+              <div className="profile--content-container">
+                <div className="profile--content-row-container">
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+                </div>
+                <div className="profile--content-row-container">
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
+                </div>
+                <div className="profile--content-row-container">
+                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </section>
           </div>
-          <div className="profile--user-information-stats">
-            <ProfileStats data={[data.numPosts, data.followers.length, data.following.length]} />
-          </div>
-          <p className="profile--bio">{!data.bio ? "No bio yet. Add one!" : data.bio}</p>
-        </section>
-        <section className="profile--stats">
-          <ProfileStats data={[data.numPosts, data.followers.length, data.following.length]} />
-        </section>
-        <section className="profile--user-content">
-          <nav>
-            <NavLink to="/dashboard/profile" end>
-              <ProfileContentIcon />
-            </NavLink>
-            <NavLink to="/dashboard/profile/saved-posts">
-              <SavedIcon />
-            </NavLink>
-          </nav>
-          <div className="profile--content-container">
-            <div className="profile--content-row-container">
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-            </div>
-            <div className="profile--content-row-container">
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-            </div>
-            <div className="profile--content-row-container">
-              <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </section>
-      </div>
+        </>
+      )}
     </ProfileWrapper>
+  );
+};
+
+const FollowContainerWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  nav {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-darker-gray);
+  }
+
+  nav p {
+    font-size: var(--font-sm-2);
+    font-weight: 600;
+  }
+
+  nav button {
+    position: absolute;
+    right: 2%;
+
+    display: grid;
+    place-items: center;
+  }
+
+  .item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    padding: 2rem;
+
+    overflow-y: scroll;
+  }
+
+  .item-container > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .item-container > div p {
+    font-size: var(--font-sm-1);
+  }
+
+  .item-container > div a {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+
+    display: grid;
+    place-items: center;
+
+    width: 9rem;
+    height: 3rem;
+
+    font-size: var(--font-sm-1);
+
+    margin-left: auto;
+    border-radius: 5px;
+  }
+
+  .item-container::-webkit-scrollbar-track {
+    background-color: var(--color-dark-gray);
+
+    border-radius: 0 0 8px 0;
+  }
+
+  .item-container::-webkit-scrollbar-thumb {
+    background: var(--color-darker-gray);
+
+    border-radius: 0 0 8px 0;
+  }
+`;
+
+const FollowContainer = ({
+  listName,
+  data,
+  isFollowListVisible,
+  setIsFollowListVisible,
+  setIsFollowingListClicked,
+}) => {
+  return (
+    <FollowContainerWrapper className={`profile--follow-container ${isFollowListVisible ? "" : "display-none"}`}>
+      <nav>
+        <p>{listName}</p>
+        <button
+          onClick={() => {
+            setIsFollowListVisible(false);
+            setIsFollowingListClicked(false);
+          }}>
+          <Exit />
+        </button>
+      </nav>
+      <div className="item-container">
+        {data.map((item) => (
+          <div key={item._id}>
+            <ProfilePicture />
+            <p>{item.username}</p>
+            <Link>See profile</Link>
+          </div>
+        ))}
+      </div>
+    </FollowContainerWrapper>
   );
 };
 

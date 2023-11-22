@@ -78,7 +78,7 @@ const DashboardWrapper = styled.div`
       grid-column: 2;
       grid-row: 1 / -1;
 
-      padding: 0 2rem 0 2rem;
+      padding: 0 2rem 5rem 2rem;
     }
 
     .logo {
