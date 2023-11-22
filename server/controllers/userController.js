@@ -45,39 +45,30 @@ export const createUserProfilePicture = async (req, res) => {
 };
 
 export const updateUserProfilePicture = async (req, res) => {
-  if (!req.files.profilePicture.mimetype.includes("image")) throw new BadRequestError("Incorrect file type");
-
   const user = await userModel.findById(req.userInfo.userId);
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
 
-  const previousPf = await contentModel.findById(user.profilePicture[1]);
+  const content = await contentModel.findById(user.profilePictureInfo.contentId);
 
-  if (!previousPf) throw new NotFoundError(`No profile picture with id ${user.profilePicture[1]} found`);
+  if (!content) throw new NotFoundError(`No profile picture with id ${user.profilePictureInfo.contentId} found`);
 
-  await cloudinary.uploader.destroy(previousPf.publicId);
+  await cloudinary.uploader.destroy(content.publicId);
   const result = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
     use_filename: true,
     folder: "InstaIV/Profile-pictures",
   });
 
-  await contentModel.findByIdAndUpdate(
-    previousPf._id,
-    {
-      publicId: result.public_id,
-      imageUrl: result.secure_url,
-    },
-    { runValidators: true }
-  );
-  user.profilePicture[0] = result.secure_url;
+  content.imageUrl = result.secure_url;
+  content.publicId = result.public_id;
+  await content.save();
+
+  user.profilePictureInfo.imageUrl = result.secure_url;
   await user.save();
 
   fs.unlinkSync(req.files.profilePicture.tempFilePath);
 
-  // TODO: Might not need to return url (for the same reason as above)
-  return res
-    .status(StatusCodes.CREATED)
-    .json({ msg: "(Server message) Updated profile picture", data: { imageUrl: result.secure_url } });
+  return res.status(StatusCodes.CREATED).json({ msg: "(Server message) Updated profile picture" });
 };
 
 // ==============================================

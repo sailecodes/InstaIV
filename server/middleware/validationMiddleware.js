@@ -95,7 +95,7 @@ export const validateLoginInput = validate([
 // User routes validation
 // ==============================================
 
-export const validateCreateProfilePictureInput = validate([
+export const validateProfilePictureInput = validate([
   body("")
     .custom((_, { req, res }) => {
       // Note: Must use a custom validator for req.files since req.files is not currently supported
