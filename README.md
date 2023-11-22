@@ -77,6 +77,7 @@
         - Create a Content document
         - Create a Post document
         - Add to posts in corresponding User document
+        - Increment numPosts in the corresponding User document
       - Get post (_GET_, `/:id`) -- `TODO in a later version`
       - Update post (_UPDATE_, `/:id`)
         - Update bio
@@ -85,6 +86,7 @@
         - Delete the corresponding Post document
         - Delete the corresponding Content document
         - Find and delete the corresponding Post document in posts in corresponding User document
+        - Decrement numPosts in the corresponding User document
 - **Todos**
   - `High`
     - Posts

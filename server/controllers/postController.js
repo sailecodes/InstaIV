@@ -42,7 +42,8 @@ export const createPost = async (req, res) => {
     caption: req.body.caption,
   });
 
-  user.posts.push({ imageUrl: cloudinaryResult.secure_url, contentId: content._id, postId: post._id });
+  user.postsInfo.push({ imageUrl: cloudinaryResult.secure_url, contentId: content._id, postId: post._id });
+  user.numPosts += 1;
   await user.save();
 
   fs.unlinkSync(req.files.content.tempFilePath);
@@ -68,7 +69,8 @@ export const deletePost = async (req, res) => {
   await cloudinary.uploader.destroy(content.publicId);
   await postModel.findByIdAndDelete(req.params.id);
   await contentModel.findByIdAndDelete(content._id);
-  user.postsInfo.filter((postInfo) => req.params.id !== postInfo.postId);
+  user.postsInfo = user.postsInfo.filter((postInfo) => req.params.id !== postInfo.postId.toString());
+  user.numPosts -= user.numPosts;
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Post deleted" });
