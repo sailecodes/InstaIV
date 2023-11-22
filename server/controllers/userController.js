@@ -19,29 +19,29 @@ export const getAllUsers = async (req, res) => {
 // Profile picture
 // ==============================================
 
+// TODO: Impl. safety feature to remove the uploaded image and created Content document when an error
+//       occurs afterwards
 export const createUserProfilePicture = async (req, res) => {
-  if (!req.files.profilePicture.mimetype.includes("image")) throw new BadRequestError("Incorrect file type");
-
   const user = await userModel.findById(req.userInfo.userId);
 
   if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
 
-  const result = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
+  const cloudinaryResult = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
     use_filename: true,
-    folder: "InstaIV",
+    folder: "InstaIV/Profile-pictures",
   });
-  const pf = await contentModel.create({ publicId: result.public_id, imageUrl: result.secure_url });
 
-  user.profilePicture.push(result.secure_url);
-  user.profilePicture.push(pf._id);
+  const content = await contentModel.create({
+    imageUrl: cloudinaryResult.secure_url,
+    publicId: cloudinaryResult.public_id,
+  });
+
+  user.profilePictureInfo = { imageUrl: cloudinaryResult.secure_url, contentId: content._id };
   await user.save();
 
   fs.unlinkSync(req.files.profilePicture.tempFilePath);
 
-  // TODO: Might not need to return url since we have access to profilePic whenever we view a user's profile
-  return res
-    .status(StatusCodes.CREATED)
-    .json({ msg: "(Server message) Created profile picture", data: { imageUrl: result.secure_url } });
+  return res.status(StatusCodes.CREATED).json({ msg: "(Server message) Created profile picture" });
 };
 
 export const updateUserProfilePicture = async (req, res) => {
@@ -58,7 +58,7 @@ export const updateUserProfilePicture = async (req, res) => {
   await cloudinary.uploader.destroy(previousPf.publicId);
   const result = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
     use_filename: true,
-    folder: "InstaIV",
+    folder: "InstaIV/Profile-pictures",
   });
 
   await contentModel.findByIdAndUpdate(

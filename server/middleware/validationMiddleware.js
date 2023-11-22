@@ -92,8 +92,23 @@ export const validateLoginInput = validate([
 ]);
 
 // ==============================================
-// Post routes validation
+// User routes validation
 // ==============================================
+
+export const validateCreateProfilePictureInput = validate([
+  body("")
+    .custom((_, { req, res }) => {
+      // Note: Must use a custom validator for req.files since req.files is not currently supported
+      //       by express-validator
+      return req.files.profilePicture;
+    })
+    .withMessage("Image required")
+    .bail()
+    .custom((_, { req, res }) => {
+      return req.files.profilePicture.mimetype.includes("image");
+    })
+    .withMessage("File type not supported"),
+]);
 
 // ==============================================
 // Post routes validation
@@ -108,8 +123,6 @@ export const validateCreatePostInput = validate([
     .withMessage("Caption must be maximum 150 characters"),
   body("")
     .custom((_, { req, res }) => {
-      // Note: Must use a custom validator for req.files since req.files is not currently supported
-      //       by express-validator
       return req.files.content;
     })
     .withMessage("Image required")

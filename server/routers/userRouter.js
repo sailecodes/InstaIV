@@ -9,13 +9,13 @@ import {
   followUser,
   unfollowUser,
 } from "../controllers/userController.js";
-import { validateParamId } from "../middleware/validationMiddleware.js";
+import { validateParamId, validateCreateProfilePictureInput } from "../middleware/validationMiddleware.js";
 
 const userRouter = Router();
 
 userRouter.get("/", getAllUsers); // FIXME: For testing, delete later.
 
-userRouter.post("/profile-picture", createUserProfilePicture);
+userRouter.post("/profile-picture", validateCreateProfilePictureInput, createUserProfilePicture);
 userRouter.patch("/profile-picture", updateUserProfilePicture);
 
 userRouter.get("/followers", getUserFollowers);
