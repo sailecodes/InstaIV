@@ -17,7 +17,7 @@ const postSchema = mongoose.Schema({
     default: 0,
   },
   comments: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "Comment" }],
+    type: [{ String, type: mongoose.Types.ObjectId, ref: "Comment" }],
     default: [],
   },
 });

@@ -1,5 +1,18 @@
 import mongoose from "mongoose";
 
+const userProfilePictureSchema = mongoose.Schema({});
+
+const userPostsSchema = mongoose.Schema({
+  url: {
+    type: String,
+    required: [true, "Url required"],
+  },
+  postId: {
+    type: mongoose.Types.ObjectId,
+    ref: "Post",
+  },
+});
+
 const userSchema = mongoose.Schema({
   email: {
     type: String,
@@ -31,11 +44,11 @@ const userSchema = mongoose.Schema({
     default: [],
   },
   posts: {
-    type: [[String, { type: mongoose.Types.ObjectId, ref: "Post" }]],
+    type: [userPostsSchema],
     default: [],
   },
   savedPosts: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
+    type: [userPostsSchema],
     default: [],
   },
   chats: {

@@ -84,7 +84,7 @@
     - Posts
       - [ ] Impl. validation layer for post routes
         - [x] Impl. for create post
-        - [x] Impl. for update post
+        - [ ] Impl. for update post
       - [ ] Impl. post to user id check
       - [ ] Impl. post controllers
         - [ ] Impl. create post
@@ -94,5 +94,4 @@
         - [ ] Impl. loading and error handling
   - `Medium`
   - `Low`
-  - `Finished`
-    -
+  - ## `Finished`
