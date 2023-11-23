@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ProfileStat from "./ProfileStat";
+import { useContext } from "react";
+import { ProfileContext } from "../../pages/dashboard/Profile";
 
 const ProfileStatsWrapper = styled.div`
   > section.mid-screen {
@@ -63,27 +65,25 @@ const ProfileStatsWrapper = styled.div`
   }
 `;
 
-const ProfileStats = ({ screenType, data, setIsFollowContainerVisible, setIsFollowingClicked }) => {
+const ProfileStats = ({ screenType }) => {
+  const { data } = useContext(ProfileContext);
+
   return (
     <ProfileStatsWrapper>
       <section className={`${screenType}-screen`}>
         <ProfileStat
-          stat={data[0]}
+          stat={data.numPosts}
           statOf={" posts"}
-          setIsFollowContainerVisible={setIsFollowContainerVisible}
         />
         <ProfileStat
-          stat={data[1]}
+          stat={data.followers.length}
           statOf={" followers"}
           isLink={true}
-          setIsFollowContainerVisible={setIsFollowContainerVisible}
         />
         <ProfileStat
-          stat={data[2]}
+          stat={data.following.length}
           statOf={" following"}
           isLink={true}
-          setIsFollowContainerVisible={setIsFollowContainerVisible}
-          setIsFollowingClicked={setIsFollowingClicked}
         />
       </section>
     </ProfileStatsWrapper>

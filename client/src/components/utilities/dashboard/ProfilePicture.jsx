@@ -1,5 +1,8 @@
 import styled from "styled-components";
+import { useContext } from "react";
+
 import pf from "../../../assets/imgs/default-pf.jpg";
+import { DashboardContext } from "../../pages/dashboard/Dashboard";
 
 const ProfilePictureWrapper = styled.div`
   display: grid;
@@ -10,11 +13,13 @@ const ProfilePictureWrapper = styled.div`
   }
 `;
 
-const ProfilePicture = ({ width = "3rem", height = "3rem", url }) => {
+const ProfilePicture = ({ width, height }) => {
+  const { profilePictureUrl } = useContext(DashboardContext);
+
   return (
     <ProfilePictureWrapper>
       <img
-        src={url ? url : pf}
+        src={profilePictureUrl ? profilePictureUrl : pf}
         alt="profile picture"
         style={{ width: width, height: height }}
       />

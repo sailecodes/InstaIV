@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-const PostsContainerWrapper = styled.div`
+const PostsWrapper = styled.div`
   .posts-row--container {
     align-items: stretch;
 
     display: flex;
-    flex-direction: row;
     flex-shrink: 0;
     gap: 0.4rem;
   }
@@ -24,4 +23,4 @@ const PostsContainerWrapper = styled.div`
   }
 `;
 
-export default PostsContainerWrapper;
+export default PostsWrapper;

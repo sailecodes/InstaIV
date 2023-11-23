@@ -1,15 +1,16 @@
-import { useOutletContext } from "react-router-dom";
+import { useContext } from "react";
 
-import PostsContainerWrapper from "../../../assets/styles/pages/dashboard/PostsContainerWrapper";
+import PostsWrapper from "../../../assets/styles/pages/dashboard/PostsWrapper";
 import PostsRowContainer from "../../utilities/dashboard/PostsRowContainer";
 import { getPerfectThrees } from "../../../utilities/helpers";
+import { ProfileContext } from "./Profile";
 
 const Posts = () => {
-  let { postsInfo } = useOutletContext();
-  postsInfo = getPerfectThrees(postsInfo);
+  const { data } = useContext(ProfileContext);
+  const postsInfo = getPerfectThrees(data.postsInfo);
 
   return (
-    <PostsContainerWrapper>
+    <PostsWrapper>
       {postsInfo.map((postsRowData) => (
         <PostsRowContainer
           key={postsRowData}
@@ -17,7 +18,7 @@ const Posts = () => {
           rowLength={postsRowData.length}
         />
       ))}
-    </PostsContainerWrapper>
+    </PostsWrapper>
   );
 };
 

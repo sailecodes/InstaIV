@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
 
 import Logo from "../general/Logo";
 import HomeIcon from "../icons/HomeIcon";
@@ -7,6 +8,7 @@ import MessagesIcon from "../icons/MessagesIcon";
 import CreateIcon from "../icons/CreateIcon";
 import ProfilePicture from "./ProfilePicture";
 import SearchIcon from "../icons/SearchIcon";
+import { DashboardContext } from "../../pages/dashboard/Dashboard";
 
 const DashboardSideNavWrapper = styled.nav`
   a {
@@ -47,11 +49,15 @@ const DashboardSideNavWrapper = styled.nav`
 `;
 
 const DashboardSideNav = () => {
+  const { profilePictureUrl } = useContext(DashboardContext);
+
   return (
     <DashboardSideNavWrapper className="dashboard--side-nav">
       <Logo />
       <div className="dashboard--side-nav-link-container">
-        <NavLink to="/dashboard" end>
+        <NavLink
+          to="/dashboard"
+          end>
           <HomeIcon />
           <p className="dashboard-link full-screen">Home</p>
         </NavLink>
@@ -68,7 +74,11 @@ const DashboardSideNav = () => {
           <p className="dashboard-link full-screen">Create</p>
         </NavLink>
         <NavLink to="/dashboard/profile">
-          <ProfilePicture />
+          <ProfilePicture
+            width={"3rem"}
+            height={"3rem"}
+            profilePictureUrl={profilePictureUrl}
+          />
           <p className="dashboard-link full-screen">Profile</p>
         </NavLink>
       </div>

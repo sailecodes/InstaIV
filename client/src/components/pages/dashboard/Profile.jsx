@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useQuery } from "@tanstack/react-query";
 import { Outlet, NavLink, Link } from "react-router-dom";
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
@@ -12,7 +12,7 @@ import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import Exit from "../../utilities/icons/Exit";
-import Posts from "./Posts";
+import { DashboardContext } from "./Dashboard";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -134,9 +134,10 @@ const ProfileWrapper = styled.div`
 const Profile = () => {
   const [isFollowContainerVisible, setIsFollowContainerVisible] = useState(false);
   const [isFollowingClicked, setIsFollowingClicked] = useState(false);
+  const { setProfilePictureUrl } = useContext(DashboardContext);
   const screenSize = useScreenSize();
 
-  const { data, isPending, isError } = useQuery({
+  const { data, isPending, isError, isSuccess } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const {
@@ -147,151 +148,77 @@ const Profile = () => {
     },
   });
 
+  if (isSuccess) setProfilePictureUrl(data?.profilePictureInfo ? data.profilePictureInfo.imageUrl : "");
+
   return (
-    <ProfileWrapper>
-      {isError && (
-        <div className="perr-container">
-          <Error />
-        </div>
-      )}
-      {isPending && (
-        <div className="perr-container">
-          <PulseLoader color="var(--color-blue)" />
-        </div>
-      )}
-      {!isError && !isPending && (
-        <div>
-          <FollowContainer
-            listName={isFollowingClicked ? "Following" : "Followers"}
-            followData={isFollowingClicked ? data.following : data.followers}
-            isFollowContainerVisible={isFollowContainerVisible}
-            setIsFollowContainerVisible={setIsFollowContainerVisible}
-            setIsFollowingClicked={setIsFollowingClicked}
-          />
-          <section className="profile--user-information">
-            <ProfilePicture
-              width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-              height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-              url={data.profilePictureInfo.imageUrl}
-            />
-            <div>
-              <p className="profile--username">{data.username}</p>
-              <button className="profile--edit-btn">Edit profile</button>
-            </div>
-            <ProfileStats
-              screenType={"mid"}
-              data={[data.numPosts, data.followers.length, data.following.length]}
+    <ProfileContext.Provider
+      value={{
+        data,
+        isFollowContainerVisible,
+        setIsFollowContainerVisible,
+        isFollowingClicked,
+        setIsFollowingClicked,
+      }}>
+      <ProfileWrapper>
+        {isError && (
+          <div className="perr-container">
+            <Error />
+          </div>
+        )}
+        {isPending && (
+          <div className="perr-container">
+            <PulseLoader color="var(--color-blue)" />
+          </div>
+        )}
+        {!isError && !isPending && (
+          <div>
+            <FollowContainer
+              listName={isFollowingClicked ? "Following" : "Followers"}
+              followData={isFollowingClicked ? data.following : data.followers}
+              isFollowContainerVisible={isFollowContainerVisible}
               setIsFollowContainerVisible={setIsFollowContainerVisible}
               setIsFollowingClicked={setIsFollowingClicked}
             />
-            <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
-          </section>
-          <ProfileStats
-            screenType={"small"}
-            data={[data.numPosts, data.followers.length, data.following.length]}
-            setIsFollowContainerVisible={setIsFollowContainerVisible}
-            setIsFollowingClicked={setIsFollowingClicked}
-          />
-          <section className="profile--user-content">
-            <nav>
-              <NavLink
-                to="/dashboard/profile"
-                end>
-                <UserPostsIcon
-                  width={"2.5rem"}
-                  height={"2.5rem"}
-                />
-              </NavLink>
-              <NavLink to="/dashboard/profile/saved-posts">
-                <SavedPostsIcon
-                  width={"2.5rem"}
-                  height={"2.5rem"}
-                />
-              </NavLink>
-            </nav>
-            <Outlet context={{ postsInfo: data.postsInfo, savedPostsInfo: data.savedPostsInfo }} />
-          </section>
-        </div>
-      )}
-    </ProfileWrapper>
+            <section className="profile--user-information">
+              <ProfilePicture
+                width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+                height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+              />
+              <div>
+                <p className="profile--username">{data.username}</p>
+                <button className="profile--edit-btn">Edit profile</button>
+              </div>
+              <ProfileStats screenType={"mid"} />
+              <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
+            </section>
+            <ProfileStats screenType={"small"} />
+            <section className="profile--user-content">
+              <nav>
+                <NavLink
+                  to="/dashboard/profile"
+                  end>
+                  <UserPostsIcon
+                    width={"2.5rem"}
+                    height={"2.5rem"}
+                  />
+                </NavLink>
+                <NavLink to="/dashboard/profile/saved-posts">
+                  <SavedPostsIcon
+                    width={"2.5rem"}
+                    height={"2.5rem"}
+                  />
+                </NavLink>
+              </nav>
+              <Outlet />
+            </section>
+          </div>
+        )}
+      </ProfileWrapper>
+    </ProfileContext.Provider>
   );
 };
 
-///////////////////////////////////////////////////////////////////
-
-const PostsContainerWrapper = styled.div`
-  .posts-row--container {
-    align-items: stretch;
-
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-    gap: 0.4rem;
-  }
-
-  .posts-row--container > div {
-    flex: 1 0 0%;
-
-    width: 27vw;
-    height: 31.8vw;
-    max-width: 32.73rem;
-    max-height: 32.73rem;
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-`;
-
-const PostsContainer = ({ postsData, isPosts }) => {
-  const perfectThrees = postsData.length / 3;
-  let modPostsData = [];
-  let leftoverStartInd = 0;
-
-  for (let i = 0; i < perfectThrees; i++) {
-    modPostsData.push(postsData.slice(i * 3, i * 3 + 3));
-    leftoverStartInd = i * 3 + 3;
-  }
-
-  if (leftoverStartInd < postsData.length) modPostsData.push(postsData.slice(leftoverStartInd));
-
-  return (
-    <PostsContainerWrapper>
-      {isPosts &&
-        modPostsData.map((postsRowData) => (
-          <PostsRowContainer
-            key={postsRowData}
-            postsRowData={postsRowData}
-            rowLength={postsRowData.length}
-          />
-        ))}
-    </PostsContainerWrapper>
-  );
-};
-
-const PostsRowContainer = ({ postsRowData, rowLength }) => {
-  return (
-    <div className="posts-row--container">
-      {postsRowData.map((post) => (
-        <PostsRow
-          key={post._id}
-          imageUrl={post.imageUrl}
-        />
-      ))}
-      {rowLength === 1 && (
-        <>
-          <div></div>
-          <div></div>
-        </>
-      )}
-      {rowLength === 2 && <div></div>}
-    </div>
-  );
-};
-
-const PostsRow = ({ imageUrl }) => {
-  return <div style={{ backgroundImage: `url(${imageUrl})` }}></div>;
-};
+export const ProfileContext = createContext();
 
 //////////////////////////////////////////////////////////////////////////////
 

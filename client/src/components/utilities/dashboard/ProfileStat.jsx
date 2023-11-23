@@ -1,4 +1,9 @@
-const ProfileStat = ({ stat, statOf, isLink, setIsFollowContainerVisible, setIsFollowingClicked }) => {
+import { useContext } from "react";
+import { ProfileContext } from "../../pages/dashboard/Profile";
+
+const ProfileStat = ({ stat, statOf, isLink }) => {
+  const { setIsFollowContainerVisible, setIsFollowingClicked } = useContext(ProfileContext);
+
   return (
     <>
       {isLink && (

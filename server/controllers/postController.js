@@ -101,7 +101,7 @@ export const deletePost = async (req, res) => {
   await postModel.findByIdAndDelete(req.params.id);
   await contentModel.findByIdAndDelete(content._id);
   user.postsInfo = user.postsInfo.filter((postInfo) => req.params.id !== postInfo.postId.toString());
-  user.numPosts -= user.numPosts;
+  user.numPosts -= 1;
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Post deleted" });

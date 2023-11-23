@@ -104,8 +104,6 @@ const DashboardWrapper = styled.div`
   }
 `;
 
-const DashboardContext = createContext();
-
 const Dashboard = () => {
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
 
@@ -120,5 +118,7 @@ const Dashboard = () => {
     </DashboardContext.Provider>
   );
 };
+
+export const DashboardContext = createContext();
 
 export default Dashboard;
