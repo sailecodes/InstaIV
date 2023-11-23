@@ -2,7 +2,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import AuthWrapper from "../../../assets/styles/auth/AuthStyle";
+import AuthWrapper from "../../../assets/styles/pages/auth/AuthWrapper";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
@@ -57,8 +57,18 @@ const Register = () => {
         <Logo isLarge={true} />
         <div className="auth--input-container">
           <form onSubmit={handleSubmit}>
-            <AuthInput name="email" placeholder="Email" error={emailError} setError={setEmailError} />
-            <AuthInput name="password" placeholder="Password" error={passwordError} setError={setPasswordError} />
+            <AuthInput
+              name="email"
+              placeholder="Email"
+              error={emailError}
+              setError={setEmailError}
+            />
+            <AuthInput
+              name="password"
+              placeholder="Password"
+              error={passwordError}
+              setError={setPasswordError}
+            />
             <AuthInput
               type="text"
               name="username"
@@ -67,7 +77,14 @@ const Register = () => {
               setError={setUsernameError}
             />
             <button type="submit">
-              {isPending ? <ClipLoader size={10} color={"var(--color-white)"} /> : "Register"}
+              {isPending ? (
+                <ClipLoader
+                  size={10}
+                  color={"var(--color-white)"}
+                />
+              ) : (
+                "Register"
+              )}
             </button>
           </form>
           <p>

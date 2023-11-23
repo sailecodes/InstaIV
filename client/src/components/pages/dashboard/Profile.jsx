@@ -12,6 +12,7 @@ import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import Exit from "../../utilities/icons/Exit";
+import Posts from "./Posts";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -208,16 +209,15 @@ const Profile = () => {
                 />
               </NavLink>
             </nav>
-            <PostsContainer
-              postsData={data.postsInfo}
-              isPosts={true}
-            />
+            <Outlet context={{ postsInfo: data.postsInfo, savedPostsInfo: data.savedPostsInfo }} />
           </section>
         </div>
       )}
     </ProfileWrapper>
   );
 };
+
+///////////////////////////////////////////////////////////////////
 
 const PostsContainerWrapper = styled.div`
   .posts-row--container {

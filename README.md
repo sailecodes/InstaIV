@@ -12,6 +12,8 @@
     - Messages (`/messages`)
     - Create post (`/create-post`)
     - Profile (`/profile`)
+      - Posts (`/`)
+      - Saved posts (`/saved-posts`)
 
 ### Server-side
 
@@ -27,7 +29,6 @@
     - Following
     - Posts info
     - Saved posts info
-      - `TODO in a later version`
     - Chats
   - Content
     - Public id
@@ -78,7 +79,7 @@
         - Create a Post document
         - Add to posts in corresponding User document
         - Increment numPosts in the corresponding User document
-      - Get post (_GET_, `/:id`) -- `TODO in a later version`
+      - Get post (_GET_, `/:id`)
       - Update post (_UPDATE_, `/:id`)
         - Update bio
       - Delete post (_DELETE_, `/:id`)
@@ -90,7 +91,7 @@
 - **Todos**
   - [ ] Users
     - Add username to followers and following fields
-  - [ ] Posts
+  - [x] Posts
     - [x] Impl. validation layer for post routes
       - [x] Impl. for create post
       - [x] Impl. for update post
@@ -105,5 +106,4 @@
       - [x] Impl. UI for create post page
       - [x] Impl. axios fetching for create post
         - [x] Impl. loading and error handling
-    - [ ] Impl. profile page
-      - [ ] Impl. showing user posts in profile page
+    - [x] Impl. showing user posts in profile page

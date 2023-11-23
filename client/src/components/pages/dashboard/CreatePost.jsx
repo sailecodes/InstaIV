@@ -56,9 +56,6 @@ const CreatePost = () => {
         },
       });
     },
-    onError: (error) => {
-      console.error(error);
-    },
   });
 
   const handleSubmit = (e) => {
@@ -66,8 +63,6 @@ const CreatePost = () => {
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-
-    console.log(data);
 
     mutate(data);
   };

@@ -1,20 +1,19 @@
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
+import { createContext, useState } from "react";
 
 import DashboardTopNav from "../../utilities/dashboard/DashboardTopNav";
 import DashboardLowerNav from "../../utilities/dashboard/DashboardLowerNav";
 import DashboardSideNav from "../../utilities/dashboard/DashboardSideNav";
 
 const DashboardWrapper = styled.div`
-  .dashboard--container {
-    background-color: var(--color-black);
-    color: var(--color-white);
+  background-color: var(--color-black);
+  color: var(--color-white);
 
-    display: grid;
-    grid-template-rows: 6rem 1fr 5rem;
+  display: grid;
+  grid-template-rows: 6rem 1fr 5rem;
 
-    height: 100vh;
-  }
+  height: 100vh;
 
   .dashboard--top-nav {
     grid-row: 1;
@@ -35,10 +34,8 @@ const DashboardWrapper = styled.div`
   }
 
   @media (min-width: 767px) {
-    .dashboard--container {
-      display: grid;
-      grid-template-columns: 7.3rem 1fr;
-    }
+    display: grid;
+    grid-template-columns: 7.3rem 1fr;
 
     .dashboard--top-nav {
       display: none;
@@ -87,9 +84,7 @@ const DashboardWrapper = styled.div`
   }
 
   @media (min-width: 1264px) {
-    .dashboard--container {
-      grid-template-columns: 22rem 1fr;
-    }
+    grid-template-columns: 22rem 1fr;
 
     .dashboard--side-nav a {
       display: flex;
@@ -109,16 +104,20 @@ const DashboardWrapper = styled.div`
   }
 `;
 
+const DashboardContext = createContext();
+
 const Dashboard = () => {
+  const [profilePictureUrl, setProfilePictureUrl] = useState("");
+
   return (
-    <DashboardWrapper>
-      <main className="dashboard--container">
+    <DashboardContext.Provider value={{ profilePictureUrl, setProfilePictureUrl }}>
+      <DashboardWrapper>
         <DashboardTopNav />
         <DashboardSideNav />
         <DashboardLowerNav />
         <Outlet />
-      </main>
-    </DashboardWrapper>
+      </DashboardWrapper>
+    </DashboardContext.Provider>
   );
 };
 
