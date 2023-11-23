@@ -74,13 +74,6 @@ const DashboardWrapper = styled.div`
       display: none;
     }
 
-    .dashboard--outlet {
-      grid-column: 2;
-      grid-row: 1 / -1;
-
-      padding: 0 2rem 5rem 2rem;
-    }
-
     .logo {
       width: 3rem;
       height: 3rem;

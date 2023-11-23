@@ -7,44 +7,21 @@ import { useState } from "react";
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
-import ProfileContentIcon from "../../utilities/icons/ProfileContentIcon";
-import SavedIcon from "../../utilities/icons/SavedIcon";
+import UserPostsIcon from "../../utilities/icons/UserPostsIcon";
+import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import Exit from "../../utilities/icons/Exit";
 
 const ProfileWrapper = styled.div`
+  position: relative;
+
+  padding: 2rem 0 0 0;
+
   overflow-y: scroll;
 
   > div {
-    position: relative;
-
     max-width: 99rem;
-  }
-
-  .profile--perr-container {
-    position: relative;
-    bottom: 5%;
-
-    display: grid;
-    place-items: center;
-
-    height: 100%;
-    width: 100%;
-  }
-
-  .profile--follow-container {
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-
-    background-color: var(--color-dark-gray);
-
-    width: 30rem;
-    height: 40rem;
-
-    border-radius: 8px;
   }
 
   .profile--user-information {
@@ -54,7 +31,7 @@ const ProfileWrapper = styled.div`
     column-gap: 2rem;
     row-gap: 1.5rem;
 
-    padding: 2rem;
+    padding: 0 2rem 2rem 2rem;
     border-bottom: 1px solid var(--color-darker-gray);
   }
 
@@ -87,47 +64,12 @@ const ProfileWrapper = styled.div`
     cursor: pointer;
   }
 
-  .profile--stats.mid-screen {
-    display: none;
-  }
-
   .profile--bio {
     grid-column: 1 / -1;
 
     font-size: var(--font-sm-1);
 
     max-width: 44.5rem;
-  }
-
-  .profile--stats.small-screen {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-    height: 6rem;
-
-    border-bottom: 1px solid var(--color-darker-gray);
-  }
-
-  .profile--stats.small-screen > button {
-    color: var(--color-white);
-  }
-
-  .profile--stats.small-screen > p,
-  .profile--stats.small-screen > button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    width: 5.9rem;
-
-    font-size: var(--font-sm-1);
-    font-family: inherit;
-  }
-
-  .profile--stats.small-screen > p span,
-  .profile--stats.small-screen > button span {
-    color: var(--color-gray);
   }
 
   .profile--user-content > nav {
@@ -144,35 +86,12 @@ const ProfileWrapper = styled.div`
     fill: var(--color-blue);
   }
 
-  .profile--content-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .profile--content-row-container {
-    align-items: stretch;
-
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-    gap: 0.4rem;
-  }
-
-  .profile--content-row-container > div {
-    flex: 1 0 0%;
-
-    width: 27vw;
-    height: 31.8vw;
-    max-width: 32.73rem;
-    max-height: 32.73rem;
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-
   @media (min-width: 767px) {
+    grid-row: 1 / -1;
+    grid-column: 2 / -1;
+
+    padding: 0 2rem 2rem 2rem;
+
     > div {
       margin: 0 auto;
     }
@@ -200,25 +119,6 @@ const ProfileWrapper = styled.div`
       gap: 2rem;
     }
 
-    .profile--stats.mid-screen {
-      display: flex;
-      align-items: flex-start;
-      gap: 3rem;
-
-      position: relative;
-      bottom: 20%;
-
-      font-size: var(--font-sm-1);
-    }
-
-    .profile--stats.mid-screen > button {
-      color: var(--color-white);
-
-      height: 2.1rem;
-
-      font-size: var(--font-sm-1);
-    }
-
     .profile--bio {
       grid-column: 2 / -1;
 
@@ -227,21 +127,12 @@ const ProfileWrapper = styled.div`
 
       height: 7.2rem;
     }
-
-    .profile--stats.small-screen {
-      display: none;
-    }
   }
 `;
 
-/*
-  TODO:
-    - bio should be 350 max
-*/
-
 const Profile = () => {
-  const [isFollowListVisible, setIsFollowListVisible] = useState(false);
-  const [isFollowingListClicked, setIsFollowingListClicked] = useState(false);
+  const [isFollowContainerVisible, setIsFollowContainerVisible] = useState(false);
+  const [isFollowingClicked, setIsFollowingClicked] = useState(false);
   const screenSize = useScreenSize();
 
   const { data, isPending, isError } = useQuery({
@@ -249,101 +140,180 @@ const Profile = () => {
     queryFn: async () => {
       const {
         data: { data },
-      } = await axiosFetch.get("/users/user");
+      } = await axiosFetch.get("/users/655dacad67d703292592ecc1");
+      console.log(data);
       return data;
     },
   });
 
   return (
-    <ProfileWrapper className="dashboard--outlet">
+    <ProfileWrapper>
       {isError && (
-        <div className="profile--perr-container">
+        <div className="perr-container">
           <Error />
         </div>
       )}
       {isPending && (
-        <div className="profile--perr-container">
-          <PulseLoader
-            color="var(--color-blue)"
-            cssOverride={{ transform: "rotate(-90deg)" }}
-          />
+        <div className="perr-container">
+          <PulseLoader color="var(--color-blue)" />
         </div>
       )}
       {!isError && !isPending && (
-        <>
-          <div>
-            <FollowContainer
-              listName={isFollowingListClicked ? "Following" : "Followers"}
-              data={[{ username: "IU" }, { username: "yujin" }, { username: "chaewon" }, { username: "kanye west" }]}
-              isFollowListVisible={isFollowListVisible}
-              setIsFollowListVisible={setIsFollowListVisible}
-              setIsFollowingListClicked={setIsFollowingListClicked}
+        <div>
+          <FollowContainer
+            listName={isFollowingClicked ? "Following" : "Followers"}
+            followData={isFollowingClicked ? data.following : data.followers}
+            isFollowContainerVisible={isFollowContainerVisible}
+            setIsFollowContainerVisible={setIsFollowContainerVisible}
+            setIsFollowingClicked={setIsFollowingClicked}
+          />
+          <section className="profile--user-information">
+            <ProfilePicture
+              width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+              height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+              url={data.profilePictureInfo.imageUrl}
             />
-            <section className="profile--user-information">
-              <ProfilePicture
-                width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-                height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-                url={data.profilePicture[0]}
-              />
-              <div>
-                <p className="profile--username">{data.username}</p>
-                <button className="profile--edit-btn">Edit profile</button>
-              </div>
-              <ProfileStats
-                screenType={"mid"}
-                data={[data.numPosts, data.followers.length, data.following.length]}
-                setIsFollowListVisible={setIsFollowListVisible}
-                setIsFollowingListClicked={setIsFollowingListClicked}
-              />
-              <p className="profile--bio">{!data.bio ? "No bio yet. Write something!" : data.bio}</p>
-            </section>
+            <div>
+              <p className="profile--username">{data.username}</p>
+              <button className="profile--edit-btn">Edit profile</button>
+            </div>
             <ProfileStats
-              screenType={"small"}
+              screenType={"mid"}
               data={[data.numPosts, data.followers.length, data.following.length]}
-              setIsFollowListVisible={setIsFollowListVisible}
-              setIsFollowingListClicked={setIsFollowingListClicked}
+              setIsFollowContainerVisible={setIsFollowContainerVisible}
+              setIsFollowingClicked={setIsFollowingClicked}
             />
-            <section className="profile--user-content">
-              <nav>
-                <NavLink
-                  to="/dashboard/profile"
-                  end>
-                  <ProfileContentIcon />
-                </NavLink>
-                <NavLink to="/dashboard/profile/saved-posts">
-                  <SavedIcon />
-                </NavLink>
-              </nav>
-              <div className="profile--content-container">
-                <div className="profile--content-row-container">
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-1.jpeg')" }}></div>
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-                </div>
-                <div className="profile--content-row-container">
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-2.png')" }}></div>
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-3.jpeg')" }}></div>
-                </div>
-                <div className="profile--content-row-container">
-                  <div style={{ backgroundImage: "url('/src/assets/imgs/luffy-4.jpg')" }}></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </>
+            <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
+          </section>
+          <ProfileStats
+            screenType={"small"}
+            data={[data.numPosts, data.followers.length, data.following.length]}
+            setIsFollowContainerVisible={setIsFollowContainerVisible}
+            setIsFollowingClicked={setIsFollowingClicked}
+          />
+          <section className="profile--user-content">
+            <nav>
+              <NavLink
+                to="/dashboard/profile"
+                end>
+                <UserPostsIcon
+                  width={"2.5rem"}
+                  height={"2.5rem"}
+                />
+              </NavLink>
+              <NavLink to="/dashboard/profile/saved-posts">
+                <SavedPostsIcon
+                  width={"2.5rem"}
+                  height={"2.5rem"}
+                />
+              </NavLink>
+            </nav>
+            <PostsContainer
+              postsData={data.postsInfo}
+              isPosts={true}
+            />
+          </section>
+        </div>
       )}
     </ProfileWrapper>
   );
 };
 
-const FollowContainerWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
+const PostsContainerWrapper = styled.div`
+  .posts-row--container {
+    align-items: stretch;
 
-  nav {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    gap: 0.4rem;
+  }
+
+  .posts-row--container > div {
+    flex: 1 0 0%;
+
+    width: 27vw;
+    height: 31.8vw;
+    max-width: 32.73rem;
+    max-height: 32.73rem;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+`;
+
+const PostsContainer = ({ postsData, isPosts }) => {
+  const perfectThrees = postsData.length / 3;
+  let modPostsData = [];
+  let leftoverStartInd = 0;
+
+  for (let i = 0; i < perfectThrees; i++) {
+    modPostsData.push(postsData.slice(i * 3, i * 3 + 3));
+    leftoverStartInd = i * 3 + 3;
+  }
+
+  if (leftoverStartInd < postsData.length) modPostsData.push(postsData.slice(leftoverStartInd));
+
+  return (
+    <PostsContainerWrapper>
+      {isPosts &&
+        modPostsData.map((postsRowData) => (
+          <PostsRowContainer
+            key={postsRowData}
+            postsRowData={postsRowData}
+            rowLength={postsRowData.length}
+          />
+        ))}
+    </PostsContainerWrapper>
+  );
+};
+
+const PostsRowContainer = ({ postsRowData, rowLength }) => {
+  return (
+    <div className="posts-row--container">
+      {postsRowData.map((post) => (
+        <PostsRow
+          key={post._id}
+          imageUrl={post.imageUrl}
+        />
+      ))}
+      {rowLength === 1 && (
+        <>
+          <div></div>
+          <div></div>
+        </>
+      )}
+      {rowLength === 2 && <div></div>}
+    </div>
+  );
+};
+
+const PostsRow = ({ imageUrl }) => {
+  return <div style={{ backgroundImage: `url(${imageUrl})` }}></div>;
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
+const FollowContainerWrapper = styled.section`
+  > section {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-dark-gray);
+
+    width: 30rem;
+    height: 40rem;
+
+    border-radius: 8px;
+  }
+
+  .follow-container--nav {
     position: relative;
 
     display: grid;
@@ -353,12 +323,12 @@ const FollowContainerWrapper = styled.section`
     border-bottom: 1px solid var(--color-darker-gray);
   }
 
-  nav p {
+  .follow-container--nav > p {
     font-size: var(--font-sm-2);
     font-weight: 600;
   }
 
-  nav button {
+  .follow-container--nav > button {
     position: absolute;
     right: 2%;
 
@@ -366,7 +336,7 @@ const FollowContainerWrapper = styled.section`
     place-items: center;
   }
 
-  .item-container {
+  .follow-container--users {
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -376,17 +346,17 @@ const FollowContainerWrapper = styled.section`
     overflow-y: scroll;
   }
 
-  .item-container > div {
+  .follow-container--users > div {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  .item-container > div p {
+  .follow-container--users > div p {
     font-size: var(--font-sm-1);
   }
 
-  .item-container > div a {
+  .follow-container--users > div a {
     background-color: var(--color-blue);
     color: var(--color-white);
 
@@ -402,13 +372,13 @@ const FollowContainerWrapper = styled.section`
     border-radius: 5px;
   }
 
-  .item-container::-webkit-scrollbar-track {
+  .follow-container--users::-webkit-scrollbar-track {
     background-color: var(--color-dark-gray);
 
     border-radius: 0 0 8px 0;
   }
 
-  .item-container::-webkit-scrollbar-thumb {
+  .follow-container--users::-webkit-scrollbar-thumb {
     background: var(--color-darker-gray);
 
     border-radius: 0 0 8px 0;
@@ -417,32 +387,40 @@ const FollowContainerWrapper = styled.section`
 
 const FollowContainer = ({
   listName,
-  data,
-  isFollowListVisible,
-  setIsFollowListVisible,
-  setIsFollowingListClicked,
+  followData,
+  isFollowContainerVisible,
+  setIsFollowContainerVisible,
+  setIsFollowingClicked,
 }) => {
   return (
-    <FollowContainerWrapper className={`profile--follow-container ${isFollowListVisible ? "" : "display-none"}`}>
-      <nav>
-        <p>{listName}</p>
-        <button
-          onClick={() => {
-            setIsFollowListVisible(false);
-            setIsFollowingListClicked(false);
-          }}>
-          <Exit />
-        </button>
-      </nav>
-      <div className="item-container">
-        {data.map((item) => (
-          <div key={item._id}>
-            <ProfilePicture />
-            <p>{item.username}</p>
-            <Link>See profile</Link>
-          </div>
-        ))}
-      </div>
+    <FollowContainerWrapper>
+      <section className={`${isFollowContainerVisible ? "" : "display-none"}`}>
+        <nav className="follow-container--nav">
+          <p>{listName}</p>
+          <button
+            onClick={() => {
+              setIsFollowContainerVisible(false);
+              setIsFollowingClicked(false);
+            }}>
+            <Exit
+              width={"2.5rem"}
+              height={"2.5rem"}
+            />
+          </button>
+        </nav>
+        <div className="follow-container--users">
+          {followData.map((user) => (
+            <div key={user._id}>
+              <ProfilePicture
+                width="3rem"
+                height="3rem"
+              />
+              <p>{user.username}</p>
+              <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
+            </div>
+          ))}
+        </div>
+      </section>
     </FollowContainerWrapper>
   );
 };

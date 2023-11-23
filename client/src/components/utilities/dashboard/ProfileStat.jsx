@@ -1,11 +1,11 @@
-const ProfileStat = ({ stat, statOf, isLink, setIsFollowListVisible, setIsFollowingListClicked }) => {
+const ProfileStat = ({ stat, statOf, isLink, setIsFollowContainerVisible, setIsFollowingClicked }) => {
   return (
     <>
       {isLink && (
         <button
           onClick={() => {
-            setIsFollowListVisible(true);
-            setIsFollowingListClicked(true);
+            setIsFollowContainerVisible(true);
+            setIsFollowingClicked(true);
           }}>
           {stat}
           <span>{statOf}</span>

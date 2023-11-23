@@ -1,9 +1,14 @@
 import styled from "styled-components";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useMutation } from "@tanstack/react-query";
+
+import axiosFetch from "../../../utilities/axiosFetch";
+import Error from "../../utilities/general/Error";
 
 const CreatePostWrapper = styled.div`
   position: relative;
 
-  padding: 7rem 2rem 5rem 2rem;
+  padding: 5rem 2rem 5rem 2rem;
 
   .create-post--form {
     position: relative;
@@ -27,10 +32,13 @@ const CreatePostWrapper = styled.div`
     background-color: var(--color-blue);
     color: var(--color-white);
 
+    display: grid;
+    place-items: center;
+
     width: 9rem;
     height: 3rem;
 
-    border-radius: 4px;
+    border-radius: 8px;
   }
 
   @media (min-width: 767px) {
@@ -40,20 +48,63 @@ const CreatePostWrapper = styled.div`
 `;
 
 const CreatePost = () => {
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: (data) => {
+      return axiosFetch.post("/posts", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    console.log(data);
+
+    mutate(data);
+  };
+
   return (
     <CreatePostWrapper>
-      <form className="create-post--form">
-        <CreatePostInput
-          type={"file"}
-          name={"profilePicture"}
-        />
-        <CreatePostInput
-          type={"text"}
-          name={"caption"}
-          placeholder={"Enter caption"}
-        />
-        <button type="submit">Post</button>
-      </form>
+      {isError && (
+        <div className="perr-container">
+          <Error />
+        </div>
+      )}
+      {!isError && (
+        <form
+          className="create-post--form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data">
+          <CreatePostInput
+            type={"file"}
+            name={"content"}
+          />
+          <CreatePostInput
+            type={"text"}
+            name={"caption"}
+            placeholder={"Enter caption"}
+          />
+          <button type="submit">
+            {isPending ? (
+              <ClipLoader
+                size={13}
+                color="var(--color-white)"
+              />
+            ) : (
+              "Post"
+            )}
+          </button>
+        </form>
+      )}
     </CreatePostWrapper>
   );
 };
@@ -80,7 +131,7 @@ const CreatePostInputWrapper = styled.div`
   > input[type="file"]::file-selector-button {
     color: var(--color-black);
 
-    border-radius: 4px;
+    border-radius: 6px;
   }
 `;
 

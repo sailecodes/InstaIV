@@ -16,7 +16,7 @@ export const getAllPosts = async (req, res) => {
 
   res
     .status(StatusCodes.OK)
-    .json({ msg: "(Server message) Retrieved all posts", data: { posts, count: posts.length } });
+    .json({ msg: "(Server message) All posts retrieved", data: { posts, count: posts.length } });
 };
 
 export const createPost = async (req, res) => {
@@ -51,12 +51,22 @@ export const createPost = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ msg: "(Server message) Post created" });
 };
 
-export const getPost = async (req, res) => {};
+export const getPost = async (req, res) => {
+  const user = await userModel.findById(req.userInfo.userId);
+
+  // Note: Nonexistent users shouldn't be able to interact with resources
+  if (!user) throw new NotFoundError(`User with id ${req.userInfo.userId} not found`);
+
+  const post = await postModel.findById(req.params.id);
+
+  if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Post retrieved", data: post });
+};
 
 export const updatePost = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
-  // Note: Nonexistent users shouldn't be able to create resources
   if (!user) throw new NotFoundError(`User with id ${req.userInfo.userId} not found`);
 
   const post = await postModel.findById(req.params.id);

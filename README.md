@@ -72,7 +72,7 @@
     - Restricted routes
     - 5 routes (`/api/v1/posts`)
       - Get all posts (_GET_, `/`)
-      - Create post (_CREATE_, `/`)
+      - Create post (_POST_, `/`)
         - Upload the image to Cloudinary
         - Create a Content document
         - Create a Post document
@@ -88,20 +88,22 @@
         - Find and delete the corresponding Post document in posts in corresponding User document
         - Decrement numPosts in the corresponding User document
 - **Todos**
-  - `High`
-    - Posts
-      - [ ] Impl. validation layer for post routes
-        - [x] Impl. for create post
-        - [ ] Impl. for update post
-      - [ ] Impl. post to user id check for get post
-      - [ ] Impl. post controllers
-        - [x] Impl. get all posts
-        - [x] Impl. create post
-        - [ ] Impl. update post
-        - [x] Impl. delete post
-      - [ ] Impl. axios fetching for create post
-        - [ ] Impl. loading and error handling
+  - [ ] Users
+    - Add username to followers and following fields
+  - [ ] Posts
+    - [x] Impl. validation layer for post routes
+      - [x] Impl. for create post
+      - [x] Impl. for update post
+    - [x] Impl. post to user id check for get, update, and delete post
+    - [x] Impl. post controllers
+      - [x] Impl. get all posts
+      - [x] Impl. create post
+      - [x] Impl. get post
+      - [x] Impl. update post
+      - [x] Impl. delete post
+    - [x] Impl. create post page
       - [x] Impl. UI for create post page
-  - `Medium`
-  - `Low`
-  - ## `Finished`
+      - [x] Impl. axios fetching for create post
+        - [x] Impl. loading and error handling
+    - [ ] Impl. profile page
+      - [ ] Impl. showing user posts in profile page

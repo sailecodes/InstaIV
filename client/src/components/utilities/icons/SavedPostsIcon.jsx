@@ -1,4 +1,4 @@
-const SavedIcon = () => {
+const SavedPostsIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,4 +13,4 @@ const SavedIcon = () => {
     </svg>
   );
 };
-export default SavedIcon;
+export default SavedPostsIcon;
