@@ -143,7 +143,6 @@ const Profile = () => {
       const {
         data: { data },
       } = await axiosFetch.get("/users/655dacad67d703292592ecc1");
-      console.log(data);
       return data;
     },
   });

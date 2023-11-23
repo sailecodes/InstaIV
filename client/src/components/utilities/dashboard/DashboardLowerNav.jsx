@@ -1,15 +1,21 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
 
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import HomeIcon from "../icons/HomeIcon";
 import CreateIcon from "../icons/CreateIcon";
 import MessagesIcon from "../icons/MessagesIcon";
-import { DashboardContext } from "../../pages/dashboard/Dashboard";
 
 const DashboardLowerNavWrapper = styled.nav`
-  .dashboard--lower-nav-link-container {
+  grid-row: 3;
+
+  display: flex;
+  align-items: center;
+
+  padding: 2rem;
+  border-top: 1px solid var(--color-dark-gray);
+
+  .lower-nav--links-container {
     display: flex;
     align-items: center;
     gap: 8rem;
@@ -21,20 +27,24 @@ const DashboardLowerNavWrapper = styled.nav`
     transition: scale 0.2s;
   }
 
-  .dashboard--lower-nav-link-container > a:hover {
+  .lower-nav--links-container > a:hover {
     scale: 1.05;
   }
 
-  .dashboard--lower-nav-link-container .active svg {
+  .lower-nav--links-container .active svg {
     stroke: var(--color-white);
     fill: var(--color-white);
+  }
+
+  @media (min-width: 767px) {
+    display: none;
   }
 `;
 
 const DashboardLowerNav = () => {
   return (
-    <DashboardLowerNavWrapper className="dashboard--lower-nav">
-      <div className="dashboard--lower-nav-link-container">
+    <DashboardLowerNavWrapper>
+      <div className="lower-nav--links-container">
         <NavLink
           to="/dashboard"
           end>

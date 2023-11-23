@@ -8,16 +8,10 @@ const SearchBarWrapper = styled.div`
     width: 26.8rem;
     height: 3.6rem;
 
-    font-family: inherit;
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
 
     padding: 0 2rem 0 2rem;
-    border: none;
     border-radius: 8px;
-  }
-
-  input:focus {
-    outline: none;
   }
 `;
 
