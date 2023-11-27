@@ -3,13 +3,14 @@ import styled from "styled-components";
 import CreateMessageIcon from "../../utilities/icons/CreateMessageIcon";
 
 const MessagesWrapper = styled.div`
-  overflow-y: scroll;
+  display: flex;
+  overflow-y: auto;
 
   .messages--side-nav {
     width: 12rem;
-    height: 100%;
 
-    padding: 2.5rem 0 2rem 2rem;
+    padding-top: 2.5rem;
+    border-right: 1px solid var(--color-dark-gray);
   }
 
   .messages--side-nav-header {
@@ -17,7 +18,7 @@ const MessagesWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-    padding-right: 2rem;
+    padding: 0 2rem 0 2rem;
     margin-bottom: 3rem;
   }
 
@@ -31,12 +32,14 @@ const MessagesWrapper = styled.div`
 
   .messages--side-nav-sub-header {
     display: none;
+    padding: 0 2rem 0 2rem;
   }
 
   .messages--side-nav-msg-container {
+    height: 100%;
+
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
 
     overflow-y: scroll;
   }
@@ -83,13 +86,19 @@ const Messages = () => {
       <div className="messages--side-nav">
         <div className="messages--side-nav-header">
           <p className="messages--side-nav-header-username">admin</p>
-          <CreateMessageIcon
-            width="2.7rem"
-            height="2.7rem"
-          />
+          <CreateMessageIcon width="2.7rem" height="2.7rem" />
         </div>
         <p className="messages--side-nav-sub-header">Messages</p>
         <div className="messages--side-nav-msg-container">
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
           <MessagesPreviewRow></MessagesPreviewRow>
           <MessagesPreviewRow></MessagesPreviewRow>
           <MessagesPreviewRow></MessagesPreviewRow>
@@ -104,6 +113,16 @@ const Messages = () => {
 };
 
 const MessagesPreviewRowWrapper = styled.div`
+  > div {
+    padding: 1rem 2rem;
+  }
+
+  > div:hover {
+    background-color: var(--color-dark-gray);
+
+    cursor: pointer;
+  }
+
   .messages-preview-row--img {
     background-color: blue;
 
@@ -118,9 +137,11 @@ const MessagesPreviewRowWrapper = styled.div`
   }
 
   @media (min-width: 900px) {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
 
     .messages-preview-row--meta {
       display: unset;
@@ -133,6 +154,8 @@ const MessagesPreviewRowWrapper = styled.div`
 
     .messages-preview-row--meta-message-preview {
       color: var(--color-gray-900);
+
+      font-size: var(--font-sm-0);
     }
   }
 `;
@@ -140,10 +163,12 @@ const MessagesPreviewRowWrapper = styled.div`
 const MessagesPreviewRow = () => {
   return (
     <MessagesPreviewRowWrapper>
-      <div className="messages-preview-row--img"></div>
-      <div className="messages-preview-row--meta">
-        <p className="messages-preview-row--meta-message-name">AY GC</p>
-        <p className="messages-preview-row--meta-message-preview">I have soo many jjk memes and...</p>
+      <div>
+        <div className="messages-preview-row--img"></div>
+        <div className="messages-preview-row--meta">
+          <p className="messages-preview-row--meta-message-name">AY GC</p>
+          <p className="messages-preview-row--meta-message-preview">I have soo many jjk memes and...</p>
+        </div>
       </div>
     </MessagesPreviewRowWrapper>
   );

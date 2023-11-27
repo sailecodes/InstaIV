@@ -12,6 +12,18 @@ const userProfilePictureInfoSubSchema = mongoose.Schema({
   },
 });
 
+const userFollowInfoSubSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: [true, "Username required"],
+  },
+  userId: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+    required: [true, "User id required"],
+  },
+});
+
 const userPostsInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
@@ -50,12 +62,12 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  followers: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+  followersInfo: {
+    type: [userFollowInfoSubSchema],
     default: [],
   },
-  following: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+  followingInfo: {
+    type: [userFollowInfoSubSchema],
     default: [],
   },
   postsInfo: {

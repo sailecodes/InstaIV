@@ -37,7 +37,7 @@ const DashboardSideNavWrapper = styled.nav`
   }
 
   .active svg {
-    stroke: none;
+    stroke: var(--color-white);
     fill: var(--color-white);
   }
 
@@ -115,9 +115,7 @@ const DashboardSideNav = () => {
     <DashboardSideNavWrapper>
       <Logo />
       <div className="side-nav--links-container">
-        <NavLink
-          to="/dashboard"
-          end>
+        <NavLink to="/dashboard" end>
           <HomeIcon />
           <p className="side-nav--link">Home</p>
         </NavLink>
@@ -134,10 +132,7 @@ const DashboardSideNav = () => {
           <p className="side-nav--link">Create</p>
         </NavLink>
         <NavLink to={`/dashboard/profile/${userId}`}>
-          <ProfilePicture
-            width={"3rem"}
-            height={"3rem"}
-          />
+          <ProfilePicture width={"3rem"} height={"3rem"} />
           <p className="side-nav--link">Profile</p>
         </NavLink>
       </div>

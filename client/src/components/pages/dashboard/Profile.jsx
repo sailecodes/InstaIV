@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useQuery } from "@tanstack/react-query";
 import { Outlet, NavLink, Link, useLoaderData } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
@@ -171,9 +171,6 @@ const Profile = () => {
             <FollowContainer
               listName={isFollowingClicked ? "Following" : "Followers"}
               followData={isFollowingClicked ? data.following : data.followers}
-              isFollowContainerVisible={isFollowContainerVisible}
-              setIsFollowContainerVisible={setIsFollowContainerVisible}
-              setIsFollowingClicked={setIsFollowingClicked}
             />
             <section className="profile--user-information">
               <ProfilePicture
@@ -190,19 +187,11 @@ const Profile = () => {
             <ProfileStats screenType={"small"} />
             <section className="profile--user-content">
               <nav>
-                <NavLink
-                  to={`/dashboard/profile/${id}`}
-                  end>
-                  <UserPostsIcon
-                    width={"2.5rem"}
-                    height={"2.5rem"}
-                  />
+                <NavLink to={`/dashboard/profile/${id}`} end>
+                  <UserPostsIcon width={"2.5rem"} height={"2.5rem"} />
                 </NavLink>
                 <NavLink to={`/dashboard/profile/${id}/saved-posts`}>
-                  <SavedPostsIcon
-                    width={"2.5rem"}
-                    height={"2.5rem"}
-                  />
+                  <SavedPostsIcon width={"2.5rem"} height={"2.5rem"} />
                 </NavLink>
               </nav>
               <Outlet />
@@ -218,12 +207,13 @@ export const ProfileContext = createContext();
 
 //////////////////////////////////////////////////////////////////////////////
 
-const FollowContainerWrapper = styled.section`
+const FollowContainerWrapper = styled.div`
   > section {
     position: absolute;
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
+    z-index: 100;
 
     display: flex;
     flex-direction: column;
@@ -308,13 +298,9 @@ const FollowContainerWrapper = styled.section`
   }
 `;
 
-const FollowContainer = ({
-  listName,
-  followData,
-  isFollowContainerVisible,
-  setIsFollowContainerVisible,
-  setIsFollowingClicked,
-}) => {
+const FollowContainer = ({ listName, followData }) => {
+  const { isFollowContainerVisible, setIsFollowContainerVisible, setIsFollowingClicked } = useContext(ProfileContext);
+
   return (
     <FollowContainerWrapper>
       <section className={`${isFollowContainerVisible ? "" : "display-none"}`}>
@@ -325,19 +311,13 @@ const FollowContainer = ({
               setIsFollowContainerVisible(false);
               setIsFollowingClicked(false);
             }}>
-            <Exit
-              width={"2.5rem"}
-              height={"2.5rem"}
-            />
+            <Exit width={"2.5rem"} height={"2.5rem"} />
           </button>
         </nav>
         <div className="follow-container--users">
           {followData.map((user) => (
             <div key={user._id}>
-              <ProfilePicture
-                width="3rem"
-                height="3rem"
-              />
+              <ProfilePicture width="3rem" height="3rem" />
               <p>{user.username}</p>
               <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
             </div>

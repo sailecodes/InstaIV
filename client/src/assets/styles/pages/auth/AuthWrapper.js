@@ -22,7 +22,6 @@ const AuthWrapper = styled.div`
     height: 40rem;
 
     padding: 1rem;
-    border: 1px solid var(--color-light-gray);
   }
 
   .auth--container > div:nth-child(1) {
