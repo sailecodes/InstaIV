@@ -12,7 +12,7 @@ export const register = async (req, res) => {
 
   const registeredUser = await userModel.create(req.body);
 
-  res.status(StatusCodes.CREATED).json({ msg: "(Server message) User registered", data: registeredUser });
+  res.status(StatusCodes.CREATED).json({ msg: "(Server message) User registered" });
 };
 
 export const login = async (req, res) => {
@@ -34,7 +34,7 @@ export const login = async (req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
 
-  res.status(StatusCodes.OK).json({ msg: "(Server message) User logged in" });
+  res.status(StatusCodes.OK).json({ msg: "(Server message) User logged in", data: loggedUser });
 };
 
 export const logout = (req, res) => {

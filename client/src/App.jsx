@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createContext, useState } from "react";
 
 import Login from "./components/pages/auth/Login";
 import Register from "./components/pages/auth/Register";
@@ -9,7 +10,7 @@ import Home from "./components/pages/dashboard/Home";
 import Search from "./components/pages/dashboard/Search";
 import Messages from "./components/pages/dashboard/Messages";
 import CreatePost from "./components/pages/dashboard/CreatePost";
-import Profile from "./components/pages/dashboard/Profile";
+import Profile, { ProfileLoader } from "./components/pages/dashboard/Profile";
 import Posts from "./components/pages/dashboard/Posts";
 import SavedPosts from "./components/pages/dashboard/SavedPosts";
 
@@ -45,8 +46,9 @@ const router = createBrowserRouter([
         element: <CreatePost />,
       },
       {
-        path: "profile",
+        path: "profile/:id",
         element: <Profile />,
+        loader: ProfileLoader,
         children: [
           {
             index: true,
@@ -63,11 +65,19 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const [userId, setUserId] = useState("");
+  const [userProfilePictureUrl, setUserProfilePictureUrl] = useState("");
+
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AppContext.Provider value={{ userId, setUserId, userProfilePictureUrl, setUserProfilePictureUrl }}>
+        <RouterProvider router={router} />
+      </AppContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
+
+export const AppContext = createContext();
+
 export default App;

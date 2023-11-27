@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
 
 import Logo from "../general/Logo";
 import HomeIcon from "../icons/HomeIcon";
@@ -8,7 +7,8 @@ import MessagesIcon from "../icons/MessagesIcon";
 import CreateIcon from "../icons/CreateIcon";
 import ProfilePicture from "./ProfilePicture";
 import SearchIcon from "../icons/SearchIcon";
-import { DashboardContext } from "../../pages/dashboard/Dashboard";
+import { useContext } from "react";
+import { AppContext } from "../../../App";
 
 const DashboardSideNavWrapper = styled.nav`
   display: none;
@@ -45,8 +45,8 @@ const DashboardSideNavWrapper = styled.nav`
     font-weight: 600;
   }
 
-  .side-nav--link.full-screen {
-    font-size: var(--font-sm-2);
+  .display-none {
+    display: none;
   }
 
   @media (min-width: 767px) {
@@ -92,8 +92,13 @@ const DashboardSideNavWrapper = styled.nav`
         width: 19.9rem;
       }
 
+      .side-nav--links-container.width-maintain > a {
+      }
+
       .side-nav--link {
         display: block;
+
+        font-size: var(--font-sm-2);
       }
 
       .logo span {
@@ -104,34 +109,36 @@ const DashboardSideNavWrapper = styled.nav`
 `;
 
 const DashboardSideNav = () => {
+  const { userId } = useContext(AppContext);
+
   return (
-    <DashboardSideNavWrapper className="dashboard--side-nav">
+    <DashboardSideNavWrapper>
       <Logo />
       <div className="side-nav--links-container">
         <NavLink
           to="/dashboard"
           end>
           <HomeIcon />
-          <p className="side-nav--link full-screen">Home</p>
+          <p className="side-nav--link">Home</p>
         </NavLink>
         <NavLink to="/dashboard/search">
           <SearchIcon />
-          <p className="side-nav--link full-screen">Search</p>
+          <p className="side-nav--link">Search</p>
         </NavLink>
         <NavLink to="/dashboard/messages">
           <MessagesIcon />
-          <p className="side-nav--link full-screen">Messages</p>
+          <p className="side-nav--link">Messages</p>
         </NavLink>
         <NavLink to="/dashboard/create-post">
           <CreateIcon />
-          <p className="side-nav--link full-screen">Create</p>
+          <p className="side-nav--link">Create</p>
         </NavLink>
-        <NavLink to="/dashboard/profile">
+        <NavLink to={`/dashboard/profile/${userId}`}>
           <ProfilePicture
             width={"3rem"}
             height={"3rem"}
           />
-          <p className="side-nav--link full-screen">Profile</p>
+          <p className="side-nav--link">Profile</p>
         </NavLink>
       </div>
     </DashboardSideNavWrapper>

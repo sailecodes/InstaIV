@@ -89,6 +89,10 @@
         - Find and delete the corresponding Post document in posts in corresponding User document
         - Decrement numPosts in the corresponding User document
 - **Todos**
+  - [ ] Dashboard
+    - [ ] Impl. get profile picture route
+    - [ ] Impl. axios fetching for profile picture
+    - [ ] Impl. axios fetching for user id
   - [ ] Users
     - Add username to followers and following fields
   - [x] Posts

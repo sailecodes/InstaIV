@@ -62,6 +62,8 @@ const AuthWrapper = styled.div`
   }
 
   .auth--input-container > p {
+    color: var(--color-white);
+
     font-size: var(--font-sm-1);
   }
 

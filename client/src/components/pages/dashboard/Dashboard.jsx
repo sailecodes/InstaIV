@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
-import { createContext, useState } from "react";
 
 import DashboardTopNav from "../../utilities/dashboard/DashboardTopNav";
 import DashboardLowerNav from "../../utilities/dashboard/DashboardLowerNav";
@@ -26,20 +25,14 @@ const DashboardWrapper = styled.div`
 `;
 
 const Dashboard = () => {
-  const [profilePictureUrl, setProfilePictureUrl] = useState("");
-
   return (
-    <DashboardContext.Provider value={{ profilePictureUrl, setProfilePictureUrl }}>
-      <DashboardWrapper>
-        <DashboardTopNav />
-        <DashboardSideNav />
-        <DashboardLowerNav />
-        <Outlet />
-      </DashboardWrapper>
-    </DashboardContext.Provider>
+    <DashboardWrapper>
+      <DashboardTopNav />
+      <DashboardSideNav />
+      <DashboardLowerNav />
+      <Outlet />
+    </DashboardWrapper>
   );
 };
-
-export const DashboardContext = createContext();
 
 export default Dashboard;

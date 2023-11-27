@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useQuery } from "@tanstack/react-query";
-import { Outlet, NavLink, Link } from "react-router-dom";
-import { createContext, useContext, useState } from "react";
+import { Outlet, NavLink, Link, useLoaderData } from "react-router-dom";
+import { createContext, useState } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
@@ -12,7 +12,6 @@ import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import Exit from "../../utilities/icons/Exit";
-import { DashboardContext } from "./Dashboard";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -134,20 +133,18 @@ const ProfileWrapper = styled.div`
 const Profile = () => {
   const [isFollowContainerVisible, setIsFollowContainerVisible] = useState(false);
   const [isFollowingClicked, setIsFollowingClicked] = useState(false);
-  const { setProfilePictureUrl } = useContext(DashboardContext);
   const screenSize = useScreenSize();
+  const id = useLoaderData();
 
-  const { data, isPending, isError, isSuccess } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const {
         data: { data },
-      } = await axiosFetch.get("/users/655dacad67d703292592ecc1");
+      } = await axiosFetch.get(`/users/${id}`);
       return data;
     },
   });
-
-  if (isSuccess) setProfilePictureUrl(data?.profilePictureInfo ? data.profilePictureInfo.imageUrl : "");
 
   return (
     <ProfileContext.Provider
@@ -194,14 +191,14 @@ const Profile = () => {
             <section className="profile--user-content">
               <nav>
                 <NavLink
-                  to="/dashboard/profile"
+                  to={`/dashboard/profile/${id}`}
                   end>
                   <UserPostsIcon
                     width={"2.5rem"}
                     height={"2.5rem"}
                   />
                 </NavLink>
-                <NavLink to="/dashboard/profile/saved-posts">
+                <NavLink to={`/dashboard/profile/${id}/saved-posts`}>
                   <SavedPostsIcon
                     width={"2.5rem"}
                     height={"2.5rem"}
@@ -349,6 +346,10 @@ const FollowContainer = ({
       </section>
     </FollowContainerWrapper>
   );
+};
+
+export const ProfileLoader = ({ params }) => {
+  return params.id;
 };
 
 export default Profile;

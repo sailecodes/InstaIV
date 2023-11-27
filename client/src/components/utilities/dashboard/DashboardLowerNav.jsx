@@ -5,6 +5,8 @@ import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import HomeIcon from "../icons/HomeIcon";
 import CreateIcon from "../icons/CreateIcon";
 import MessagesIcon from "../icons/MessagesIcon";
+import { useContext } from "react";
+import { AppContext } from "../../../App";
 
 const DashboardLowerNavWrapper = styled.nav`
   grid-row: 3;
@@ -42,6 +44,8 @@ const DashboardLowerNavWrapper = styled.nav`
 `;
 
 const DashboardLowerNav = () => {
+  const { userId } = useContext(AppContext);
+
   return (
     <DashboardLowerNavWrapper>
       <div className="lower-nav--links-container">
@@ -56,7 +60,7 @@ const DashboardLowerNav = () => {
         <NavLink to="/dashboard/messages">
           <MessagesIcon />
         </NavLink>
-        <NavLink to="/dashboard/profile">
+        <NavLink to={`/dashboard/profile/${userId}`}>
           <ProfilePicture
             width="2.6rem"
             height="2.6rem"
