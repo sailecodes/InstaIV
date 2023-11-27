@@ -6,8 +6,6 @@ const MessagesWrapper = styled.div`
   overflow-y: scroll;
 
   .messages--side-nav {
-    background-color: red;
-
     width: 12rem;
     height: 100%;
 
@@ -41,15 +39,6 @@ const MessagesWrapper = styled.div`
     gap: 1.5rem;
 
     overflow-y: scroll;
-  }
-
-  .messages--side-nav-msg-container div {
-    background-color: blue;
-
-    width: 5.6rem;
-    height: 5.6rem;
-
-    border-radius: 100px;
   }
 
   @media (min-width: 767px) {
@@ -101,18 +90,62 @@ const Messages = () => {
         </div>
         <p className="messages--side-nav-sub-header">Messages</p>
         <div className="messages--side-nav-msg-container">
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
+          <MessagesPreviewRow></MessagesPreviewRow>
         </div>
       </div>
     </MessagesWrapper>
+  );
+};
+
+const MessagesPreviewRowWrapper = styled.div`
+  .messages-preview-row--img {
+    background-color: blue;
+
+    width: 5.6rem;
+    height: 5.6rem;
+
+    border-radius: 100px;
+  }
+
+  .messages-preview-row--meta {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .messages-preview-row--meta {
+      display: unset;
+    }
+
+    .messages-preview-row--meta-message-name {
+      font-size: var(--font-sm-1);
+      font-weight: 600;
+    }
+
+    .messages-preview-row--meta-message-preview {
+      color: var(--color-gray-900);
+    }
+  }
+`;
+
+const MessagesPreviewRow = () => {
+  return (
+    <MessagesPreviewRowWrapper>
+      <div className="messages-preview-row--img"></div>
+      <div className="messages-preview-row--meta">
+        <p className="messages-preview-row--meta-message-name">AY GC</p>
+        <p className="messages-preview-row--meta-message-preview">I have soo many jjk memes and...</p>
+      </div>
+    </MessagesPreviewRowWrapper>
   );
 };
 
