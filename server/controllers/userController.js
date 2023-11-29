@@ -99,6 +99,8 @@ export const getFollowing = async (req, res) => {
 };
 
 export const followUser = async (req, res) => {
+  if (req.userInfo.userId === req.params.id) throw new BadRequestError("Cannot follow yourself");
+
   const user = await userModel.findById(req.userInfo.userId);
   const followedUser = await userModel.findById(req.params.id);
 
@@ -110,13 +112,15 @@ export const followUser = async (req, res) => {
   followedUser.followersInfo.push({ username: user.username, userId: req.userInfo.userId });
   await followedUser.save();
 
-  user.following.push({ username: followedUser.username, userId: req.params.id });
+  user.followingInfo.push({ username: followedUser.username, userId: req.params.id });
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Followed user" });
 };
 
 export const unfollowUser = async (req, res) => {
+  if (req.userInfo.userId === req.params.id) throw new BadRequestError("Cannot follow yourself");
+
   const user = await userModel.findById(req.userInfo.userId);
   const unfollowedUser = await userModel.findById(req.params.id);
 
@@ -125,10 +129,12 @@ export const unfollowUser = async (req, res) => {
   else if (!user || !unfollowedUser)
     throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.params.id} found`);
 
-  unfollowedUser.followers = unfollowedUser.followers.filter((obj) => obj.userId.toString() !== req.userInfo.userId);
+  unfollowedUser.followersInfo = unfollowedUser.followersInfo.filter(
+    (obj) => obj.userId.toString() !== req.userInfo.userId
+  );
   await unfollowedUser.save();
 
-  user.following = user.following.filter((obj) => obj.userId.toString() !== req.params.id);
+  user.followingInfo = user.followingInfo.filter((obj) => obj.userId.toString() !== req.params.id);
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Unfollowed user" });

@@ -20,15 +20,13 @@ const Login = () => {
       return axiosFetch.post("/auth/login", loginData);
     },
     onSuccess: (data) => {
+      navigate("/dashboard");
       setUserId(data?.data?.data._id);
       setUserProfilePictureUrl(data?.data?.data.profilePictureInfo.imageUrl);
-      navigate("/dashboard");
     },
     onError: (error) => {
       const errors = error?.response?.data?.msg;
       let msgs = null;
-
-      console.log(errors);
 
       if (errors) msgs = errors.split(",");
 
@@ -60,28 +58,9 @@ const Login = () => {
         <Logo isLarge={true} />
         <div className="auth--input-container">
           <form onSubmit={handleSubmit}>
-            <AuthInput
-              name="email"
-              placeholder="Email"
-              error={emailError}
-              setError={setEmailError}
-            />
-            <AuthInput
-              name="password"
-              placeholder="Password"
-              error={passwordError}
-              setError={setPasswordError}
-            />
-            <button type="submit">
-              {isPending ? (
-                <ClipLoader
-                  size={10}
-                  color={"var(--color-white)"}
-                />
-              ) : (
-                "Login"
-              )}
-            </button>
+            <AuthInput name="email" placeholder="Email" error={emailError} setError={setEmailError} />
+            <AuthInput name="password" placeholder="Password" error={passwordError} setError={setPasswordError} />
+            <button type="submit">{isPending ? <ClipLoader size={10} color={"var(--color-white)"} /> : "Login"}</button>
           </form>
           <p>
             Don&apos;t have an account? <Link to="/register">Sign up</Link>

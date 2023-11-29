@@ -19,7 +19,7 @@ const Register = () => {
       return axiosFetch.post("/auth/register", registerData);
     },
     onSuccess: () => {
-      navigate("/login");
+      navigate("/");
     },
     onError: (error) => {
       const errors = error?.response?.data?.msg;
@@ -57,18 +57,8 @@ const Register = () => {
         <Logo isLarge={true} />
         <div className="auth--input-container">
           <form onSubmit={handleSubmit}>
-            <AuthInput
-              name="email"
-              placeholder="Email"
-              error={emailError}
-              setError={setEmailError}
-            />
-            <AuthInput
-              name="password"
-              placeholder="Password"
-              error={passwordError}
-              setError={setPasswordError}
-            />
+            <AuthInput name="email" placeholder="Email" error={emailError} setError={setEmailError} />
+            <AuthInput name="password" placeholder="Password" error={passwordError} setError={setPasswordError} />
             <AuthInput
               type="text"
               name="username"
@@ -77,14 +67,7 @@ const Register = () => {
               setError={setUsernameError}
             />
             <button type="submit">
-              {isPending ? (
-                <ClipLoader
-                  size={10}
-                  color={"var(--color-white)"}
-                />
-              ) : (
-                "Register"
-              )}
+              {isPending ? <ClipLoader size={10} color={"var(--color-white)"} /> : "Register"}
             </button>
           </form>
           <p>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useQuery } from "@tanstack/react-query";
-import { Outlet, NavLink, Link, useLoaderData } from "react-router-dom";
+import { Outlet, NavLink, Link, useLoaderData, useNavigate } from "react-router-dom";
 import { createContext, useContext, useState } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
@@ -12,6 +12,7 @@ import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import Exit from "../../utilities/icons/Exit";
+import { DashboardContext } from "./Dashboard";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -131,8 +132,8 @@ const ProfileWrapper = styled.div`
 `;
 
 const Profile = () => {
-  const [isFollowContainerVisible, setIsFollowContainerVisible] = useState(false);
-  const [isFollowingClicked, setIsFollowingClicked] = useState(false);
+  const navigate = useNavigate();
+
   const screenSize = useScreenSize();
   const id = useLoaderData();
 
@@ -147,14 +148,7 @@ const Profile = () => {
   });
 
   return (
-    <ProfileContext.Provider
-      value={{
-        data,
-        isFollowContainerVisible,
-        setIsFollowContainerVisible,
-        isFollowingClicked,
-        setIsFollowingClicked,
-      }}>
+    <ProfileContext.Provider value={{ data }}>
       <ProfileWrapper>
         {isError && (
           <div className="perr-container">
@@ -168,10 +162,6 @@ const Profile = () => {
         )}
         {!isError && !isPending && (
           <div>
-            <FollowContainer
-              listName={isFollowingClicked ? "Following" : "Followers"}
-              followData={isFollowingClicked ? data.following : data.followers}
-            />
             <section className="profile--user-information">
               <ProfilePicture
                 width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
@@ -204,129 +194,6 @@ const Profile = () => {
 };
 
 export const ProfileContext = createContext();
-
-//////////////////////////////////////////////////////////////////////////////
-
-const FollowContainerWrapper = styled.div`
-  > section {
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-
-    display: flex;
-    flex-direction: column;
-
-    background-color: var(--color-dark-gray);
-
-    width: 30rem;
-    height: 40rem;
-
-    border-radius: 8px;
-  }
-
-  .follow-container--nav {
-    position: relative;
-
-    display: grid;
-    place-items: center;
-
-    padding: 1rem;
-    border-bottom: 1px solid var(--color-darker-gray);
-  }
-
-  .follow-container--nav > p {
-    font-size: var(--font-sm-2);
-    font-weight: 600;
-  }
-
-  .follow-container--nav > button {
-    position: absolute;
-    right: 2%;
-
-    display: grid;
-    place-items: center;
-  }
-
-  .follow-container--users {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-
-    padding: 2rem;
-
-    overflow-y: scroll;
-  }
-
-  .follow-container--users > div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .follow-container--users > div p {
-    font-size: var(--font-sm-1);
-  }
-
-  .follow-container--users > div a {
-    background-color: var(--color-blue);
-    color: var(--color-white);
-
-    display: grid;
-    place-items: center;
-
-    width: 9rem;
-    height: 3rem;
-
-    font-size: var(--font-sm-1);
-
-    margin-left: auto;
-    border-radius: 5px;
-  }
-
-  .follow-container--users::-webkit-scrollbar-track {
-    background-color: var(--color-dark-gray);
-
-    border-radius: 0 0 8px 0;
-  }
-
-  .follow-container--users::-webkit-scrollbar-thumb {
-    background: var(--color-darker-gray);
-
-    border-radius: 0 0 8px 0;
-  }
-`;
-
-const FollowContainer = ({ listName, followData }) => {
-  const { isFollowContainerVisible, setIsFollowContainerVisible, setIsFollowingClicked } = useContext(ProfileContext);
-
-  return (
-    <FollowContainerWrapper>
-      <section className={`${isFollowContainerVisible ? "" : "display-none"}`}>
-        <nav className="follow-container--nav">
-          <p>{listName}</p>
-          <button
-            onClick={() => {
-              setIsFollowContainerVisible(false);
-              setIsFollowingClicked(false);
-            }}>
-            <Exit width={"2.5rem"} height={"2.5rem"} />
-          </button>
-        </nav>
-        <div className="follow-container--users">
-          {followData.map((user) => (
-            <div key={user._id}>
-              <ProfilePicture width="3rem" height="3rem" />
-              <p>{user.username}</p>
-              <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
-            </div>
-          ))}
-        </div>
-      </section>
-    </FollowContainerWrapper>
-  );
-};
 
 export const ProfileLoader = ({ params }) => {
   return params.id;

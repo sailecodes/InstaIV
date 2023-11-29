@@ -12,6 +12,8 @@
   --color-dark-gray: #303134;
   --color-darker-gray: #181818;
 
+  --color-shaded-bg: #000000b3;
+
   --color-gray-100: #656565;
   --color-gray-200: #767676;
   --color-gray-300: #868686;
@@ -45,6 +47,8 @@
 
 html {
   font-size: 62.5%;
+
+  overflow: hidden;
 }
 
 body {
