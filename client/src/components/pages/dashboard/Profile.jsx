@@ -11,7 +11,6 @@ import UserPostsIcon from "../../utilities/icons/UserPostsIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
-import Exit from "../../utilities/icons/Exit";
 import { AppContext } from "../../../App";
 
 const ProfileWrapper = styled.div`
@@ -41,6 +40,30 @@ const ProfileWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
+  }
+
+  .profile--user-information > div:nth-child(2) > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .profile--user-information > div:nth-child(2) button {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+
+    width: 11.5rem;
+    height: 3.2rem;
+
+    font-size: var(--font-sm-1);
+    font-weight: 500;
+
+    border: none;
+    border-radius: 8px;
+  }
+
+  .profile--user-information > div:nth-child(2) button:nth-child(2) {
+    background-color: var(--color-dark-gray);
   }
 
   .profile--username {
@@ -127,7 +150,7 @@ const ProfileWrapper = styled.div`
       grid-column: 2 / -1;
 
       position: relative;
-      bottom: 60%;
+      bottom: 70%;
 
       height: 7.2rem;
     }
@@ -139,7 +162,7 @@ const Profile = () => {
   const id = useLoaderData();
   const { userId } = useContext(AppContext);
 
-  const isEditable = userId === id;
+  const isLoggedUser = userId === id;
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["user"],
@@ -150,6 +173,12 @@ const Profile = () => {
       return data;
     },
   });
+
+  // const { mutate } = useQuery({
+  //   mutateFn: (data) => {
+  //     return axiosFetch.patch(`/`)
+  //   }
+  // })
 
   return (
     <ProfileContext.Provider value={{ data }}>
@@ -174,7 +203,13 @@ const Profile = () => {
               />
               <div>
                 <p className="profile--username">{data.username}</p>
-                {isEditable && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
+                {isLoggedUser && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
+                {!isLoggedUser && (
+                  <div>
+                    <button>Follow</button>
+                    <button>Unfollow</button>
+                  </div>
+                )}
               </div>
               <ProfileStats screenType={"mid"} />
               <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
 
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import HomeIcon from "../icons/HomeIcon";
 import CreateIcon from "../icons/CreateIcon";
 import MessagesIcon from "../icons/MessagesIcon";
-import { useContext } from "react";
 import { AppContext } from "../../../App";
 
 const DashboardLowerNavWrapper = styled.nav`
