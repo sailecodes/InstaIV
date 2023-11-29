@@ -15,6 +15,8 @@ const FollowContainer = ({ followData }) => {
     setIsFollowingClicked(false);
   };
 
+  console.log(followData);
+
   return (
     <FollowContainerWrapper>
       <section className={`${isFollowContainerVisible ? "" : "display-none"}`}>

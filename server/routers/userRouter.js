@@ -12,7 +12,7 @@ import { validateParamId, validateUpdateProfileInput } from "../middleware/valid
 
 const userRouter = Router();
 
-userRouter.get("/", getAllUsers); // TODO: For testing, delete later.
+userRouter.get("/", getAllUsers);
 
 userRouter.get("/followers", getFollowers);
 userRouter.get("/following", getFollowing);

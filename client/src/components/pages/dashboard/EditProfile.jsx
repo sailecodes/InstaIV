@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 
 import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
@@ -16,7 +16,6 @@ const EditProfileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10rem;
 
   padding: 5rem 2rem 5rem 2rem;
 
@@ -33,6 +32,11 @@ const EditProfileWrapper = styled.div`
 
   form > div:nth-child(2) {
     margin-bottom: 2rem;
+  }
+
+  > p {
+    font-size: var(--font-sm-1);
+    font-style: italic;
   }
 
   button {
@@ -89,11 +93,14 @@ const EditProfile = () => {
         </div>
       )}
       {!isError && (
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <CreatePostInput type="file" name="profilePicture" />
-          <CreatePostInput type="text" name="bio" placeholder="Enter bio" />
-          <button type="submit">{isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Submit"}</button>
-        </form>
+        <>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <CreatePostInput type="file" name="profilePicture" />
+            <CreatePostInput type="text" name="bio" placeholder="Enter bio" />
+            <button type="submit">{isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Submit"}</button>
+          </form>
+          <p>*Can only change profile picture and/or bio (for now)</p>
+        </>
       )}
     </EditProfileWrapper>
   );

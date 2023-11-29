@@ -8,7 +8,6 @@ import Register from "./components/pages/auth/Register";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import Home from "./components/pages/dashboard/Home";
 import Search from "./components/pages/dashboard/Search";
-import Messages from "./components/pages/dashboard/Messages";
 import CreatePost from "./components/pages/dashboard/CreatePost";
 import Profile, { ProfileLoader } from "./components/pages/dashboard/Profile";
 import Posts from "./components/pages/dashboard/Posts";
@@ -37,10 +36,6 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <Search />,
-      },
-      {
-        path: "messages",
-        element: <Messages />,
       },
       {
         path: "create-post",
