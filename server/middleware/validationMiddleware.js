@@ -95,27 +95,14 @@ export const validateLoginInput = validate([
 // User routes validation
 // ==============================================
 
-export const validateProfilePictureInput = validate([
-  body("")
-    .custom((_, { req, res }) => {
-      // Note: Must use a custom validator for req.files since req.files is not currently supported
-      //       by express-validator
-      return req.files.profilePicture;
-    })
-    .withMessage("Image required")
-    .bail()
-    .custom((_, { req, res }) => {
-      return req.files.profilePicture.mimetype.includes("image");
-    })
-    .withMessage("File type not supported"),
-]);
-
 export const validateUpdateProfileInput = validate([
   body("bio")
     .isLength({ max: 100 })
     .withMessage("Bio must be maximum 100 characters")
     .bail()
     .custom((_, { req, res }) => {
+      // Note: Must use a custom validator for req.files since req.files is not currently supported
+      //       by express-validator
       return !req.files?.profilePicture || req.files.profilePicture.mimetype.includes("image");
     }),
 ]);

@@ -44,14 +44,12 @@ const DashboardLowerNavWrapper = styled.nav`
 `;
 
 const DashboardLowerNav = () => {
-  const { userId } = useContext(AppContext);
+  const { userId, userProfilePictureUrl } = useContext(AppContext);
 
   return (
     <DashboardLowerNavWrapper>
       <div className="lower-nav--links-container">
-        <NavLink
-          to="/dashboard"
-          end>
+        <NavLink to="/dashboard" end>
           <HomeIcon />
         </NavLink>
         <NavLink to="/dashboard/create-post">
@@ -61,10 +59,7 @@ const DashboardLowerNav = () => {
           <MessagesIcon />
         </NavLink>
         <NavLink to={`/dashboard/profile/${userId}`}>
-          <ProfilePicture
-            width="2.6rem"
-            height="2.6rem"
-          />
+          <ProfilePicture width="2.6rem" height="2.6rem" profilePictureUrl={userProfilePictureUrl} />
         </NavLink>
       </div>
     </DashboardLowerNavWrapper>

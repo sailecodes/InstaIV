@@ -16,66 +16,15 @@ export const getAllUsers = async (req, res) => {
 };
 
 // ==============================================
-// Profile picture and bio
+// Profile
 // ==============================================
 
 // TODO: Impl. safety feature to remove the uploaded image and created Content document when an error
 //       occurs afterwards
-export const createProfilePicture = async (req, res) => {
-  const user = await userModel.findById(req.userInfo.userId);
-
-  if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
-
-  const cloudinaryResult = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
-    use_filename: true,
-    folder: "InstaIV/Profile-pictures",
-  });
-
-  const content = await contentModel.create({
-    imageUrl: cloudinaryResult.secure_url,
-    publicId: cloudinaryResult.public_id,
-  });
-
-  user.profilePictureInfo = { imageUrl: cloudinaryResult.secure_url, contentId: content._id };
-  await user.save();
-
-  fs.unlinkSync(req.files.profilePicture.tempFilePath);
-
-  return res.status(StatusCodes.CREATED).json({ msg: "(Server message) Created profile picture" });
-};
-
-// TODO: Impl. safety feature to redo any changes if an error occurs
-export const updateProfilePicture = async (req, res) => {
-  const user = await userModel.findById(req.userInfo.userId);
-
-  if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
-
-  const content = await contentModel.findById(user.profilePictureInfo.contentId);
-
-  if (!content) throw new NotFoundError(`No profile picture with id ${user.profilePictureInfo.contentId} found`);
-
-  await cloudinary.uploader.destroy(content.publicId);
-  const result = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
-    use_filename: true,
-    folder: "InstaIV/Profile-pictures",
-  });
-
-  content.imageUrl = result.secure_url;
-  content.publicId = result.public_id;
-  await content.save();
-
-  user.profilePictureInfo.imageUrl = result.secure_url;
-  await user.save();
-
-  fs.unlinkSync(req.files.profilePicture.tempFilePath);
-
-  return res.status(StatusCodes.CREATED).json({ msg: "(Server message) Updated profile picture" });
-};
-
 export const updateProfile = async (req, res) => {
-  const user = await userModel.findById(req.userInfo.userId);
+  const user = await userModel.findById(req.params.id);
 
-  if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
+  if (!user) throw new NotFoundError(`No user with id ${req.params.id} found`);
 
   if (req.body.bio) {
     user.bio = req.body.bio;

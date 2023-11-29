@@ -7,6 +7,7 @@ import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
 import { AppContext } from "../../../App";
+import { useNavigate } from "react-router-dom";
 
 const EditProfileWrapper = styled.div`
   position: relative;
@@ -54,17 +55,19 @@ const EditProfileWrapper = styled.div`
 `;
 
 const EditProfile = () => {
-  const { setUserProfilePictureUrl } = useContext(AppContext);
+  const { userId, setUserProfilePictureUrl } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (data) => {
-      return axiosFetch.patch("/users/profile", data, {
+      return axiosFetch.patch(`/users/${userId}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
     },
     onSuccess: (data) => {
+      navigate(`/dashboard/profile/${userId}`);
       setUserProfilePictureUrl(data?.data?.data.profilePictureInfo.imageUrl);
     },
   });
