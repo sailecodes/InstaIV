@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Outlet, NavLink, useLoaderData, Link } from "react-router-dom";
 import { createContext, useContext } from "react";
 
@@ -12,6 +12,7 @@ import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import { AppContext } from "../../../App";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -158,6 +159,7 @@ const ProfileWrapper = styled.div`
 `;
 
 const Profile = () => {
+  const queryClient = useQueryClient();
   const screenSize = useScreenSize();
   const id = useLoaderData();
   const { userId } = useContext(AppContext);
@@ -165,7 +167,7 @@ const Profile = () => {
   const isLoggedUser = userId === id;
 
   const { data, isPending, isError } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["user", id],
     queryFn: async () => {
       const {
         data: { data },
@@ -174,11 +176,23 @@ const Profile = () => {
     },
   });
 
-  // const { mutate } = useQuery({
-  //   mutateFn: (data) => {
-  //     return axiosFetch.patch(`/`)
-  //   }
-  // })
+  const followUserMutation = useMutation({
+    mutationFn: () => {
+      return axiosFetch.patch(`/users/follow/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user", id] });
+    },
+  });
+
+  const unfollowUserMutation = useMutation({
+    mutationFn: () => {
+      return axiosFetch.patch(`/users/unfollow/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user", id] });
+    },
+  });
 
   return (
     <ProfileContext.Provider value={{ data }}>
@@ -206,8 +220,16 @@ const Profile = () => {
                 {isLoggedUser && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
                 {!isLoggedUser && (
                   <div>
-                    <button>Follow</button>
-                    <button>Unfollow</button>
+                    <button onClick={() => followUserMutation.mutate()}>
+                      {followUserMutation.isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Follow"}
+                    </button>
+                    <button onClick={() => unfollowUserMutation.mutate()}>
+                      {unfollowUserMutation.isPending ? (
+                        <ClipLoader size={13} color="var(--color-white)" />
+                      ) : (
+                        "Unfollow"
+                      )}
+                    </button>
                   </div>
                 )}
               </div>
