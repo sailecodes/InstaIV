@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { AppContext } from "../../../App";
 
 const DashboardSideNav = () => {
-  const { userId } = useContext(AppContext);
+  const { userId, userProfilePictureUrl } = useContext(AppContext);
 
   return (
     <DashboardSideNavWrapper>
@@ -34,7 +34,7 @@ const DashboardSideNav = () => {
           <p className="side-nav--link">Create</p>
         </NavLink>
         <NavLink to={`/dashboard/profile/${userId}`} reloadDocument={true}>
-          <ProfilePicture width={"3rem"} height={"3rem"} />
+          <ProfilePicture width={"3rem"} height={"3rem"} profilePictureUrl={userProfilePictureUrl} />
           <p className="side-nav--link">Profile</p>
         </NavLink>
       </div>

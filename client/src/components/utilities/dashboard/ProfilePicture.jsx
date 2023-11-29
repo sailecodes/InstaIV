@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { useContext } from "react";
-
 import pf from "../../../assets/imgs/default-pf.jpg";
-import { AppContext } from "../../../App";
 
 const ProfilePictureWrapper = styled.div`
   display: grid;
@@ -13,13 +10,11 @@ const ProfilePictureWrapper = styled.div`
   }
 `;
 
-const ProfilePicture = ({ width, height }) => {
-  const { userProfilePictureUrl } = useContext(AppContext);
-
+const ProfilePicture = ({ width, height, profilePictureUrl }) => {
   return (
     <ProfilePictureWrapper>
       <img
-        src={userProfilePictureUrl ? userProfilePictureUrl : pf}
+        src={profilePictureUrl ? profilePictureUrl : pf}
         alt="profile picture"
         style={{ width: width, height: height }}
       />

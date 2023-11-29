@@ -170,6 +170,7 @@ const Profile = () => {
               <ProfilePicture
                 width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
                 height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
+                profilePictureUrl={data?.profilePictureInfo?.imageUrl}
               />
               <div>
                 <p className="profile--username">{data.username}</p>

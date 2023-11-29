@@ -118,7 +118,9 @@ export const updateProfile = async (req, res) => {
     fs.unlinkSync(req.files.profilePicture.tempFilePath);
   }
 
-  return res.status(StatusCodes.OK).json({ msg: "(Server message) Updated profile" });
+  return res
+    .status(StatusCodes.OK)
+    .json({ msg: "(Server message) Updated profile", data: { profilePictureInfo: user.profilePictureInfo } });
 };
 
 // ==============================================

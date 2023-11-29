@@ -1,6 +1,12 @@
 import styled from "styled-components";
-import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useMutation } from "@tanstack/react-query";
+import { useContext } from "react";
+
+import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
+import axiosFetch from "../../../utilities/axiosFetch";
+import Error from "../../utilities/general/Error";
+import { AppContext } from "../../../App";
 
 const EditProfileWrapper = styled.div`
   position: relative;
@@ -12,12 +18,6 @@ const EditProfileWrapper = styled.div`
   gap: 10rem;
 
   padding: 5rem 2rem 5rem 2rem;
-
-  > div {
-    width: 20rem;
-
-    border: 1px solid var(--color-dark-gray);
-  }
 
   form {
     position: relative;
@@ -54,15 +54,44 @@ const EditProfileWrapper = styled.div`
 `;
 
 const EditProfile = () => {
-  const isPending = false;
+  const { setUserProfilePictureUrl } = useContext(AppContext);
+
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: (data) => {
+      return axiosFetch.patch("/users/profile", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    onSuccess: (data) => {
+      setUserProfilePictureUrl(data?.data?.data.profilePictureInfo.imageUrl);
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    mutate(data);
+  };
 
   return (
     <EditProfileWrapper>
-      <form>
-        <CreatePostInput type="file" name="profilePicture" />
-        <CreatePostInput type="text" name="bio" placeholder="Enter bio" />
-        <button type="submit">{isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Submit"}</button>
-      </form>
+      {isError && (
+        <div className="perr-container">
+          <Error />
+        </div>
+      )}
+      {!isError && (
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <CreatePostInput type="file" name="profilePicture" />
+          <CreatePostInput type="text" name="bio" placeholder="Enter bio" />
+          <button type="submit">{isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Submit"}</button>
+        </form>
+      )}
     </EditProfileWrapper>
   );
 };
