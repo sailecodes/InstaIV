@@ -13,6 +13,7 @@ import CreatePost from "./components/pages/dashboard/CreatePost";
 import Profile, { ProfileLoader } from "./components/pages/dashboard/Profile";
 import Posts from "./components/pages/dashboard/Posts";
 import SavedPosts from "./components/pages/dashboard/SavedPosts";
+import EditProfile from "./components/pages/dashboard/EditProfile";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             element: <SavedPosts />,
           },
         ],
+      },
+      {
+        path: "profile/:id/edit",
+        element: <EditProfile />,
       },
     ],
   },

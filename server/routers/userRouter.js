@@ -4,12 +4,17 @@ import {
   getProfile,
   createProfilePicture,
   updateProfilePicture,
+  updateProfile,
   getFollowers,
   getFollowing,
   followUser,
   unfollowUser,
 } from "../controllers/userController.js";
-import { validateParamId, validateProfilePictureInput } from "../middleware/validationMiddleware.js";
+import {
+  validateParamId,
+  validateProfilePictureInput,
+  validateUpdateProfileInput,
+} from "../middleware/validationMiddleware.js";
 
 const userRouter = Router();
 
@@ -19,6 +24,7 @@ userRouter
   .route("/profile-picture")
   .post(validateProfilePictureInput, createProfilePicture)
   .patch(validateProfilePictureInput, updateProfilePicture);
+userRouter.patch("/profile", validateUpdateProfileInput, updateProfile);
 
 userRouter.get("/followers", getFollowers);
 userRouter.get("/following", getFollowing);

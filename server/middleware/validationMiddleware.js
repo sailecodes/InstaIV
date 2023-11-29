@@ -110,6 +110,16 @@ export const validateProfilePictureInput = validate([
     .withMessage("File type not supported"),
 ]);
 
+export const validateUpdateProfileInput = validate([
+  body("bio")
+    .isLength({ max: 100 })
+    .withMessage("Bio must be maximum 100 characters")
+    .bail()
+    .custom((_, { req, res }) => {
+      return !req.files?.profilePicture || req.files.profilePicture.mimetype.includes("image");
+    }),
+]);
+
 // ==============================================
 // Post routes validation
 // ==============================================

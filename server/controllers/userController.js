@@ -16,7 +16,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 // ==============================================
-// Profile picture
+// Profile picture and bio
 // ==============================================
 
 // TODO: Impl. safety feature to remove the uploaded image and created Content document when an error
@@ -70,6 +70,55 @@ export const updateProfilePicture = async (req, res) => {
   fs.unlinkSync(req.files.profilePicture.tempFilePath);
 
   return res.status(StatusCodes.CREATED).json({ msg: "(Server message) Updated profile picture" });
+};
+
+export const updateProfile = async (req, res) => {
+  const user = await userModel.findById(req.userInfo.userId);
+
+  if (!user) throw new NotFoundError(`No user with id ${req.userInfo.userId} found`);
+
+  if (req.body.bio) {
+    user.bio = req.body.bio;
+    await user.save();
+  }
+
+  if (req.files?.profilePicture) {
+    if (user.profilePictureInfo) {
+      const content = await contentModel.findById(user.profilePictureInfo.contentId);
+
+      if (!content) throw new NotFoundError(`No profile picture with id ${user.profilePictureInfo.contentId} found`);
+
+      await cloudinary.uploader.destroy(content.publicId);
+      const result = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
+        use_filename: true,
+        folder: "InstaIV/Profile-pictures",
+      });
+
+      content.imageUrl = result.secure_url;
+      content.publicId = result.public_id;
+      await content.save();
+
+      user.profilePictureInfo.imageUrl = result.secure_url;
+      await user.save();
+    } else {
+      const cloudinaryResult = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
+        use_filename: true,
+        folder: "InstaIV/Profile-pictures",
+      });
+
+      const content = await contentModel.create({
+        imageUrl: cloudinaryResult.secure_url,
+        publicId: cloudinaryResult.public_id,
+      });
+
+      user.profilePictureInfo = { imageUrl: cloudinaryResult.secure_url, contentId: content._id };
+      await user.save();
+    }
+
+    fs.unlinkSync(req.files.profilePicture.tempFilePath);
+  }
+
+  return res.status(StatusCodes.OK).json({ msg: "(Server message) Updated profile" });
 };
 
 // ==============================================

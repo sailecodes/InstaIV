@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useQuery } from "@tanstack/react-query";
-import { Outlet, NavLink, Link, useLoaderData, useNavigate } from "react-router-dom";
-import { createContext, useContext, useState } from "react";
+import { Outlet, NavLink, useLoaderData, Link } from "react-router-dom";
+import { createContext, useContext } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
@@ -12,7 +12,7 @@ import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
 import Exit from "../../utilities/icons/Exit";
-import { DashboardContext } from "./Dashboard";
+import { AppContext } from "../../../App";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -47,21 +47,24 @@ const ProfileWrapper = styled.div`
     font-size: var(--font-sm-3);
   }
 
-  .profile--edit-btn {
+  .profile--username + a {
     background-color: var(--color-dark-gray);
     color: var(--color-white);
+
+    display: grid;
+    place-items: center;
 
     width: 11.5rem;
     height: 3.2rem;
 
-    font-family: inherit;
+    font-size: var(--font-sm-1);
     font-weight: 500;
 
     border: none;
     border-radius: 8px;
   }
 
-  .profile--edit-btn:hover {
+  .profile--username + a:hover {
     cursor: pointer;
   }
 
@@ -132,10 +135,11 @@ const ProfileWrapper = styled.div`
 `;
 
 const Profile = () => {
-  const navigate = useNavigate();
-
   const screenSize = useScreenSize();
   const id = useLoaderData();
+  const { userId } = useContext(AppContext);
+
+  const isEditable = userId === id;
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["user"],
@@ -169,7 +173,7 @@ const Profile = () => {
               />
               <div>
                 <p className="profile--username">{data.username}</p>
-                <button className="profile--edit-btn">Edit profile</button>
+                {isEditable && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
               </div>
               <ProfileStats screenType={"mid"} />
               <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
