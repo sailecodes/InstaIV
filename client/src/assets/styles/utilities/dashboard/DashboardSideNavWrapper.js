@@ -35,10 +35,6 @@ const DashboardSideNavWrapper = styled.nav`
     font-weight: 600;
   }
 
-  .display-none {
-    display: none;
-  }
-
   @media (min-width: 767px) {
     grid-column: 1 / 2;
 
@@ -80,9 +76,6 @@ const DashboardSideNavWrapper = styled.nav`
         gap: 1.5rem;
 
         width: 19.9rem;
-      }
-
-      .side-nav--links-container.width-maintain > a {
       }
 
       .side-nav--link {

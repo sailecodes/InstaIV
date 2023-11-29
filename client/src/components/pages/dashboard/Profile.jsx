@@ -133,11 +133,11 @@ const ProfileWrapper = styled.div`
       padding: 0 2rem 2rem 2rem;
     }
 
-    .profile--user-information > div:nth-child(1) {
+    .profile--user-information > img {
       grid-row: 1 / -1;
 
       position: relative;
-      bottom: 5%;
+      top: 11%;
     }
 
     .profile--user-information > div:nth-child(2) {

@@ -58,12 +58,10 @@
       - Logout (_GET_, `/logout`)
   - User routes
     - Restricted routes
-    - 7 routes (`/api/v1/users`)
+    - 6 routes (`/api/v1/users`)
       - Profile
         - Get profile (_GET_, `/:id`)
-      - Profile picture
-        - Create profile picture (_POST_, `/profile-picture`)
-        - Update profile picture (_UPDATE_, `/profile-picture`)
+        - Update profile (_PATCH_, `/:id`)
       - Follow
         - Get followers (_GET_, `/followers`)
         - Get following (_GET_, `/following`)

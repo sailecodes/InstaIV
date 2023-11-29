@@ -108,6 +108,8 @@ export const followUser = async (req, res) => {
     throw new NotFoundError(`No users with ids ${req.userInfo.userId} and ${req.params.id} found`);
   else if (!user || !followedUser)
     throw new NotFoundError(`No user with id ${!user ? req.userInfo.userId : req.params.id} found`);
+  else if (user.followingInfo.find((following) => following.userId.toString() === req.params.id))
+    throw new BadRequestError("Already following this user");
 
   followedUser.followersInfo.push({ username: user.username, userId: req.userInfo.userId });
   await followedUser.save();
