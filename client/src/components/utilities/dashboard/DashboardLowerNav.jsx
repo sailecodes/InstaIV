@@ -6,6 +6,7 @@ import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import HomeIcon from "../icons/HomeIcon";
 import CreateIcon from "../icons/CreateIcon";
 import { AppContext } from "../../../App";
+import SearchIcon from "../icons/SearchIcon";
 
 const DashboardLowerNavWrapper = styled.nav`
   grid-row: 3;
@@ -50,6 +51,9 @@ const DashboardLowerNav = () => {
       <div className="lower-nav--links-container">
         <NavLink to="/dashboard" end>
           <HomeIcon />
+        </NavLink>
+        <NavLink to="/dashboard/search">
+          <SearchIcon />
         </NavLink>
         <NavLink to="/dashboard/create-post">
           <CreateIcon />

@@ -81,7 +81,6 @@ const Search = () => {
       const {
         data: { data },
       } = await axiosFetch.get("/users");
-      // setSearchData(data.users);
       return data;
     },
   });

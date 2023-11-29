@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
 
 import Logo from "../general/Logo";
 import HomeIcon from "../icons/HomeIcon";
@@ -6,11 +7,19 @@ import CreateIcon from "../icons/CreateIcon";
 import ProfilePicture from "./ProfilePicture";
 import SearchIcon from "../icons/SearchIcon";
 import DashboardSideNavWrapper from "../../../assets/styles/utilities/dashboard/DashboardSideNavWrapper";
-import { useContext } from "react";
+import LogoutIcon from "../icons/LogoutIcon";
 import { AppContext } from "../../../App";
+import { useMutation } from "@tanstack/react-query";
+import axiosFetch from "../../../utilities/axiosFetch";
 
 const DashboardSideNav = () => {
   const { userId, userProfilePictureUrl } = useContext(AppContext);
+
+  const logout = useMutation({
+    mutationFn: () => {
+      return axiosFetch.get("/auth/logout");
+    },
+  });
 
   return (
     <DashboardSideNavWrapper>
@@ -31,6 +40,10 @@ const DashboardSideNav = () => {
         <NavLink to={`/dashboard/profile/${userId}`} reloadDocument={true}>
           <ProfilePicture width={"3rem"} height={"3rem"} profilePictureUrl={userProfilePictureUrl} />
           <p className="side-nav--link">Profile</p>
+        </NavLink>
+        <NavLink to={`/`} onClick={logout.mutate}>
+          <LogoutIcon />
+          <p className="side-nav--link">Logout</p>
         </NavLink>
       </div>
     </DashboardSideNavWrapper>

@@ -24,6 +24,8 @@ const DashboardSideNavWrapper = styled.nav`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    height: 100%;
   }
 
   .active svg {
@@ -63,6 +65,10 @@ const DashboardSideNavWrapper = styled.nav`
 
     .side-nav--links-container > a {
       width: 5.2rem;
+    }
+
+    .side-nav--links-container > a:last-child {
+      margin-top: auto;
     }
 
     .side-nav--link {
