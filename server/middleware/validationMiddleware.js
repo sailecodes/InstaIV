@@ -48,7 +48,7 @@ export const validateUser = validate([
 export const validateParamId = validate([
   param("id")
     .custom((id) => mongoose.Types.ObjectId.isValid(id))
-    .withMessage("No user with specified id found"),
+    .withMessage("No resource with specified id found"),
 ]);
 
 // ==============================================
@@ -127,4 +127,13 @@ export const validateCreatePostInput = validate([
 
 export const validateUpdatePostInput = validate([
   body("caption").isLength({ max: 150 }).withMessage("Caption must be maximum 150 characters"),
+]);
+
+export const validateUpdateStatInput = validate([
+  body("statFlag")
+    .notEmpty()
+    .withMessage("Field `statFlag` required")
+    .bail()
+    .isBoolean()
+    .withMessage("Field `statFlag` must be a boolean"),
 ]);

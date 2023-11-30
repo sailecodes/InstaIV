@@ -40,6 +40,7 @@ export const createPost = async (req, res) => {
     },
     userInfo: {
       imageUrl: user?.profilePictureInfo?.imageUrl ? user.profilePictureInfo.imageUrl : "",
+      username: user.username,
       userId: user._id,
     },
     caption: req.body.caption,
@@ -108,4 +109,57 @@ export const deletePost = async (req, res) => {
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Post deleted" });
+};
+
+// ==============================================
+// Likes and saves
+// ==============================================
+
+export const updateLikeCount = async (req, res) => {
+  const post = await postModel.findById(req.params.id);
+
+  if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
+
+  if (req.body.statFlag) {
+    post.likesInfo.num += 1;
+    post.likesInfo.users.set(req.userInfo.userId, true);
+  } else {
+    post.likesInfo.num -= 1;
+    post.likesInfo.users.delete(req.userInfo.userId);
+  }
+
+  await post.save();
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Number of likes updated" });
+};
+
+export const updateSaveCount = async (req, res) => {
+  const user = await userModel.findById(req.userInfo.userId);
+
+  if (!user) throw new NotFoundError(`User with id ${req.userInfo.userId} not found`);
+
+  const post = await postModel.findById(req.params.id);
+
+  if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
+
+  if (req.body.statFlag) {
+    post.savesInfo.num += 1;
+    post.savesInfo.users.set(req.userInfo.userId, true);
+    user.savedPostsInfo.push({
+      imageUrl: post.contentInfo.imageUrl,
+      contentId: post.contentInfo.contentId,
+      postId: post._id,
+    });
+  } else {
+    post.savesInfo.num -= 1;
+    post.savesInfo.users.delete(req.userInfo.userId);
+    user.savedPostsInfo = user.savedPostsInfo.filter(
+      (savedPost) => savedPost.postId.toString() !== post._id.toString()
+    );
+  }
+
+  await post.save();
+  await user.save();
+
+  res.status(StatusCodes.OK).json({ msg: "(Server message) Number of saves updated" });
 };

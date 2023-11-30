@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const postContentSubSchema = mongoose.Schema({
+const postContentInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
     required: [true, "Image url required"],
@@ -17,15 +17,31 @@ const postUserInfoSubSchema = mongoose.Schema({
     type: String,
     required: [true, "Image url required"],
   },
+  username: {
+    type: String,
+    required: [true, "Username required"],
+  },
   userId: {
     type: mongoose.Types.ObjectId,
     ref: "User",
   },
 });
 
+const postStatInfoSubSchema = mongoose.Schema({
+  users: {
+    type: Map,
+    of: String,
+    default: {},
+  },
+  num: {
+    type: Number,
+    default: 0,
+  },
+});
+
 const postSchema = mongoose.Schema({
   contentInfo: {
-    type: postContentSubSchema,
+    type: postContentInfoSubSchema,
     required: true,
   },
   userInfo: {
@@ -36,13 +52,13 @@ const postSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-  numLikes: {
-    type: Number,
-    default: 0,
+  likesInfo: {
+    type: postStatInfoSubSchema,
+    default: {},
   },
-  numSaves: {
-    type: Number,
-    default: 0,
+  savesInfo: {
+    type: postStatInfoSubSchema,
+    default: {},
   },
 });
 
