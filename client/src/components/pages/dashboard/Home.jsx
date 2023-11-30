@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useContext } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
@@ -70,6 +70,8 @@ const HomeWrapper = styled.div`
     align-items: center;
     gap: 1rem;
 
+    width: 4.6rem;
+
     font-size: var(--font-sm-1);
   }
 
@@ -99,6 +101,7 @@ const HomeWrapper = styled.div`
 `;
 
 const Home = () => {
+  const queryClient = useQueryClient();
   const { userId } = useContext(AppContext);
 
   const { data, isPending, isError } = useQuery({
@@ -113,8 +116,23 @@ const Home = () => {
     },
   });
 
-  console.log(data);
-  console.log(userId);
+  const updateLikes = useMutation({
+    mutationFn: (data) => {
+      return axiosFetch.patch(`/posts/${data.id}/like`, { statFlag: data.statFlag });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+
+  const updateSaves = useMutation({
+    mutationFn: (data) => {
+      return axiosFetch.patch(`/posts/${data.id}/save`, { statFlag: data.statFlag });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
 
   return (
     <HomeWrapper>
@@ -133,7 +151,9 @@ const Home = () => {
             <img className="home--post-content" src={data[3]?.contentInfo?.imageUrl} />
             <div className="home--post-btns">
               <div>
-                <button className="home--post-btn">
+                <button
+                  className="home--post-btn"
+                  onClick={() => updateLikes.mutate({ statFlag: !data[3].likesInfo.users[userId], id: data[3]._id })}>
                   <HeartIcon
                     fill={data[3].likesInfo.users[userId] ? "var(--color-red)" : ""}
                     stroke="var(--color-red)"
@@ -144,7 +164,9 @@ const Home = () => {
                 <div>{data[3].likesInfo.num}</div>
               </div>
               <div>
-                <button className="home--post-btn">
+                <button
+                  className="home--post-btn"
+                  onClick={() => updateSaves.mutate({ statFlag: !data[3].savesInfo.users[userId], id: data[3]._id })}>
                   <SavedPostsIcon
                     fill={data[3].savesInfo.users[userId] ? "var(--color-yellow)" : ""}
                     stroke="var(--color-yellow)"
