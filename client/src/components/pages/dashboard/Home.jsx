@@ -58,7 +58,7 @@ const HomeWrapper = styled.div`
   .home--post-btns {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 8rem;
   }
 
@@ -79,6 +79,16 @@ const HomeWrapper = styled.div`
 
   .home--post-btn svg {
     transition: fill 0.3s;
+  }
+
+  .home--post-text {
+    font-size: var(--font-sm-1);
+  }
+
+  .home--post-text span {
+    font-weight: 600;
+
+    margin-right: 1rem;
   }
 
   @media (min-width: 767px) {
@@ -124,8 +134,8 @@ const Home = () => {
                   <HeartIcon
                     fill={heartIconClicked ? "var(--color-red)" : ""}
                     stroke="var(--color-red)"
-                    width="3rem"
-                    height="3rem"
+                    width="2.7rem"
+                    height="2.7rem"
                   />
                 </button>
                 <div>131</div>
@@ -135,13 +145,17 @@ const Home = () => {
                   <SavedPostsIcon
                     fill={savedIconClicked ? "var(--color-yellow)" : ""}
                     stroke="var(--color-yellow)"
-                    width="2.8rem"
-                    height="2.8rem"
+                    width="2.5rem"
+                    height="2.5rem"
                   />
                 </button>
                 <div>2</div>
               </div>
             </div>
+            <p className="home--post-text">
+              <span>elias.iv_</span>
+              {data[0].caption}
+            </p>
           </div>
         </div>
       )}

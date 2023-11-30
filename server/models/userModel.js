@@ -78,10 +78,6 @@ const userSchema = mongoose.Schema({
     type: [userPostsInfoSubSchema],
     default: [],
   },
-  chats: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "Chat" }],
-    default: [],
-  },
 });
 
 export default mongoose.model("User", userSchema);

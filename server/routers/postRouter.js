@@ -10,6 +10,7 @@ import { getAllPosts, createPost, getPost, updatePost, deletePost } from "../con
 const postRouter = Router();
 
 postRouter.route("/").get(getAllPosts).post(validateCreatePostInput, createPost);
+
 postRouter
   .route("/:id")
   .get(validateParamId, getPost)

@@ -38,7 +38,10 @@ export const createPost = async (req, res) => {
       imageUrl: cloudinaryResult.secure_url,
       contentId: content._id,
     },
-    userId: user._id,
+    userInfo: {
+      imageUrl: user?.profilePictureInfo?.imageUrl ? user.profilePictureInfo.imageUrl : "",
+      userId: user._id,
+    },
     caption: req.body.caption,
   });
 

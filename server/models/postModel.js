@@ -13,9 +13,9 @@ const postContentSubSchema = mongoose.Schema({
 });
 
 const postUserInfoSubSchema = mongoose.Schema({
-  profilePictureUrl: {
+  imageUrl: {
     type: String,
-    required: [true, "Profile picture url required"],
+    required: [true, "Image url required"],
   },
   userId: {
     type: mongoose.Types.ObjectId,
