@@ -10,6 +10,7 @@ const MessagesWrapper = styled.div`
     height: 100%;
 
     padding: 2.5rem 0 2rem 2rem;
+    border-right: 1px solid var(--color-dark-gray);
   }
 
   .messages--side-nav-header {
@@ -132,7 +133,7 @@ const MessagesPreviewRowWrapper = styled.div`
     }
 
     .messages-preview-row--meta-message-preview {
-      color: var(--color-gray-900);
+      color: var(--color-gray-500);
     }
   }
 `;
