@@ -12,15 +12,25 @@ const postContentSubSchema = mongoose.Schema({
   },
 });
 
+const postUserInfoSubSchema = mongoose.Schema({
+  profilePictureUrl: {
+    type: String,
+    required: [true, "Profile picture url required"],
+  },
+  userId: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
+});
+
 const postSchema = mongoose.Schema({
   contentInfo: {
     type: postContentSubSchema,
     required: true,
   },
-  userId: {
-    type: mongoose.Types.ObjectId,
-    ref: "User",
-    required: [true, "User id required"],
+  userInfo: {
+    type: postUserInfoSubSchema,
+    required: true,
   },
   caption: {
     type: String,
@@ -30,9 +40,9 @@ const postSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  comments: {
-    type: [{ String, type: mongoose.Types.ObjectId, ref: "Comment" }],
-    default: [],
+  numSaves: {
+    type: Number,
+    default: 0,
   },
 });
 
