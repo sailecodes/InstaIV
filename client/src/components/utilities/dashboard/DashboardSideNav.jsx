@@ -6,7 +6,7 @@ import HomeIcon from "../icons/HomeIcon";
 import CreateIcon from "../icons/CreateIcon";
 import ProfilePicture from "./ProfilePicture";
 import SearchIcon from "../icons/SearchIcon";
-import DashboardSideNavWrapper from "../../../assets/styles/utilities/dashboard/DashboardSideNavWrapper";
+import DashboardSideNavWrapper from "../../../assets/styles/pages/dashboard/DashboardSideNavWrapper";
 import LogoutIcon from "../icons/LogoutIcon";
 import { AppContext } from "../../../App";
 import { useMutation } from "@tanstack/react-query";
@@ -30,7 +30,7 @@ const DashboardSideNav = () => {
           end>
           <HomeIcon
             fill="var(--color-white)"
-            stroke="var(--color-white)"
+            stroke="none"
             width="3rem"
             height="3rem"
           />
@@ -39,14 +39,19 @@ const DashboardSideNav = () => {
         <NavLink to="/dashboard/search">
           <SearchIcon
             fill="var(--color-white)"
-            stroke="var(--color-white)"
+            stroke="none"
             width="3rem"
             height="3rem"
           />
           <p className="side-nav--link">Search</p>
         </NavLink>
         <NavLink to="/dashboard/create-post">
-          <CreateIcon />
+          <CreateIcon
+            fill="var(--color-white)"
+            stroke="none"
+            width="3rem"
+            height="3rem"
+          />
           <p className="side-nav--link">Create</p>
         </NavLink>
         <NavLink
@@ -62,7 +67,12 @@ const DashboardSideNav = () => {
         <NavLink
           to={`/`}
           onClick={logout.mutate}>
-          <LogoutIcon />
+          <LogoutIcon
+            fill="var(--color-white)"
+            stroke="none"
+            width="3rem"
+            height="3rem"
+          />
           <p className="side-nav--link">Logout</p>
         </NavLink>
       </div>

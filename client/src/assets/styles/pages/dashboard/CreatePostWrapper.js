@@ -3,6 +3,9 @@ import styled from "styled-components";
 const CreatePostWrapper = styled.div`
   position: relative;
 
+  display: flex;
+  justify-content: center;
+
   padding: 5rem 2rem 5rem 2rem;
 
   .create-post--form {

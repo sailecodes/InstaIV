@@ -5,6 +5,7 @@ import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
 import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
 import CreatePostWrapper from "../../../assets/styles/pages/dashboard/CreatePostWrapper";
+import Footer from "../../utilities/dashboard/Footer";
 
 const CreatePost = () => {
   const { mutate, isPending, isError } = useMutation({
@@ -34,10 +35,29 @@ const CreatePost = () => {
         </div>
       )}
       {!isError && (
-        <form className="create-post--form" onSubmit={handleSubmit} encType="multipart/form-data">
-          <CreatePostInput type={"file"} name={"content"} />
-          <CreatePostInput type={"text"} name={"caption"} placeholder={"Enter caption"} />
-          <button type="submit">{isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Post"}</button>
+        <form
+          className="create-post--form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data">
+          <CreatePostInput
+            type={"file"}
+            name={"content"}
+          />
+          <CreatePostInput
+            type={"text"}
+            name={"caption"}
+            placeholder={"Enter caption"}
+          />
+          <button type="submit">
+            {isPending ? (
+              <ClipLoader
+                size={13}
+                color="var(--color-white)"
+              />
+            ) : (
+              "Post"
+            )}
+          </button>
         </form>
       )}
     </CreatePostWrapper>

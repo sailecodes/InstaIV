@@ -7,16 +7,39 @@ import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import { Link } from "react-router-dom";
+import Footer from "../../utilities/dashboard/Footer";
 
 const SearchWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
+  justify-content: center;
+  gap: 6rem;
 
   padding: 2rem;
 
   overflow-y: scroll;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  > div > div:nth-child(1) {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+  }
+
+  > div > div:nth-child(1) button {
+    position: absolute;
+    right: -20%;
+
+    color: var(--color-blue);
+
+    font-size: var(--font-sm-1);
+  }
 
   input {
     background-color: var(--color-dark-gray);
@@ -81,18 +104,14 @@ const Search = () => {
       const {
         data: { data },
       } = await axiosFetch.get("/users");
+      setSearchData(data.users);
       return data;
     },
   });
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const newSearchQuery = e.target.value;
     setSearchQuery(newSearchQuery);
-
-    if (newSearchQuery === "") {
-      setSearchData([]);
-      return;
-    }
 
     const newSearchData = data.users.filter((user) =>
       user.username.toLowerCase().includes(newSearchQuery.toLowerCase())
@@ -100,30 +119,54 @@ const Search = () => {
     setSearchData(newSearchData);
   };
 
+  const handleSeeAll = () => {
+    setSearchQuery("");
+    setSearchData(data.users);
+  };
+
   return (
     <SearchWrapper>
-      <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search for friends" />
-      {isError && (
-        <div className="perr-container" style={{ width: "auto", height: "auto", marginTop: "5rem" }}>
-          <Error />
+      <div>
+        <div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleInputChange}
+            placeholder="Search for friends"
+          />
+          <button onClick={handleSeeAll}>See all</button>
         </div>
-      )}
-      {isPending && (
-        <div className="perr-container" style={{ width: "auto", height: "auto", marginTop: "5rem" }}>
-          <PulseLoader color="var(--color-blue)" />
-        </div>
-      )}
-      {!isError && !isPending && (
-        <div className="search-data--container">
-          {searchData.map((user) => (
-            <div key={user._id}>
-              <ProfilePicture width="3rem" height="3rem" profilePictureUrl={user?.profilePictureInfo?.imageUrl} />
-              <p>{user.username}</p>
-              <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
-            </div>
-          ))}
-        </div>
-      )}
+        {isError && (
+          <div
+            className="perr-container"
+            style={{ width: "auto", height: "auto", marginTop: "5rem" }}>
+            <Error />
+          </div>
+        )}
+        {isPending && (
+          <div
+            className="perr-container"
+            style={{ width: "auto", height: "auto", marginTop: "5rem" }}>
+            <PulseLoader color="var(--color-blue)" />
+          </div>
+        )}
+        {!isError && !isPending && (
+          <div className="search-data--container">
+            {searchData.map((user) => (
+              <div key={user._id}>
+                <ProfilePicture
+                  width="3rem"
+                  height="3rem"
+                  profilePictureUrl={user?.profilePictureInfo?.imageUrl}
+                />
+                <p>{user.username}</p>
+                <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <Footer />
     </SearchWrapper>
   );
 };

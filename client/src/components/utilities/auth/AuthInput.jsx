@@ -1,4 +1,4 @@
-import AuthInputWrapper from "../../../assets/styles/utilities/auth/AuthInputWrapper";
+import AuthInputWrapper from "../../../assets/styles/pages/auth/AuthInputWrapper";
 import AuthErrorIcon from "../icons/AuthErrorIcon";
 
 const AuthInput = ({ type, name, placeholder, error, setError }) => {

@@ -29,11 +29,12 @@ const DashboardSideNavWrapper = styled.nav`
   }
 
   .active svg {
-    stroke: var(--color-white);
-    fill: var(--color-white);
+    fill: var(--color-blue);
   }
 
   .active p {
+    color: var(--color-blue);
+
     font-weight: 600;
   }
 

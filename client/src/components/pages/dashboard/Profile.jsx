@@ -220,11 +220,21 @@ const Profile = () => {
                 {!isLoggedUser && (
                   <div>
                     <button onClick={() => followUserMutation.mutate()}>
-                      {followUserMutation.isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Follow"}
+                      {followUserMutation.isPending ? (
+                        <ClipLoader
+                          size={13}
+                          color="var(--color-white)"
+                        />
+                      ) : (
+                        "Follow"
+                      )}
                     </button>
                     <button onClick={() => unfollowUserMutation.mutate()}>
                       {unfollowUserMutation.isPending ? (
-                        <ClipLoader size={13} color="var(--color-white)" />
+                        <ClipLoader
+                          size={13}
+                          color="var(--color-white)"
+                        />
                       ) : (
                         "Unfollow"
                       )}
@@ -238,11 +248,21 @@ const Profile = () => {
             <ProfileStats screenType={"small"} />
             <section className="profile--user-content">
               <nav>
-                <NavLink to={`/dashboard/profile/${id}`} end>
-                  <UserPostsIcon width={"2.5rem"} height={"2.5rem"} />
+                <NavLink
+                  to={`/dashboard/profile/${id}`}
+                  end>
+                  <UserPostsIcon
+                    width="2.5rem"
+                    height="2.5rem"
+                  />
                 </NavLink>
                 <NavLink to={`/dashboard/profile/${id}/saved-posts`}>
-                  <SavedPostsIcon width={"2.5rem"} height={"2.5rem"} />
+                  <SavedPostsIcon
+                    fill="none"
+                    stroke="var(--color-white)"
+                    width="2.5rem"
+                    height="2.5rem"
+                  />
                 </NavLink>
               </nav>
               <Outlet />

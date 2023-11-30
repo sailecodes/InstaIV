@@ -1,9 +1,14 @@
-import CreatePostInputWrapper from "../../../assets/styles/utilities/dashboard/CreatePostInputWrapper";
+import CreatePostInputWrapper from "../../../assets/styles/pages/dashboard/CreatePostInputWrapper";
 
 const CreatePostInput = ({ type, name, placeholder }) => {
   return (
     <CreatePostInputWrapper>
-      <input type={type ? type : name} id={name} name={name} placeholder={placeholder} />
+      <input
+        type={type ? type : name}
+        id={name}
+        name={name}
+        placeholder={placeholder}
+      />
     </CreatePostInputWrapper>
   );
 };
