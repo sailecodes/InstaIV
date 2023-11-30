@@ -9,7 +9,6 @@
   - Dashboard (`/dashboard`)
     - Home (`/`)
     - Search (`/search`)
-    - Messages (`/messages`)
     - Create post (`/create-post`)
     - Profile (`/profile`)
       - Posts (`/`)

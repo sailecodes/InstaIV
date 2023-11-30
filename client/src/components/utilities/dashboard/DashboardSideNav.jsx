@@ -25,23 +25,43 @@ const DashboardSideNav = () => {
     <DashboardSideNavWrapper>
       <Logo />
       <div className="side-nav--links-container">
-        <NavLink to="/dashboard" end>
-          <HomeIcon />
+        <NavLink
+          to="/dashboard"
+          end>
+          <HomeIcon
+            fill="var(--color-white)"
+            stroke="var(--color-white)"
+            width="3rem"
+            height="3rem"
+          />
           <p className="side-nav--link">Home</p>
         </NavLink>
         <NavLink to="/dashboard/search">
-          <SearchIcon />
+          <SearchIcon
+            fill="var(--color-white)"
+            stroke="var(--color-white)"
+            width="3rem"
+            height="3rem"
+          />
           <p className="side-nav--link">Search</p>
         </NavLink>
         <NavLink to="/dashboard/create-post">
           <CreateIcon />
           <p className="side-nav--link">Create</p>
         </NavLink>
-        <NavLink to={`/dashboard/profile/${userId}`} reloadDocument={true}>
-          <ProfilePicture width={"3rem"} height={"3rem"} profilePictureUrl={userProfilePictureUrl} />
+        <NavLink
+          to={`/dashboard/profile/${userId}`}
+          reloadDocument={true}>
+          <ProfilePicture
+            width={"3rem"}
+            height={"3rem"}
+            profilePictureUrl={userProfilePictureUrl}
+          />
           <p className="side-nav--link">Profile</p>
         </NavLink>
-        <NavLink to={`/`} onClick={logout.mutate}>
+        <NavLink
+          to={`/`}
+          onClick={logout.mutate}>
           <LogoutIcon />
           <p className="side-nav--link">Logout</p>
         </NavLink>
