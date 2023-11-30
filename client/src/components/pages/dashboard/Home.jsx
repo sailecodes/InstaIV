@@ -18,16 +18,25 @@ const HomeWrapper = styled.div`
 
   padding: 2rem;
 
+  overflow-y: scroll;
+
   .home--posts-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .home--post {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-dark-gray);
+  }
+
+  .home--post:last-child {
+    border: none;
   }
 
   .home--post > header {
@@ -146,6 +155,50 @@ const Home = () => {
       {isPending && <PulseLoader color="var(--color-blue)" cssOverride={{ position: "relative", top: "50%" }} />}
       {!isError && !isPending && (
         <div className="home--posts-container">
+          <div className="home--post">
+            <header>
+              <img className="home--post-pp" src={data[3]?.contentInfo?.imageUrl} />
+              <p className="home--post-username">{data[3].userInfo.username}</p>
+              {userId === data[3].userInfo.userId && (
+                <button className="home--post-btn">
+                  <DeleteIcon fill="var(--color-white)" stroke="none" width="3rem" height="3rem" />
+                </button>
+              )}
+            </header>
+            <img className="home--post-content" src={data[3]?.contentInfo?.imageUrl} />
+            <div className="home--post-btns">
+              <div>
+                <button
+                  className="home--post-btn"
+                  onClick={() => updateLikes.mutate({ statFlag: !data[3].likesInfo.users[userId], id: data[3]._id })}>
+                  <HeartIcon
+                    fill={data[3].likesInfo.users[userId] ? "var(--color-red)" : ""}
+                    stroke="var(--color-red)"
+                    width="2.7rem"
+                    height="2.7rem"
+                  />
+                </button>
+                <div>{data[3].likesInfo.num}</div>
+              </div>
+              <div>
+                <button
+                  className="home--post-btn"
+                  onClick={() => updateSaves.mutate({ statFlag: !data[3].savesInfo.users[userId], id: data[3]._id })}>
+                  <SavedPostsIcon
+                    fill={data[3].savesInfo.users[userId] ? "var(--color-yellow)" : ""}
+                    stroke="var(--color-yellow)"
+                    width="2.5rem"
+                    height="2.5rem"
+                  />
+                </button>
+                <div>{data[3].savesInfo.num}</div>
+              </div>
+            </div>
+            <p className="home--post-text">
+              <span>{data[3].userInfo.username}</span>
+              {data[3].caption}
+            </p>
+          </div>
           <div className="home--post">
             <header>
               <img className="home--post-pp" src={data[3]?.contentInfo?.imageUrl} />
