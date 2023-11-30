@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 import Logo from "../general/Logo";
-import SearchBar from "../general/SearchBar";
+import axiosFetch from "../../../utilities/axiosFetch";
+import LogoutIcon from "../icons/LogoutIcon";
 
 const DashboardTopNavWrapper = styled.nav`
   grid-row: 1;
@@ -22,10 +25,18 @@ const DashboardTopNavWrapper = styled.nav`
 `;
 
 const DashboardTopNav = () => {
+  const logout = useMutation({
+    mutationFn: () => {
+      return axiosFetch.get("/auth/logout");
+    },
+  });
+
   return (
     <DashboardTopNavWrapper>
       <Logo />
-      <SearchBar />
+      <NavLink to={`/`} onClick={logout.mutate}>
+        <LogoutIcon />
+      </NavLink>
     </DashboardTopNavWrapper>
   );
 };

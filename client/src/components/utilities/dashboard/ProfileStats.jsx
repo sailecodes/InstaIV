@@ -71,20 +71,9 @@ const ProfileStats = ({ screenType }) => {
   return (
     <ProfileStatsWrapper>
       <section className={`${screenType}-screen`}>
-        <ProfileStat
-          stat={data.numPosts}
-          statOf={" posts"}
-        />
-        <ProfileStat
-          stat={data.followers.length}
-          statOf={" followers"}
-          isLink={true}
-        />
-        <ProfileStat
-          stat={data.following.length}
-          statOf={" following"}
-          isLink={true}
-        />
+        <ProfileStat stat={data.numPosts} statOf={" posts"} />
+        <ProfileStat stat={data.followersInfo.length} statOf={" followers"} isLink={true} />
+        <ProfileStat stat={data.followingInfo.length} statOf={" following"} isLink={true} />
       </section>
     </ProfileStatsWrapper>
   );

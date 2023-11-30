@@ -8,11 +8,11 @@ import Register from "./components/pages/auth/Register";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import Home from "./components/pages/dashboard/Home";
 import Search from "./components/pages/dashboard/Search";
-import Messages from "./components/pages/dashboard/Messages";
 import CreatePost from "./components/pages/dashboard/CreatePost";
 import Profile, { ProfileLoader } from "./components/pages/dashboard/Profile";
 import Posts from "./components/pages/dashboard/Posts";
 import SavedPosts from "./components/pages/dashboard/SavedPosts";
+import EditProfile from "./components/pages/dashboard/EditProfile";
 
 const queryClient = new QueryClient();
 
@@ -38,10 +38,6 @@ const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "messages",
-        element: <Messages />,
-      },
-      {
         path: "create-post",
         element: <CreatePost />,
       },
@@ -60,13 +56,22 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "profile/:id/edit",
+        element: <EditProfile />,
+      },
     ],
   },
 ]);
 
 const App = () => {
-  const [userId, setUserId] = useState("");
-  const [userProfilePictureUrl, setUserProfilePictureUrl] = useState("");
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || "");
+  const [userProfilePictureUrl, setUserProfilePictureUrl] = useState(
+    localStorage.getItem("userProfilePictureUrl") || ""
+  );
+
+  localStorage.setItem("userId", userId);
+  localStorage.setItem("userProfilePictureUrl", userProfilePictureUrl);
 
   return (
     <QueryClientProvider client={queryClient}>

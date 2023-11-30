@@ -7,6 +7,8 @@ const PostsWrapper = styled.div`
     display: flex;
     flex-shrink: 0;
     gap: 0.4rem;
+
+    margin-bottom: 0.4rem;
   }
 
   .posts-row--container > div {

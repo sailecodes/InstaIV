@@ -48,7 +48,7 @@ export const validateUser = validate([
 export const validateParamId = validate([
   param("id")
     .custom((id) => mongoose.Types.ObjectId.isValid(id))
-    .withMessage("No user with specified id found"),
+    .withMessage("No resource with specified id found"),
 ]);
 
 // ==============================================
@@ -95,19 +95,16 @@ export const validateLoginInput = validate([
 // User routes validation
 // ==============================================
 
-export const validateProfilePictureInput = validate([
-  body("")
+export const validateUpdateProfileInput = validate([
+  body("bio")
+    .isLength({ max: 100 })
+    .withMessage("Bio must be maximum 100 characters")
+    .bail()
     .custom((_, { req, res }) => {
       // Note: Must use a custom validator for req.files since req.files is not currently supported
       //       by express-validator
-      return req.files.profilePicture;
-    })
-    .withMessage("Image required")
-    .bail()
-    .custom((_, { req, res }) => {
-      return req.files.profilePicture.mimetype.includes("image");
-    })
-    .withMessage("File type not supported"),
+      return !req.files?.profilePicture || req.files.profilePicture.mimetype.includes("image");
+    }),
 ]);
 
 // ==============================================
@@ -130,4 +127,13 @@ export const validateCreatePostInput = validate([
 
 export const validateUpdatePostInput = validate([
   body("caption").isLength({ max: 150 }).withMessage("Caption must be maximum 150 characters"),
+]);
+
+export const validateUpdateStatInput = validate([
+  body("statFlag")
+    .notEmpty()
+    .withMessage("Field `statFlag` required")
+    .bail()
+    .isBoolean()
+    .withMessage("Field `statFlag` must be a boolean"),
 ]);

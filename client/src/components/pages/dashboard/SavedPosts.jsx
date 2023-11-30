@@ -1,4 +1,4 @@
 const SavedPosts = () => {
-  return <div>SavedPosts</div>;
+  return <div></div>;
 };
 export default SavedPosts;

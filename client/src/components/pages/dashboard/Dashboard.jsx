@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
+import { createContext, useState } from "react";
 
 import DashboardTopNav from "../../utilities/dashboard/DashboardTopNav";
 import DashboardLowerNav from "../../utilities/dashboard/DashboardLowerNav";
 import DashboardSideNav from "../../utilities/dashboard/DashboardSideNav";
+import FollowContainer from "../../utilities/dashboard/FollowContainer";
 
 const DashboardWrapper = styled.div`
   background-color: var(--color-black);
@@ -25,14 +27,30 @@ const DashboardWrapper = styled.div`
 `;
 
 const Dashboard = () => {
+  const [isFollowContainerVisible, setIsFollowContainerVisible] = useState(false);
+  const [isFollowingClicked, setIsFollowingClicked] = useState(false);
+  const [followData, setFollowData] = useState([]);
+
   return (
-    <DashboardWrapper>
-      <DashboardTopNav />
-      <DashboardSideNav />
-      <DashboardLowerNav />
-      <Outlet />
-    </DashboardWrapper>
+    <DashboardContext.Provider
+      value={{
+        isFollowContainerVisible,
+        setIsFollowContainerVisible,
+        isFollowingClicked,
+        setIsFollowingClicked,
+        setFollowData,
+      }}>
+      {isFollowContainerVisible && <FollowContainer followData={followData} />}
+      <DashboardWrapper>
+        <DashboardTopNav />
+        <DashboardSideNav />
+        <DashboardLowerNav />
+        <Outlet />
+      </DashboardWrapper>
+    </DashboardContext.Provider>
   );
 };
+
+export const DashboardContext = createContext();
 
 export default Dashboard;
