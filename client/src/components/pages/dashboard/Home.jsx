@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
+import { useContext, useState } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
@@ -7,7 +8,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import HeartIcon from "../../utilities/icons/HeartIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import DeleteIcon from "../../utilities/icons/DeleteIcon";
-import { useState } from "react";
+import { AppContext } from "../../../App";
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -98,8 +99,7 @@ const HomeWrapper = styled.div`
 `;
 
 const Home = () => {
-  const [heartIconClicked, setHeartIconClicked] = useState(false);
-  const [savedIconClicked, setSavedIconClicked] = useState(false);
+  const { userId } = useContext(AppContext);
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["posts"],
@@ -113,6 +113,9 @@ const Home = () => {
     },
   });
 
+  console.log(data);
+  console.log(userId);
+
   return (
     <HomeWrapper>
       {isError && <Error />}
@@ -121,40 +124,40 @@ const Home = () => {
         <div className="home--posts-container">
           <div className="home--post">
             <header>
-              <img className="home--post-pp" src={data[0]?.contentInfo?.imageUrl} />
-              <p className="home--post-username">elias.iv_</p>
+              <img className="home--post-pp" src={data[3]?.contentInfo?.imageUrl} />
+              <p className="home--post-username">{data[3].userInfo.username}</p>
               <button className="home--post-btn">
                 <DeleteIcon fill="var(--color-white)" stroke="none" width="3rem" height="3rem" />
               </button>
             </header>
-            <img className="home--post-content" src={data[0]?.contentInfo?.imageUrl} />
+            <img className="home--post-content" src={data[3]?.contentInfo?.imageUrl} />
             <div className="home--post-btns">
               <div>
-                <button className="home--post-btn" onClick={() => setHeartIconClicked(!heartIconClicked)}>
+                <button className="home--post-btn">
                   <HeartIcon
-                    fill={heartIconClicked ? "var(--color-red)" : ""}
+                    fill={data[3].likesInfo.users[userId] ? "var(--color-red)" : ""}
                     stroke="var(--color-red)"
                     width="2.7rem"
                     height="2.7rem"
                   />
                 </button>
-                <div>131</div>
+                <div>{data[3].likesInfo.num}</div>
               </div>
               <div>
-                <button className="home--post-btn" onClick={() => setSavedIconClicked(!savedIconClicked)}>
+                <button className="home--post-btn">
                   <SavedPostsIcon
-                    fill={savedIconClicked ? "var(--color-yellow)" : ""}
+                    fill={data[3].savesInfo.users[userId] ? "var(--color-yellow)" : ""}
                     stroke="var(--color-yellow)"
                     width="2.5rem"
                     height="2.5rem"
                   />
                 </button>
-                <div>2</div>
+                <div>{data[3].savesInfo.num}</div>
               </div>
             </div>
             <p className="home--post-text">
-              <span>elias.iv_</span>
-              {data[0].caption}
+              <span>{data[3].userInfo.username}</span>
+              {data[3].caption}
             </p>
           </div>
         </div>

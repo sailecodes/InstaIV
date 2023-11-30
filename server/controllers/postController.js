@@ -104,7 +104,8 @@ export const deletePost = async (req, res) => {
   await cloudinary.uploader.destroy(content.publicId);
   await postModel.findByIdAndDelete(req.params.id);
   await contentModel.findByIdAndDelete(content._id);
-  user.postsInfo = user.postsInfo.filter((postInfo) => req.params.id !== postInfo.postId.toString());
+
+  user.postsInfo = user.postsInfo.filter((postInfo) => postInfo.postId.toString() !== req.params.id);
   user.numPosts -= 1;
   await user.save();
 
@@ -124,7 +125,7 @@ export const updateLikeCount = async (req, res) => {
     post.likesInfo.num += 1;
     post.likesInfo.users.set(req.userInfo.userId, true);
   } else {
-    post.likesInfo.num -= 1;
+    post.likesInfo.num = post.likesInfo.num === 0 ? 0 : post.likesInfo.num - 1;
     post.likesInfo.users.delete(req.userInfo.userId);
   }
 
@@ -151,7 +152,7 @@ export const updateSaveCount = async (req, res) => {
       postId: post._id,
     });
   } else {
-    post.savesInfo.num -= 1;
+    post.savesInfo.num = post.savesInfo.num === 0 ? 0 : post.savesInfo.num - 1;
     post.savesInfo.users.delete(req.userInfo.userId);
     user.savedPostsInfo = user.savedPostsInfo.filter(
       (savedPost) => savedPost.postId.toString() !== post._id.toString()
