@@ -9,6 +9,7 @@ import HeartIcon from "../../utilities/icons/HeartIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import DeleteIcon from "../../utilities/icons/DeleteIcon";
 import { AppContext } from "../../../App";
+import { Link } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   position: relative;
@@ -18,6 +19,7 @@ const HomeWrapper = styled.div`
 
   padding: 2rem;
 
+  overflow-x: hidden;
   overflow-y: scroll;
 
   .home--posts-container {
@@ -56,7 +58,9 @@ const HomeWrapper = styled.div`
     border-radius: 50%;
   }
 
-  .home--post-username {
+  .home--post a {
+    color: var(--color-white);
+
     font-size: var(--font-sm-1);
   }
 
@@ -99,7 +103,7 @@ const HomeWrapper = styled.div`
     font-size: var(--font-sm-1);
   }
 
-  .home--post-text span {
+  .home--post-text a {
     font-weight: 600;
 
     margin-right: 1rem;
@@ -158,7 +162,7 @@ const Home = () => {
           <div className="home--post">
             <header>
               <img className="home--post-pp" src={data[3]?.contentInfo?.imageUrl} />
-              <p className="home--post-username">{data[3].userInfo.username}</p>
+              <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
               {userId === data[3].userInfo.userId && (
                 <button className="home--post-btn">
                   <DeleteIcon fill="var(--color-white)" stroke="none" width="3rem" height="3rem" />
@@ -195,14 +199,15 @@ const Home = () => {
               </div>
             </div>
             <p className="home--post-text">
-              <span>{data[3].userInfo.username}</span>
+              <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
               {data[3].caption}
             </p>
           </div>
+
           <div className="home--post">
             <header>
               <img className="home--post-pp" src={data[3]?.contentInfo?.imageUrl} />
-              <p className="home--post-username">{data[3].userInfo.username}</p>
+              <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
               {userId === data[3].userInfo.userId && (
                 <button className="home--post-btn">
                   <DeleteIcon fill="var(--color-white)" stroke="none" width="3rem" height="3rem" />
@@ -239,7 +244,7 @@ const Home = () => {
               </div>
             </div>
             <p className="home--post-text">
-              <span>{data[3].userInfo.username}</span>
+              <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
               {data[3].caption}
             </p>
           </div>
