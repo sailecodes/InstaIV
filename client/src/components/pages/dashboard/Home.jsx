@@ -11,6 +11,8 @@ import DeleteIcon from "../../utilities/icons/DeleteIcon";
 import { AppContext } from "../../../App";
 
 const HomeWrapper = styled.div`
+  position: relative;
+
   display: flex;
   justify-content: center;
 
@@ -136,17 +138,23 @@ const Home = () => {
 
   return (
     <HomeWrapper>
-      {isError && <Error />}
-      {isPending && <PulseLoader color="var(--color-blue)" />}
+      {isError && (
+        <div style={{ height: "100%", display: "grid", placeItems: "center" }}>
+          <Error />
+        </div>
+      )}
+      {isPending && <PulseLoader color="var(--color-blue)" cssOverride={{ position: "relative", top: "50%" }} />}
       {!isError && !isPending && (
         <div className="home--posts-container">
           <div className="home--post">
             <header>
               <img className="home--post-pp" src={data[3]?.contentInfo?.imageUrl} />
               <p className="home--post-username">{data[3].userInfo.username}</p>
-              <button className="home--post-btn">
-                <DeleteIcon fill="var(--color-white)" stroke="none" width="3rem" height="3rem" />
-              </button>
+              {userId === data[3].userInfo.userId && (
+                <button className="home--post-btn">
+                  <DeleteIcon fill="var(--color-white)" stroke="none" width="3rem" height="3rem" />
+                </button>
+              )}
             </header>
             <img className="home--post-content" src={data[3]?.contentInfo?.imageUrl} />
             <div className="home--post-btns">
