@@ -110,10 +110,18 @@ export const followUser = async (req, res) => {
   else if (user.followingInfo.find((following) => following.userId.toString() === req.params.id))
     throw new BadRequestError("Already following this user");
 
-  followedUser.followersInfo.push({ username: user.username, userId: req.userInfo.userId });
+  followedUser.followersInfo.push({
+    imageUrl: user?.profilePictureInfo?.imageUrl ? user.profilePictureInfo.imageUrl : "",
+    username: user.username,
+    userId: req.userInfo.userId,
+  });
   await followedUser.save();
 
-  user.followingInfo.push({ username: followedUser.username, userId: req.params.id });
+  user.followingInfo.push({
+    imageUrl: followedUser?.profilePictureInfo?.imageUrl ? followedUser.profilePictureInfo.imageUrl : "",
+    username: followedUser.username,
+    userId: req.params.id,
+  });
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Followed user" });

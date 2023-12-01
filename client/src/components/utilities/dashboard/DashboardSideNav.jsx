@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 import Logo from "../general/Logo";
 import HomeIcon from "../icons/HomeIcon";
@@ -8,16 +9,18 @@ import ProfilePicture from "./ProfilePicture";
 import SearchIcon from "../icons/SearchIcon";
 import DashboardSideNavWrapper from "../../../assets/styles/pages/dashboard/DashboardSideNavWrapper";
 import LogoutIcon from "../icons/LogoutIcon";
-import { AppContext } from "../../../App";
-import { useMutation } from "@tanstack/react-query";
 import axiosFetch from "../../../utilities/axiosFetch";
+import { AppContext } from "../../../App";
 
 const DashboardSideNav = () => {
-  const { userId, userProfilePictureUrl } = useContext(AppContext);
+  const { userProfilePictureUrl } = useContext(AppContext);
 
   const logout = useMutation({
     mutationFn: () => {
       return axiosFetch.get("/auth/logout");
+    },
+    onSuccess: () => {
+      localStorage.clear();
     },
   });
 
@@ -55,7 +58,7 @@ const DashboardSideNav = () => {
           <p className="side-nav--link">Create</p>
         </NavLink>
         <NavLink
-          to={`/dashboard/profile/${userId}`}
+          to={`/dashboard/profile/${localStorage.getItem("userId")}`}
           reloadDocument={true}>
           <ProfilePicture
             width={"3rem"}

@@ -6,8 +6,11 @@ import Error from "../../utilities/general/Error";
 import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
 import CreatePostWrapper from "../../../assets/styles/pages/dashboard/CreatePostWrapper";
 import Footer from "../../utilities/dashboard/Footer";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+  const navigate = useNavigate();
+
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (data) => {
       return axiosFetch.post("/posts", data, {
@@ -15,6 +18,9 @@ const CreatePost = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+    },
+    onSuccess: () => {
+      navigate(`/dashboard/profile/${localStorage.getItem("userId")}`);
     },
   });
 

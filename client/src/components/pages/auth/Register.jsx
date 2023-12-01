@@ -61,20 +61,23 @@ const Register = () => {
               name="email"
               placeholder="Email"
               error={emailErrorIcon}
-              setError={setEmailErrorIcon}
+              setErrorIcon={setEmailErrorIcon}
+              setErrorMsgs={setErrorMsgs}
             />
             <AuthInput
               name="password"
               placeholder="Password"
               error={passwordErrorIcon}
-              setError={setPasswordErrorIcon}
+              setErrorIcon={setPasswordErrorIcon}
+              setErrorMsgs={setErrorMsgs}
             />
             <AuthInput
               type="text"
               name="username"
               placeholder="Username"
               error={usernameErrorIcon}
-              setError={setUsernameErrorIcon}
+              setErrorIcon={setUsernameErrorIcon}
+              setErrorMsgs={setErrorMsgs}
             />
             <button type="submit">
               {isPending ? (

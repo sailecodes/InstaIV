@@ -29,6 +29,9 @@ const DashboardTopNav = () => {
     mutationFn: () => {
       return axiosFetch.get("/auth/logout");
     },
+    onSuccess: () => {
+      localStorage.clear();
+    },
   });
 
   return (

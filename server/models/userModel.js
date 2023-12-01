@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userProfilePictureInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
-    required: [true, "Image url required"],
+    default: "",
   },
   contentId: {
     type: mongoose.Types.ObjectId,
@@ -13,6 +13,10 @@ const userProfilePictureInfoSubSchema = mongoose.Schema({
 });
 
 const userFollowInfoSubSchema = mongoose.Schema({
+  imageUrl: {
+    type: String,
+    default: "",
+  },
   username: {
     type: String,
     required: [true, "Username required"],
@@ -27,7 +31,7 @@ const userFollowInfoSubSchema = mongoose.Schema({
 const userPostsInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
-    required: [true, "Image url required"],
+    default: "",
   },
   contentId: {
     type: mongoose.Types.ObjectId,

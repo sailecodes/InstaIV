@@ -1,18 +1,4 @@
-import styled from "styled-components";
-
-const LogoWrapper = styled.div`
-  p {
-    color: var(--color-white);
-
-    font-size: var(--font-md-1);
-    font-weight: 600;
-    font-style: italic;
-  }
-
-  .logo.large {
-    font-size: var(--font-lg-1);
-  }
-`;
+import LogoWrapper from "../../../assets/styles/general/LogoWrapper";
 
 const Logo = ({ isLarge }) => {
   return (

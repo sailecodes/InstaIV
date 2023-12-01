@@ -1,20 +1,18 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import AuthWrapper from "../../../assets/styles/pages/auth/AuthWrapper";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
-import { AppContext } from "../../../App";
 
 const Login = () => {
   const navigate = useNavigate();
   const [emailErrorIcon, setEmailErrorIcon] = useState(false);
   const [passwordErrorIcon, setPasswordErrorIcon] = useState(false);
   const [errorMsgs, setErrorMsgs] = useState(null);
-  const { setUserId, setUserProfilePictureUrl } = useContext(AppContext);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (loginData) => {
@@ -22,8 +20,8 @@ const Login = () => {
     },
     onSuccess: (data) => {
       navigate("/dashboard");
-      setUserId(data?.data?.data._id);
-      setUserProfilePictureUrl(data?.data?.data.profilePictureInfo.imageUrl);
+      localStorage.setItem("userId", data?.data?.data._id);
+      localStorage.setItem("userProfilePictureUrl", data?.data?.data.profilePictureInfo.imageUrl);
     },
     onError: (error) => {
       const errors = error?.response?.data?.msg;

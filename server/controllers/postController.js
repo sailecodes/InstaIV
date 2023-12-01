@@ -11,6 +11,8 @@ import { NotFoundError, UnauthorizedError } from "../custom-errors/customErrors.
 // General CRUDs
 // ==============================================
 
+// TODO: Must dynamically change the profile picture for home posts, i.e. whenever the profile picture changes,
+//       so should the profile picture in corresponding home posts
 export const getAllPosts = async (req, res) => {
   const posts = await postModel.find({});
 
@@ -68,6 +70,7 @@ export const getPost = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "(Server message) Post retrieved", data: post });
 };
 
+// TODO: Impl. client-side
 export const updatePost = async (req, res) => {
   const user = await userModel.findById(req.userInfo.userId);
 
@@ -101,14 +104,23 @@ export const deletePost = async (req, res) => {
 
   if (!content) throw new NotFoundError(`Content with id ${post.contentInfo.contentId} not found`);
 
-  await cloudinary.uploader.destroy(content.publicId);
-  await postModel.findByIdAndDelete(req.params.id);
-  await contentModel.findByIdAndDelete(content._id);
+  const savers = Array.from(post.savesInfo.users.keys());
+
+  // Removes post from saved collection of other users
+  for (let i = 0; i < savers.length; i++) {
+    const saver = await userModel.findById(savers[i]);
+    saver.savedPostsInfo = saver.savedPostsInfo.filter((postInfo) => postInfo.postId.toString() !== req.params.id);
+    await saver.save();
+  }
 
   user.postsInfo = user.postsInfo.filter((postInfo) => postInfo.postId.toString() !== req.params.id);
   user.savedPostsInfo = user.savedPostsInfo.filter((postInfo) => postInfo.postId.toString() !== req.params.id);
   user.numPosts -= 1;
   await user.save();
+
+  await cloudinary.uploader.destroy(content.publicId);
+  await postModel.findByIdAndDelete(req.params.id);
+  await contentModel.findByIdAndDelete(content._id);
 
   res.status(StatusCodes.OK).json({ msg: "(Server message) Post deleted" });
 };

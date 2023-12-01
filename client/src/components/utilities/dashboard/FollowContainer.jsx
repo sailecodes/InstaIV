@@ -15,8 +15,6 @@ const FollowContainer = ({ followData }) => {
     setIsFollowingClicked(false);
   };
 
-  console.log(followData);
-
   return (
     <FollowContainerWrapper>
       <section className={`${isFollowContainerVisible ? "" : "display-none"}`}>
@@ -30,21 +28,24 @@ const FollowContainer = ({ followData }) => {
           </button>
         </nav>
         <div className="follow-container--users">
-          {followData.map((user) => (
-            <div key={user._id}>
-              <ProfilePicture
-                width="3rem"
-                height="3rem"
-              />
-              <p>{user.username}</p>
-              <Link
-                to={`/dashboard/profile/${user.userId}`}
-                reloadDocument={true}
-                onClick={handleClick}>
-                See profile
-              </Link>
-            </div>
-          ))}
+          {followData.map((user) => {
+            return (
+              <div key={user._id}>
+                <ProfilePicture
+                  width="3rem"
+                  height="3rem"
+                  profilePictureUrl={user.imageUrl}
+                />
+                <p>{user.username}</p>
+                <Link
+                  to={`/dashboard/profile/${user.userId}`}
+                  reloadDocument={true}
+                  onClick={handleClick}>
+                  See profile
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </section>
     </FollowContainerWrapper>

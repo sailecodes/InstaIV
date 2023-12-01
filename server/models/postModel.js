@@ -15,7 +15,7 @@ const postContentInfoSubSchema = mongoose.Schema({
 const postUserInfoSubSchema = mongoose.Schema({
   imageUrl: {
     type: String,
-    required: [true, "Image url required"],
+    default: "",
   },
   username: {
     type: String,

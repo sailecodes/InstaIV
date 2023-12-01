@@ -9,7 +9,7 @@ import DashboardLowerNavWrapper from "../../../assets/styles/pages/dashboard/Das
 import { AppContext } from "../../../App";
 
 const DashboardLowerNav = () => {
-  const { userId, userProfilePictureUrl } = useContext(AppContext);
+  const { userProfilePictureUrl } = useContext(AppContext);
 
   return (
     <DashboardLowerNavWrapper>
@@ -40,7 +40,7 @@ const DashboardLowerNav = () => {
             height="3rem"
           />
         </NavLink>
-        <NavLink to={`/dashboard/profile/${userId}`}>
+        <NavLink to={`/dashboard/profile/${localStorage.getItem("userId")}`}>
           <ProfilePicture
             width="2.6rem"
             height="2.6rem"

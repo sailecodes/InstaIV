@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PulseLoader from "react-spinners/PulseLoader";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Outlet, NavLink, useLoaderData, Link } from "react-router-dom";
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import useScreenSize from "../../../custom-hooks/useScreenSize";
@@ -11,7 +11,6 @@ import UserPostsIcon from "../../utilities/icons/UserPostsIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
-import { AppContext } from "../../../App";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const ProfileWrapper = styled.div`
@@ -162,9 +161,7 @@ const Profile = () => {
   const queryClient = useQueryClient();
   const screenSize = useScreenSize();
   const id = useLoaderData();
-  const { userId } = useContext(AppContext);
-
-  const isLoggedUser = userId === id;
+  const isLoggedUser = localStorage.getItem("userId") === id;
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["user", id],

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import axiosFetch from "../../../utilities/axiosFetch";
@@ -10,7 +9,6 @@ import HeartIcon from "../../utilities/icons/HeartIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import DeleteIcon from "../../utilities/icons/DeleteIcon";
 import Footer from "../../utilities/dashboard/Footer";
-import { AppContext } from "../../../App";
 
 const HomeWrapper = styled.div`
   position: relative;
@@ -46,6 +44,26 @@ const HomeWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+  .home--post > header > p {
+    color: var(--color-gray);
+
+    font-size: var(--font-sm-1);
+  }
+
+  .home--post-dot {
+    color: var(--color-gray);
+
+    font-size: var(--font-sm-3);
+  }
+
+  .home--post-mutations {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-left: auto;
   }
 
   .home--post > header > button {
@@ -123,7 +141,6 @@ const HomeWrapper = styled.div`
 
 const Home = () => {
   const queryClient = useQueryClient();
-  const { userId } = useContext(AppContext);
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["posts"],
@@ -192,20 +209,24 @@ const Home = () => {
                   <header>
                     <img
                       className="home--post-pp"
-                      src={post?.contentInfo?.imageUrl}
+                      src={post.userInfo.imageUrl}
                     />
                     <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
-                    {userId === post.userInfo.userId && (
-                      <button
-                        className="home--post-btn"
-                        onClick={() => deletePost.mutate({ id: post._id })}>
-                        <DeleteIcon
-                          fill="var(--color-white)"
-                          stroke="none"
-                          width="3rem"
-                          height="3rem"
-                        />
-                      </button>
+                    <div className="home--post-dot">&middot;</div>
+                    <p>{new Date(post.createdAt).toLocaleDateString("en-us", { month: "short", day: "numeric" })}</p>
+                    {localStorage.getItem("userId") === post.userInfo.userId && (
+                      <div className="home--post-mutations">
+                        <button
+                          className="home--post-btn"
+                          onClick={() => deletePost.mutate({ id: post._id })}>
+                          <DeleteIcon
+                            fill="var(--color-white)"
+                            stroke="none"
+                            width="3rem"
+                            height="3rem"
+                          />
+                        </button>
+                      </div>
                     )}
                   </header>
                   <img
@@ -216,9 +237,14 @@ const Home = () => {
                     <div>
                       <button
                         className="home--post-btn"
-                        onClick={() => updateLikes.mutate({ statFlag: !post.likesInfo.users[userId], id: post._id })}>
+                        onClick={() =>
+                          updateLikes.mutate({
+                            statFlag: !post.likesInfo.users[localStorage.getItem("userId")],
+                            id: post._id,
+                          })
+                        }>
                         <HeartIcon
-                          fill={post.likesInfo.users[userId] ? "var(--color-red)" : ""}
+                          fill={post.likesInfo.users[localStorage.getItem("userId")] ? "var(--color-red)" : ""}
                           stroke="var(--color-red)"
                           width="2.7rem"
                           height="2.7rem"
@@ -229,9 +255,14 @@ const Home = () => {
                     <div>
                       <button
                         className="home--post-btn"
-                        onClick={() => updateSaves.mutate({ statFlag: !post.savesInfo.users[userId], id: post._id })}>
+                        onClick={() =>
+                          updateSaves.mutate({
+                            statFlag: !post.savesInfo.users[localStorage.getItem("userId")],
+                            id: post._id,
+                          })
+                        }>
                         <SavedPostsIcon
-                          fill={post.savesInfo.users[userId] ? "var(--color-yellow)" : ""}
+                          fill={post.savesInfo.users[localStorage.getItem("userId")] ? "var(--color-yellow)" : ""}
                           stroke="var(--color-yellow)"
                           width="2.5rem"
                           height="2.5rem"

@@ -10,7 +10,7 @@ export const register = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   req.body.password = await bcrypt.hash(req.body.password, salt);
 
-  const registeredUser = await userModel.create(req.body);
+  await userModel.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ msg: "(Server message) User registered" });
 };
@@ -18,7 +18,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const loggedUser = await userModel.findOne({ email: req.body.email });
 
-  if (!loggedUser) throw new UnauthenticatedError(`User with email ${req.body.email} not found`);
+  if (!loggedUser) throw new UnauthenticatedError(`User with email '${req.body.email}' not found`);
 
   const isCorrectPassword = await bcrypt.compare(req.body.password, loggedUser.password);
 

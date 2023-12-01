@@ -59,19 +59,19 @@ const EditProfileWrapper = styled.div`
 `;
 
 const EditProfile = () => {
-  const { userId, setUserProfilePictureUrl } = useContext(AppContext);
+  const { setUserProfilePictureUrl } = useContext(AppContext);
   const navigate = useNavigate();
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: (data) => {
-      return axiosFetch.patch(`/users/${userId}`, data, {
+      return axiosFetch.patch(`/users/${localStorage.getItem("userId")}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
     },
     onSuccess: (data) => {
-      navigate(`/dashboard/profile/${userId}`);
+      navigate(`/dashboard/profile/${localStorage.getItem("userId")}`);
       setUserProfilePictureUrl(data?.data?.data.profilePictureInfo.imageUrl);
     },
   });
@@ -94,10 +94,28 @@ const EditProfile = () => {
       )}
       {!isError && (
         <>
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <CreatePostInput type="file" name="profilePicture" />
-            <CreatePostInput type="text" name="bio" placeholder="Enter bio" />
-            <button type="submit">{isPending ? <ClipLoader size={13} color="var(--color-white)" /> : "Submit"}</button>
+          <form
+            onSubmit={handleSubmit}
+            encType="multipart/form-data">
+            <CreatePostInput
+              type="file"
+              name="profilePicture"
+            />
+            <CreatePostInput
+              type="text"
+              name="bio"
+              placeholder="Enter bio"
+            />
+            <button type="submit">
+              {isPending ? (
+                <ClipLoader
+                  size={13}
+                  color="var(--color-white)"
+                />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </form>
           <p>*Can only change profile picture and/or bio (for now)</p>
         </>
