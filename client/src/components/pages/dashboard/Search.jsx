@@ -60,6 +60,11 @@ const SearchWrapper = styled.div`
     gap: 3rem;
   }
 
+  .search-data--container > p {
+    font-size: var(--font-sm-3);
+    font-weight: 600;
+  }
+
   .search-data--container > div {
     display: flex;
     align-items: center;
@@ -152,17 +157,19 @@ const Search = () => {
         )}
         {!isError && !isPending && (
           <div className="search-data--container">
-            {searchData.map((user) => (
-              <div key={user._id}>
-                <ProfilePicture
-                  width="3rem"
-                  height="3rem"
-                  profilePictureUrl={user?.profilePictureInfo?.imageUrl}
-                />
-                <p>{user.username}</p>
-                <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
-              </div>
-            ))}
+            {searchData.length === 0 && <p>No friends yet!</p>}
+            {searchData.length !== 0 &&
+              searchData.map((user) => (
+                <div key={user._id}>
+                  <ProfilePicture
+                    width="3rem"
+                    height="3rem"
+                    profilePictureUrl={user?.profilePictureInfo?.imageUrl}
+                  />
+                  <p>{user.username}</p>
+                  <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
+                </div>
+              ))}
           </div>
         )}
       </div>

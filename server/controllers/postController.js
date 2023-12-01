@@ -77,7 +77,7 @@ export const updatePost = async (req, res) => {
 
   // Note: Only the post owner can modify the resource if it exists
   if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
-  else if (post.userId.toString() !== req.userInfo.userId)
+  else if (post.userInfo.userId.toString() !== req.userInfo.userId)
     throw new UnauthorizedError(`Not authorized to access this resource`);
 
   post.caption = req.body.caption;
@@ -94,7 +94,7 @@ export const deletePost = async (req, res) => {
   const post = await postModel.findById(req.params.id);
 
   if (!post) throw new NotFoundError(`Post with id ${req.params.id} not found`);
-  else if (post.userId.toString() !== req.userInfo.userId)
+  else if (post.userInfo.userId.toString() !== req.userInfo.userId)
     throw new UnauthorizedError(`Not authorized to access this resource`);
 
   const content = await contentModel.findById(post.contentInfo.contentId);
@@ -106,6 +106,7 @@ export const deletePost = async (req, res) => {
   await contentModel.findByIdAndDelete(content._id);
 
   user.postsInfo = user.postsInfo.filter((postInfo) => postInfo.postId.toString() !== req.params.id);
+  user.savedPostsInfo = user.savedPostsInfo.filter((postInfo) => postInfo.postId.toString() !== req.params.id);
   user.numPosts -= 1;
   await user.save();
 

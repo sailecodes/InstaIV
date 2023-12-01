@@ -9,8 +9,6 @@ const SavedPosts = () => {
   const { data } = useContext(ProfileContext);
   const savedPostsInfo = getPerfectThrees(data.savedPostsInfo);
 
-  console.log(savedPostsInfo);
-
   return (
     <PostsWrapper>
       {savedPostsInfo.map((postsRowData) => (

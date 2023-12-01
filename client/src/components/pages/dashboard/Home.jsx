@@ -26,7 +26,7 @@ const HomeWrapper = styled.div`
   .home--posts-container {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 5rem;
   }
 
   .home--post {
@@ -34,7 +34,7 @@ const HomeWrapper = styled.div`
     flex-direction: column;
     gap: 1rem;
 
-    padding-bottom: 3rem;
+    padding-bottom: 5rem;
     border-bottom: 1px solid var(--color-dark-gray);
   }
 
@@ -111,7 +111,7 @@ const HomeWrapper = styled.div`
   }
 
   .home--posts-empty {
-    font-size: var(--font-md-1);
+    font-size: var(--font-sm-3);
     font-weight: 600;
   }
 
@@ -134,6 +134,15 @@ const Home = () => {
         },
       } = await axiosFetch.get("/posts");
       return posts;
+    },
+  });
+
+  const deletePost = useMutation({
+    mutationFn: (data) => {
+      return axiosFetch.delete(`/posts/${data.id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });
 
@@ -176,125 +185,67 @@ const Home = () => {
           )}
           {data.length !== 0 && (
             <>
-              <div className="home--post">
-                <header>
+              {data.map((post) => (
+                <div
+                  className="home--post"
+                  key={post._id}>
+                  <header>
+                    <img
+                      className="home--post-pp"
+                      src={post?.contentInfo?.imageUrl}
+                    />
+                    <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
+                    {userId === post.userInfo.userId && (
+                      <button
+                        className="home--post-btn"
+                        onClick={() => deletePost.mutate({ id: post._id })}>
+                        <DeleteIcon
+                          fill="var(--color-white)"
+                          stroke="none"
+                          width="3rem"
+                          height="3rem"
+                        />
+                      </button>
+                    )}
+                  </header>
                   <img
-                    className="home--post-pp"
-                    src={data[3]?.contentInfo?.imageUrl}
+                    className="home--post-content"
+                    src={post?.contentInfo?.imageUrl}
                   />
-                  <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
-                  {userId === data[3].userInfo.userId && (
-                    <button className="home--post-btn">
-                      <DeleteIcon
-                        fill="var(--color-white)"
-                        stroke="none"
-                        width="3rem"
-                        height="3rem"
-                      />
-                    </button>
-                  )}
-                </header>
-                <img
-                  className="home--post-content"
-                  src={data[3]?.contentInfo?.imageUrl}
-                />
-                <div className="home--post-btns">
-                  <div>
-                    <button
-                      className="home--post-btn"
-                      onClick={() =>
-                        updateLikes.mutate({ statFlag: !data[3].likesInfo.users[userId], id: data[3]._id })
-                      }>
-                      <HeartIcon
-                        fill={data[3].likesInfo.users[userId] ? "var(--color-red)" : ""}
-                        stroke="var(--color-red)"
-                        width="2.7rem"
-                        height="2.7rem"
-                      />
-                    </button>
-                    <div>{data[3].likesInfo.num}</div>
+                  <div className="home--post-btns">
+                    <div>
+                      <button
+                        className="home--post-btn"
+                        onClick={() => updateLikes.mutate({ statFlag: !post.likesInfo.users[userId], id: post._id })}>
+                        <HeartIcon
+                          fill={post.likesInfo.users[userId] ? "var(--color-red)" : ""}
+                          stroke="var(--color-red)"
+                          width="2.7rem"
+                          height="2.7rem"
+                        />
+                      </button>
+                      <div>{post.likesInfo.num}</div>
+                    </div>
+                    <div>
+                      <button
+                        className="home--post-btn"
+                        onClick={() => updateSaves.mutate({ statFlag: !post.savesInfo.users[userId], id: post._id })}>
+                        <SavedPostsIcon
+                          fill={post.savesInfo.users[userId] ? "var(--color-yellow)" : ""}
+                          stroke="var(--color-yellow)"
+                          width="2.5rem"
+                          height="2.5rem"
+                        />
+                      </button>
+                      <div>{post.savesInfo.num}</div>
+                    </div>
                   </div>
-                  <div>
-                    <button
-                      className="home--post-btn"
-                      onClick={() =>
-                        updateSaves.mutate({ statFlag: !data[3].savesInfo.users[userId], id: data[3]._id })
-                      }>
-                      <SavedPostsIcon
-                        fill={data[3].savesInfo.users[userId] ? "var(--color-yellow)" : ""}
-                        stroke="var(--color-yellow)"
-                        width="2.5rem"
-                        height="2.5rem"
-                      />
-                    </button>
-                    <div>{data[3].savesInfo.num}</div>
-                  </div>
+                  <p className="home--post-text">
+                    <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
+                    {post.caption}
+                  </p>
                 </div>
-                <p className="home--post-text">
-                  <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
-                  {data[3].caption}
-                </p>
-              </div>
-
-              <div className="home--post">
-                <header>
-                  <img
-                    className="home--post-pp"
-                    src={data[3]?.contentInfo?.imageUrl}
-                  />
-                  <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
-                  {userId === data[3].userInfo.userId && (
-                    <button className="home--post-btn">
-                      <DeleteIcon
-                        fill="var(--color-white)"
-                        stroke="none"
-                        width="3rem"
-                        height="3rem"
-                      />
-                    </button>
-                  )}
-                </header>
-                <img
-                  className="home--post-content"
-                  src={data[3]?.contentInfo?.imageUrl}
-                />
-                <div className="home--post-btns">
-                  <div>
-                    <button
-                      className="home--post-btn"
-                      onClick={() =>
-                        updateLikes.mutate({ statFlag: !data[3].likesInfo.users[userId], id: data[3]._id })
-                      }>
-                      <HeartIcon
-                        fill={data[3].likesInfo.users[userId] ? "var(--color-red)" : ""}
-                        stroke="var(--color-red)"
-                        width="2.7rem"
-                        height="2.7rem"
-                      />
-                    </button>
-                    <div>{data[3].likesInfo.num}</div>
-                  </div>
-                  <div>
-                    <button
-                      className="home--post-btn"
-                      onClick={() =>
-                        updateSaves.mutate({ statFlag: !data[3].savesInfo.users[userId], id: data[3]._id })
-                      }>
-                      <SavedPostsIcon
-                        fill={data[3].savesInfo.users[userId] ? "var(--color-yellow)" : ""}
-                        stroke="var(--color-yellow)"
-                        width="2.5rem"
-                        height="2.5rem"
-                      />
-                    </button>
-                    <div>{data[3].savesInfo.num}</div>
-                  </div>
-                </div>
-                <p className="home--post-text">
-                  <Link to={`/dashboard/profile/${data[3].userInfo.userId}`}>{data[3].userInfo.username}</Link>
-                  {data[3].caption}
-                </p>
-              </div>
+              ))}
             </>
           )}
         </div>

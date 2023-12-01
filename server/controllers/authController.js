@@ -18,11 +18,11 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const loggedUser = await userModel.findOne({ email: req.body.email });
 
-  if (!loggedUser) throw new UnauthenticatedError(`User with ${req.body.email} not found`);
+  if (!loggedUser) throw new UnauthenticatedError(`User with email ${req.body.email} not found`);
 
   const isCorrectPassword = await bcrypt.compare(req.body.password, loggedUser.password);
 
-  if (!isCorrectPassword) throw new UnauthenticatedError("Password incorrect");
+  if (!isCorrectPassword) throw new UnauthenticatedError("Password is incorrect");
 
   const token = jwt.sign({ userId: loggedUser._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRATION,
