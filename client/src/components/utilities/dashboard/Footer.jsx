@@ -8,7 +8,7 @@ const FooterWrapper = styled.footer`
 
     width: 30rem;
 
-    margin-left: 5rem;
+    margin-left: 7rem;
 
     > p {
       color: var(--color-gray);
@@ -39,24 +39,15 @@ const Footer = () => {
     <FooterWrapper>
       <p>A basic social media app inspired by Instagram and created by Elias IV Roman. Check me out:</p>
       <div>
-        <a
-          href="https://github.com/sailecodes"
-          target="_blank"
-          rel="noopener noreferrer">
+        <a href="https://github.com/sailecodes" target="_blank" rel="noopener noreferrer">
           Github
         </a>
         <div>&middot;</div>
-        <a
-          href="https://www.linkedin.com/in/elias-roman-38440028b/"
-          target="_blank"
-          rel="noopener noreferrer">
+        <a href="https://www.linkedin.com/in/elias-roman-38440028b/" target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>
         <div>&middot;</div>
-        <a
-          href="https://youtu.be/dQw4w9WgXcQ?si=KayBtNU2jAc3Kaop"
-          target="_blank"
-          rel="noopener noreferrer">
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=KayBtNU2jAc3Kaop" target="_blank" rel="noopener noreferrer">
           Portfolio
         </a>
       </div>

@@ -12,11 +12,7 @@ const Posts = () => {
   return (
     <PostsWrapper>
       {postsInfo.map((postsRowData) => (
-        <PostsRowContainer
-          key={postsRowData}
-          postsRowData={postsRowData}
-          rowLength={postsRowData.length}
-        />
+        <PostsRowContainer key={postsRowData} postsRowData={postsRowData} rowLength={postsRowData.length} />
       ))}
     </PostsWrapper>
   );

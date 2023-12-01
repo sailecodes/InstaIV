@@ -41,43 +41,46 @@ const userPostsInfoSubSchema = mongoose.Schema({
   },
 });
 
-const userSchema = mongoose.Schema({
-  email: {
-    type: String,
+const userSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+    },
+    password: {
+      type: String,
+    },
+    username: {
+      type: String,
+    },
+    profilePictureInfo: {
+      type: userProfilePictureInfoSubSchema,
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
+    numPosts: {
+      type: Number,
+      default: 0,
+    },
+    followersInfo: {
+      type: [userFollowInfoSubSchema],
+      default: [],
+    },
+    followingInfo: {
+      type: [userFollowInfoSubSchema],
+      default: [],
+    },
+    postsInfo: {
+      type: [userPostsInfoSubSchema],
+      default: [],
+    },
+    savedPostsInfo: {
+      type: [userPostsInfoSubSchema],
+      default: [],
+    },
   },
-  password: {
-    type: String,
-  },
-  username: {
-    type: String,
-  },
-  profilePictureInfo: {
-    type: userProfilePictureInfoSubSchema,
-  },
-  bio: {
-    type: String,
-    default: "",
-  },
-  numPosts: {
-    type: Number,
-    default: 0,
-  },
-  followersInfo: {
-    type: [userFollowInfoSubSchema],
-    default: [],
-  },
-  followingInfo: {
-    type: [userFollowInfoSubSchema],
-    default: [],
-  },
-  postsInfo: {
-    type: [userPostsInfoSubSchema],
-    default: [],
-  },
-  savedPostsInfo: {
-    type: [userPostsInfoSubSchema],
-    default: [],
-  },
-});
+  { timestamps: true }
+);
 
 export default mongoose.model("User", userSchema);

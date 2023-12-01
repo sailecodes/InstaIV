@@ -111,7 +111,7 @@ const HomeWrapper = styled.div`
   }
 
   .home--posts-empty {
-    font-size: var(--font-sm-2);
+    font-size: var(--font-md-1);
     font-weight: 600;
   }
 
@@ -163,10 +163,9 @@ const Home = () => {
         </div>
       )}
       {isPending && (
-        <PulseLoader
-          color="var(--color-blue)"
-          cssOverride={{ position: "relative", top: "50%" }}
-        />
+        <div style={{ width: "46.8rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <PulseLoader color="var(--color-blue)" />
+        </div>
       )}
       {!isError && !isPending && (
         <div className="home--posts-container">

@@ -118,10 +118,11 @@ const ProfileWrapper = styled.div`
     grid-row: 1 / -1;
     grid-column: 2 / -1;
 
-    display: flex;
-    justify-content: center;
-
     padding: 0 2rem 2rem 2rem;
+
+    > div {
+      margin: 0 auto;
+    }
 
     .profile--user-information {
       grid-template-columns: 15rem 1fr;

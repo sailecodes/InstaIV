@@ -11,8 +11,9 @@ import { AppContext } from "../../../App";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [emailErrorIcon, setEmailErrorIcon] = useState(false);
+  const [passwordErrorIcon, setPasswordErrorIcon] = useState(false);
+  const [errorMsgs, setErrorMsgs] = useState(null);
   const { setUserId, setUserProfilePictureUrl } = useContext(AppContext);
 
   const { mutate, isPending } = useMutation({
@@ -31,12 +32,12 @@ const Login = () => {
       if (errors) msgs = errors.split(",");
 
       if (msgs) {
-        if (msgs[0]) {
-          if (msgs[0].includes("Email")) setEmailError(true);
-          else if (msgs[0].includes("Password")) setPasswordError(true);
+        for (let i = 0; i < msgs.length; i++) {
+          if (msgs[i].includes("Email")) setEmailErrorIcon(true);
+          else if (msgs[i].includes("Password")) setPasswordErrorIcon(true);
         }
 
-        if (msgs[1] && msgs[1].includes("Password")) setPasswordError(true);
+        setErrorMsgs(msgs);
       } else {
         return <h1>Something went wrong, please try again later.</h1>;
       }
@@ -58,14 +59,36 @@ const Login = () => {
         <Logo isLarge={true} />
         <div className="auth--input-container">
           <form onSubmit={handleSubmit}>
-            <AuthInput name="email" placeholder="Email" error={emailError} setError={setEmailError} />
-            <AuthInput name="password" placeholder="Password" error={passwordError} setError={setPasswordError} />
-            <button type="submit">{isPending ? <ClipLoader size={10} color={"var(--color-white)"} /> : "Login"}</button>
+            <AuthInput
+              name="email"
+              placeholder="Email"
+              error={emailErrorIcon}
+              setErrorIcon={setEmailErrorIcon}
+              setErrorMsgs={setErrorMsgs}
+            />
+            <AuthInput
+              name="password"
+              placeholder="Password"
+              error={passwordErrorIcon}
+              setErrorIcon={setPasswordErrorIcon}
+              setErrorMsgs={setErrorMsgs}
+            />
+            <button type="submit">
+              {isPending ? (
+                <ClipLoader
+                  size={10}
+                  color={"var(--color-white)"}
+                />
+              ) : (
+                "Login"
+              )}
+            </button>
           </form>
           <p>
             Don&apos;t have an account? <Link to="/register">Sign up</Link>
           </p>
         </div>
+        <div className="auth--error-container">{errorMsgs && errorMsgs.map((msg) => <p key={msg}>*{msg}</p>)}</div>
       </div>
     </AuthWrapper>
   );

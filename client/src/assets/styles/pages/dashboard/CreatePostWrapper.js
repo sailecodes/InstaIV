@@ -6,7 +6,7 @@ const CreatePostWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  padding: 5rem 2rem 5rem 2rem;
+  padding: 2rem;
 
   .create-post--form {
     position: relative;
@@ -18,8 +18,10 @@ const CreatePostWrapper = styled.div`
     justify-content: center;
     gap: 2rem;
 
-    width: 100%;
+    width: 36rem;
     height: 100%;
+
+    padding-top: 4rem;
   }
 
   .create-post--form > div:nth-child(2) {

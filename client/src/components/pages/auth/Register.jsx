@@ -1,18 +1,19 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 import AuthWrapper from "../../../assets/styles/pages/auth/AuthWrapper";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
-import { useMutation } from "@tanstack/react-query";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [usernameError, setUsernameError] = useState(false);
+  const [emailErrorIcon, setEmailErrorIcon] = useState(false);
+  const [passwordErrorIcon, setPasswordErrorIcon] = useState(false);
+  const [usernameErrorIcon, setUsernameErrorIcon] = useState(false);
+  const [errorMsgs, setErrorMsgs] = useState(null);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (registerData) => {
@@ -27,18 +28,17 @@ const Register = () => {
 
       if (errors) msgs = errors.split(",");
 
-      if (msgs[0]) {
-        if (msgs[0].includes("Email")) setEmailError(true);
-        else if (msgs[0].includes("Password")) setPasswordError(true);
-        else if (msgs[0].includes("Username")) setUsernameError(true);
-      }
+      if (msgs) {
+        for (let i = 0; i < msgs.length; i++) {
+          if (msgs[i].includes("Email")) setEmailErrorIcon(true);
+          else if (msgs[i].includes("Password")) setPasswordErrorIcon(true);
+          else if (msgs[i].includes("Username")) setUsernameErrorIcon(true);
+        }
 
-      if (msgs[1]) {
-        if (msgs[1].includes("Password")) setPasswordError(true);
-        else if (msgs[1].includes("Username")) setUsernameError(true);
+        setErrorMsgs(msgs);
+      } else {
+        return <h1>Something went wrong, please try again later.</h1>;
       }
-
-      if (msgs[2] && msgs[2].includes("Username")) setUsernameError(true);
     },
   });
 
@@ -57,23 +57,41 @@ const Register = () => {
         <Logo isLarge={true} />
         <div className="auth--input-container">
           <form onSubmit={handleSubmit}>
-            <AuthInput name="email" placeholder="Email" error={emailError} setError={setEmailError} />
-            <AuthInput name="password" placeholder="Password" error={passwordError} setError={setPasswordError} />
+            <AuthInput
+              name="email"
+              placeholder="Email"
+              error={emailErrorIcon}
+              setError={setEmailErrorIcon}
+            />
+            <AuthInput
+              name="password"
+              placeholder="Password"
+              error={passwordErrorIcon}
+              setError={setPasswordErrorIcon}
+            />
             <AuthInput
               type="text"
               name="username"
               placeholder="Username"
-              error={usernameError}
-              setError={setUsernameError}
+              error={usernameErrorIcon}
+              setError={setUsernameErrorIcon}
             />
             <button type="submit">
-              {isPending ? <ClipLoader size={10} color={"var(--color-white)"} /> : "Register"}
+              {isPending ? (
+                <ClipLoader
+                  size={10}
+                  color={"var(--color-white)"}
+                />
+              ) : (
+                "Register"
+              )}
             </button>
           </form>
           <p>
             Already have an account? <Link to="/">Login</Link>
           </p>
         </div>
+        <div className="auth--error-container">{errorMsgs && errorMsgs.map((msg) => <p key={msg}>*{msg}</p>)}</div>
       </div>
     </AuthWrapper>
   );

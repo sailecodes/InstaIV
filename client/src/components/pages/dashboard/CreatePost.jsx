@@ -60,6 +60,7 @@ const CreatePost = () => {
           </button>
         </form>
       )}
+      <Footer />
     </CreatePostWrapper>
   );
 };

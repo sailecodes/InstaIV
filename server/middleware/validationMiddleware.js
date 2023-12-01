@@ -82,13 +82,13 @@ export const validateRegisterInput = validate([
 ]);
 
 export const validateLoginInput = validate([
-  body("email").isEmail().withMessage("Email not valid"),
+  body("email").isEmail().withMessage("Email isn't valid"),
   body("password")
     .notEmpty()
-    .withMessage("Password required")
+    .withMessage("Password is required")
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Password must be minimum 10 characters"),
+    .withMessage("Password must be a minimum of 10 characters"),
 ]);
 
 // ==============================================

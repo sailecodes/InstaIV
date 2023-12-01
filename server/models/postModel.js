@@ -39,27 +39,30 @@ const postStatInfoSubSchema = mongoose.Schema({
   },
 });
 
-const postSchema = mongoose.Schema({
-  contentInfo: {
-    type: postContentInfoSubSchema,
-    required: true,
+const postSchema = mongoose.Schema(
+  {
+    contentInfo: {
+      type: postContentInfoSubSchema,
+      required: true,
+    },
+    userInfo: {
+      type: postUserInfoSubSchema,
+      required: true,
+    },
+    caption: {
+      type: String,
+      default: "",
+    },
+    likesInfo: {
+      type: postStatInfoSubSchema,
+      default: {},
+    },
+    savesInfo: {
+      type: postStatInfoSubSchema,
+      default: {},
+    },
   },
-  userInfo: {
-    type: postUserInfoSubSchema,
-    required: true,
-  },
-  caption: {
-    type: String,
-    default: "",
-  },
-  likesInfo: {
-    type: postStatInfoSubSchema,
-    default: {},
-  },
-  savesInfo: {
-    type: postStatInfoSubSchema,
-    default: {},
-  },
-});
+  { timestamps: true }
+);
 
 export default mongoose.model("Post", postSchema);

@@ -34,8 +34,15 @@ const DashboardTopNav = () => {
   return (
     <DashboardTopNavWrapper>
       <Logo />
-      <NavLink to={`/`} onClick={logout.mutate}>
-        <LogoutIcon />
+      <NavLink
+        to={`/`}
+        onClick={logout.mutate}>
+        <LogoutIcon
+          fill="var(--color-white)"
+          stroke="none"
+          width="3rem"
+          height="3rem"
+        />
       </NavLink>
     </DashboardTopNavWrapper>
   );

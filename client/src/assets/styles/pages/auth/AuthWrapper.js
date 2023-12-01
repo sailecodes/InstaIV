@@ -71,6 +71,17 @@ const AuthWrapper = styled.div`
 
     text-decoration: none;
   }
+
+  .auth--error-container {
+    color: var(--color-red-light);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-size: var(--font-sm-0);
+  }
 `;
 
 export default AuthWrapper;
