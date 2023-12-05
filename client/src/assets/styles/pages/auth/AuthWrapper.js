@@ -10,9 +10,6 @@ const AuthWrapper = styled.div`
   min-width: 50rem;
 
   .auth--container {
-    position: relative;
-    bottom: 5%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,15 +40,16 @@ const AuthWrapper = styled.div`
   }
 
   form > button {
-    background-color: var(--color-blue);
-    color: var(--color-white);
+    background-color: var(--color-font-blue);
+    color: var(--color-font-white);
 
     width: 100%;
     height: 3.2rem;
 
+    font-size: var(--font-sm-2);
     font-family: inherit;
 
-    margin-top: 0.8rem;
+    margin-top: 1rem;
     border: none;
     border-radius: 5px;
   }
@@ -61,26 +59,26 @@ const AuthWrapper = styled.div`
   }
 
   .auth--input-container > p {
-    color: var(--color-white);
+    color: var(--color-font-white);
 
-    font-size: var(--font-sm-1);
+    font-size: var(--font-sm-2);
   }
 
   .auth--input-container > p a {
-    color: var(--color-blue);
+    color: var(--color-font-blue);
 
     text-decoration: none;
   }
 
-  .auth--error-container {
-    color: var(--color-red-light);
+  .auth--errors-container {
+    color: var(--color-font-error);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
 
-    font-size: var(--font-sm-0);
+    font-size: var(--font-sm-2);
   }
 `;
 

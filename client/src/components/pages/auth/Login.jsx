@@ -1,15 +1,17 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import AuthWrapper from "../../../assets/styles/pages/auth/AuthWrapper";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
+import { AppContext } from "../../../App";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUserPfpUrl } = useContext(AppContext);
   const [emailErrorIcon, setEmailErrorIcon] = useState(false);
   const [passwordErrorIcon, setPasswordErrorIcon] = useState(false);
   const [errorMsgs, setErrorMsgs] = useState(null);
@@ -21,7 +23,13 @@ const Login = () => {
     onSuccess: (data) => {
       navigate("/dashboard");
       localStorage.setItem("userId", data?.data?.data._id);
-      localStorage.setItem("userProfilePictureUrl", data?.data?.data.profilePictureInfo.imageUrl);
+      localStorage.setItem(
+        "userPfpUrl",
+        data?.data?.data?.profilePictureInfo?.imageUrl
+          ? data.data.data.profilePictureInfo.imageUrl
+          : "../../../assets/imgs/default-pf"
+      );
+      setUserPfpUrl(localStorage.getItem("userPfpUrl"));
     },
     onError: (error) => {
       const errors = error?.response?.data?.msg;
@@ -42,7 +50,7 @@ const Login = () => {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -56,7 +64,7 @@ const Login = () => {
       <div className="auth--container">
         <Logo isLarge={true} />
         <div className="auth--input-container">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <AuthInput
               name="email"
               placeholder="Email"
@@ -86,7 +94,7 @@ const Login = () => {
             Don&apos;t have an account? <Link to="/register">Sign up</Link>
           </p>
         </div>
-        <div className="auth--error-container">{errorMsgs && errorMsgs.map((msg) => <p key={msg}>*{msg}</p>)}</div>
+        <div className="auth--errors-container">{errorMsgs && errorMsgs.map((msg) => <p key={msg}>*{msg}</p>)}</div>
       </div>
     </AuthWrapper>
   );

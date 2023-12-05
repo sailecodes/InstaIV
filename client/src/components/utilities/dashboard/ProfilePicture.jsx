@@ -1,9 +1,9 @@
 import pf from "../../../assets/imgs/default-pf.jpg";
 
-const ProfilePicture = ({ width, height, profilePictureUrl }) => {
+const ProfilePicture = ({ width, height, userPfpUrl }) => {
   return (
     <img
-      src={profilePictureUrl ? profilePictureUrl : pf}
+      src={userPfpUrl ? userPfpUrl : pf}
       alt="profile picture"
       style={{ width: width, height: height, borderRadius: "50%" }}
     />

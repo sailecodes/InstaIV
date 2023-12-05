@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import userModel from "../models/userModel.js";
 import contentModel from "../models/contentModel.js";
-import { BadRequestError, NotFoundError } from "../custom-errors/customErrors.js";
+import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
 
 export const getAllUsers = async (req, res) => {
   const users = await userModel.find({ _id: { $ne: req.userInfo.userId } });

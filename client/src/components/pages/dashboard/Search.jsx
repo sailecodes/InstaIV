@@ -74,7 +74,7 @@ const Search = () => {
                   <ProfilePicture
                     width="3rem"
                     height="3rem"
-                    profilePictureUrl={user?.profilePictureInfo?.imageUrl}
+                    userPfpUrl={user?.profilePictureInfo?.imageUrl}
                   />
                   <p>{user.username}</p>
                   <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>

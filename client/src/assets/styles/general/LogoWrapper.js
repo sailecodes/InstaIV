@@ -10,7 +10,7 @@ const LogoWrapper = styled.div`
   }
 
   .logo.large {
-    font-size: var(--font-lg-1);
+    font-size: var(--font-heading-1);
   }
 `;
 

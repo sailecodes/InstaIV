@@ -5,7 +5,7 @@ import { Outlet, NavLink, useLoaderData, Link } from "react-router-dom";
 import { createContext } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
-import useScreenSize from "../../../custom-hooks/useScreenSize";
+import useScreenSize from "../../../hooks/useScreenSize";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import UserPostsIcon from "../../utilities/icons/UserPostsIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
@@ -210,7 +210,7 @@ const Profile = () => {
               <ProfilePicture
                 width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
                 height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-                profilePictureUrl={data?.profilePictureInfo?.imageUrl}
+                userPfpUrl={data?.profilePictureInfo?.imageUrl}
               />
               <div>
                 <p className="profile--username">{data.username}</p>

@@ -34,7 +34,7 @@ const FollowContainer = ({ followData }) => {
                 <ProfilePicture
                   width="3rem"
                   height="3rem"
-                  profilePictureUrl={user.imageUrl}
+                  userPfpUrl={user.imageUrl}
                 />
                 <p>{user.username}</p>
                 <Link

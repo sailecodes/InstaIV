@@ -13,7 +13,7 @@ import axiosFetch from "../../../utilities/axiosFetch";
 import { AppContext } from "../../../App";
 
 const DashboardSideNav = () => {
-  const { userProfilePictureUrl } = useContext(AppContext);
+  const { userPfpUrl } = useContext(AppContext);
 
   const logout = useMutation({
     mutationFn: () => {
@@ -63,7 +63,7 @@ const DashboardSideNav = () => {
           <ProfilePicture
             width={"3rem"}
             height={"3rem"}
-            profilePictureUrl={userProfilePictureUrl}
+            userPfpUrl={userPfpUrl}
           />
           <p className="side-nav--link">Profile</p>
         </NavLink>

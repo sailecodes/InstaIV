@@ -65,13 +65,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [userProfilePictureUrl, setUserProfilePictureUrl] = useState(
-    localStorage.getItem("userProfilePictureUrl") || ""
-  );
+  const [userPfpUrl, setUserPfpUrl] = useState(localStorage.getItem("userPfpUrl"));
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ userProfilePictureUrl, setUserProfilePictureUrl }}>
+      <AppContext.Provider value={{ userPfpUrl, setUserPfpUrl }}>
         <RouterProvider router={router} />
       </AppContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} />

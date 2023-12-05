@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { param, body, cookie, validationResult } from "express-validator";
 
 import userModel from "../models/userModel.js";
-import { BadRequestError, UnauthenticatedError } from "../custom-errors/customErrors.js";
+import { BadRequestError, UnauthenticatedError } from "../errors/customErrors.js";
 
 const validate = (validationValues) => {
   return [
@@ -65,13 +65,13 @@ export const validateRegisterInput = validate([
     }),
   body("password")
     .notEmpty()
-    .withMessage("Password required")
+    .withMessage("Password is required")
     .bail()
     .isLength({ min: 10 })
     .withMessage("Password must be minimum 10 characters"),
   body("username")
     .notEmpty()
-    .withMessage("Username required")
+    .withMessage("Username is required")
     .bail()
     .isLength({ max: 10 })
     .withMessage("Username must be maximum 10 characters")
@@ -82,13 +82,13 @@ export const validateRegisterInput = validate([
 ]);
 
 export const validateLoginInput = validate([
-  body("email").isEmail().withMessage("Email isn't valid"),
+  body("email").isEmail().withMessage("Email not valid"),
   body("password")
     .notEmpty()
     .withMessage("Password is required")
     .bail()
     .isLength({ min: 10 })
-    .withMessage("Password must be a minimum of 10 characters"),
+    .withMessage("Password must be a minimum 10 characters"),
 ]);
 
 // ==============================================

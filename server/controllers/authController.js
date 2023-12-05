@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { StatusCodes } from "http-status-codes";
 
 import userModel from "../models/userModel.js";
-import { UnauthenticatedError } from "../custom-errors/customErrors.js";
+import { UnauthenticatedError } from "../errors/customErrors.js";
 import { COOKIE_EXPIRATION } from "../utilities/constants.js";
 
 export const register = async (req, res) => {

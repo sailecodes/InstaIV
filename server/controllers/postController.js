@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import contentModel from "../models/contentModel.js";
 import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
-import { NotFoundError, UnauthorizedError } from "../custom-errors/customErrors.js";
+import { NotFoundError, UnauthorizedError } from "../errors/customErrors.js";
 
 // ==============================================
 // General CRUDs

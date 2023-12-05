@@ -12,6 +12,7 @@ const AuthInputWrapper = styled.div`
     width: 28rem;
     height: 4rem;
 
+    font-size: var(--font-sm-2);
     font-family: inherit;
 
     padding: 0.7rem 4rem 0.7rem 0.7rem;
