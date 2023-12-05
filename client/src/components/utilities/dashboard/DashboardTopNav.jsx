@@ -43,8 +43,8 @@ const DashboardTopNav = () => {
         <LogoutIcon
           fill="var(--color-white)"
           stroke="none"
-          width="3rem"
-          height="3rem"
+          width="3.3rem"
+          height="3.3rem"
         />
       </NavLink>
     </DashboardTopNavWrapper>

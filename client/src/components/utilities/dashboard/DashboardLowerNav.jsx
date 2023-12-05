@@ -20,30 +20,30 @@ const DashboardLowerNav = () => {
           <HomeIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
         </NavLink>
         <NavLink to="/dashboard/search">
           <SearchIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
         </NavLink>
         <NavLink to="/dashboard/create-post">
           <CreateIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
         </NavLink>
         <NavLink to={`/dashboard/profile/${localStorage.getItem("userId")}`}>
           <ProfilePicture
-            width="2.6rem"
-            height="2.6rem"
+            width="2.8rem"
+            height="2.8rem"
             userPfpUrl={userPfpUrl}
           />
         </NavLink>
