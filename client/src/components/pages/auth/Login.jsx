@@ -6,7 +6,7 @@ import AuthWrapper from "../../../assets/styles/pages/auth/AuthWrapper";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
-import AuthSubmitBtn from "../../utilities/auth/AuthSubmitBtn";
+import SubmitBtn from "../../utilities/general/SubmitBtn";
 import { AppContext } from "../../../App";
 import AuthErrorsContainer from "../../utilities/auth/AuthErrorsContainer";
 
@@ -80,7 +80,7 @@ const Login = () => {
               setErrorIcon={setPasswordErrorIcon}
               setErrorMsgs={setErrorMsgs}
             />
-            <AuthSubmitBtn
+            <SubmitBtn
               isPending={isPending}
               text="Login"
             />

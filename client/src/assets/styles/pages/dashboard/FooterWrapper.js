@@ -6,14 +6,14 @@ const FooterWrapper = styled.footer`
   @media (min-width: 767px) {
     display: unset;
 
-    width: 30rem;
+    width: 25rem;
 
     margin-left: 7rem;
 
     > p {
-      color: var(--color-gray);
+      color: var(--color-font-gray);
 
-      font-size: var(--font-sm-0);
+      font-size: var(--font-sm-1);
     }
 
     > div {
@@ -23,13 +23,13 @@ const FooterWrapper = styled.footer`
     }
 
     > div div {
-      color: var(--color-blue);
+      color: var(--color-font-blue);
     }
 
     a {
-      color: var(--color-blue);
+      color: var(--color-font-blue);
 
-      font-size: var(--font-sm-0);
+      font-size: var(--font-sm-1);
     }
   }
 `;

@@ -34,8 +34,8 @@ const DashboardSideNav = () => {
           <HomeIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
           <p className="side-nav--link">Home</p>
         </NavLink>
@@ -43,8 +43,8 @@ const DashboardSideNav = () => {
           <SearchIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
           <p className="side-nav--link">Search</p>
         </NavLink>
@@ -52,8 +52,8 @@ const DashboardSideNav = () => {
           <CreateIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
           <p className="side-nav--link">Create</p>
         </NavLink>
@@ -61,8 +61,8 @@ const DashboardSideNav = () => {
           to={`/dashboard/profile/${localStorage.getItem("userId")}`}
           reloadDocument={true}>
           <ProfilePicture
-            width={"3rem"}
-            height={"3rem"}
+            width={"3.3rem"}
+            height={"3.3rem"}
             userPfpUrl={userPfpUrl}
           />
           <p className="side-nav--link">Profile</p>
@@ -73,8 +73,8 @@ const DashboardSideNav = () => {
           <LogoutIcon
             fill="var(--color-white)"
             stroke="none"
-            width="3rem"
-            height="3rem"
+            width="3.3rem"
+            height="3.3rem"
           />
           <p className="side-nav--link">Logout</p>
         </NavLink>

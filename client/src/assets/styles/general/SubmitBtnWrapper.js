@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AuthSubmitBtnWrapper = styled.button`
+const SubmitBtnWrapper = styled.button`
   background-color: var(--color-font-blue);
   color: var(--color-font-white);
 
@@ -19,4 +19,4 @@ const AuthSubmitBtnWrapper = styled.button`
   }
 `;
 
-export default AuthSubmitBtnWrapper;
+export default SubmitBtnWrapper;

@@ -16,7 +16,7 @@ const DashboardWrapper = styled.div`
 
   height: 100vh;
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     display: grid;
     grid-template-columns: 7.3rem 1fr;
   }

@@ -7,7 +7,6 @@ const AuthWrapper = styled.div`
   place-items: center;
 
   height: 100vh;
-  min-width: 50rem;
 
   .auth--container {
     display: flex;

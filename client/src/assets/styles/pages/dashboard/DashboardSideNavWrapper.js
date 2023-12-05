@@ -3,42 +3,7 @@ import styled from "styled-components";
 const DashboardSideNavWrapper = styled.nav`
   display: none;
 
-  a {
-    color: var(--color-white);
-
-    height: 5rem;
-
-    text-decoration: none;
-
-    padding: 1rem;
-    border-radius: 8px;
-
-    transition: background-color 0.2s;
-  }
-
-  a:hover {
-    background-color: var(--color-darker-gray);
-  }
-
-  .side-nav--links-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    height: 100%;
-  }
-
-  .active svg {
-    fill: var(--color-blue);
-  }
-
-  .active p {
-    color: var(--color-blue);
-
-    font-weight: 600;
-  }
-
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     grid-column: 1 / 2;
 
     display: flex;
@@ -49,23 +14,43 @@ const DashboardSideNavWrapper = styled.nav`
     height: 100vh;
 
     padding: 2rem 1rem;
-    border-right: 1px solid var(--color-dark-gray);
+    border-right: 1px solid var(--color-border);
 
-    .logo {
-      width: 3rem;
-      height: 3rem;
+    > div:nth-child(1) {
+      margin-left: 1rem;
     }
 
     .logo span {
       display: none;
     }
 
-    > div:nth-child(1) {
-      margin-left: 1rem;
+    .side-nav--links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      height: 100%;
     }
 
-    .side-nav--links-container > a {
+    .side-nav--links-container a {
+      color: var(--color-font-white);
+
+      display: grid;
+      place-items: center;
+
+      height: 5.5rem;
       width: 5.2rem;
+
+      text-decoration: none;
+
+      padding: 1rem;
+      border-radius: 8px;
+
+      transition: background-color 0.2s;
+    }
+
+    .side-nav--links-container a:hover {
+      background-color: var(--color-btn-hover);
     }
 
     .side-nav--links-container > a:last-child {
@@ -74,6 +59,16 @@ const DashboardSideNavWrapper = styled.nav`
 
     .side-nav--link {
       display: none;
+    }
+
+    .active svg {
+      fill: var(--color-font-blue);
+    }
+
+    .active p {
+      color: var(--color-font-blue);
+
+      font-weight: 600;
     }
 
     @media (min-width: 1264px) {
@@ -88,7 +83,7 @@ const DashboardSideNavWrapper = styled.nav`
       .side-nav--link {
         display: block;
 
-        font-size: var(--font-sm-2);
+        font-size: var(--font-sm-4);
       }
 
       .logo span {
