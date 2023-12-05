@@ -14,7 +14,18 @@ const AuthInput = ({ type, name, placeholder, error, setErrorIcon, setErrorMsgs 
           setErrorMsgs(null);
         }}
       />
-      <div className="input--error-box">{error ? <AuthErrorIcon /> : ""}</div>
+      <div className="input--error-box">
+        {error ? (
+          <AuthErrorIcon
+            fill="none"
+            stroke="var(--color-red)"
+            width="2rem"
+            height="2rem"
+          />
+        ) : (
+          ""
+        )}
+      </div>
     </AuthInputWrapper>
   );
 };

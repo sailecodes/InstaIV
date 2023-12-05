@@ -1,12 +1,12 @@
-const AuthErrorIcon = () => {
+const AuthErrorIcon = ({ fill, stroke, width, height }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="var(--color-red)"
-      style={{ width: "2rem", height: "2rem" }}>
+      fill={fill}
+      stroke={stroke}
+      style={{ width: width, height: height }}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

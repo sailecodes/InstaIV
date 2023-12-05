@@ -39,25 +39,6 @@ const AuthWrapper = styled.div`
     gap: 0.5rem;
   }
 
-  form > button {
-    background-color: var(--color-font-blue);
-    color: var(--color-font-white);
-
-    width: 100%;
-    height: 3.2rem;
-
-    font-size: var(--font-sm-2);
-    font-family: inherit;
-
-    margin-top: 1rem;
-    border: none;
-    border-radius: 5px;
-  }
-
-  form > button:hover {
-    cursor: pointer;
-  }
-
   .auth--input-container > p {
     color: var(--color-font-white);
 
@@ -68,17 +49,6 @@ const AuthWrapper = styled.div`
     color: var(--color-font-blue);
 
     text-decoration: none;
-  }
-
-  .auth--errors-container {
-    color: var(--color-font-error);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-
-    font-size: var(--font-sm-2);
   }
 `;
 

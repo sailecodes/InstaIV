@@ -1,4 +1,3 @@
-import ClipLoader from "react-spinners/ClipLoader";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useContext, useState } from "react";
@@ -7,7 +6,9 @@ import AuthWrapper from "../../../assets/styles/pages/auth/AuthWrapper";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Logo from "../../utilities/general/Logo";
 import AuthInput from "../../utilities/auth/AuthInput";
+import AuthSubmitBtn from "../../utilities/auth/AuthSubmitBtn";
 import { AppContext } from "../../../App";
+import AuthErrorsContainer from "../../utilities/auth/AuthErrorsContainer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -79,22 +80,16 @@ const Login = () => {
               setErrorIcon={setPasswordErrorIcon}
               setErrorMsgs={setErrorMsgs}
             />
-            <button type="submit">
-              {isPending ? (
-                <ClipLoader
-                  size={10}
-                  color={"var(--color-white)"}
-                />
-              ) : (
-                "Login"
-              )}
-            </button>
+            <AuthSubmitBtn
+              isPending={isPending}
+              text="Login"
+            />
           </form>
           <p>
             Don&apos;t have an account? <Link to="/register">Sign up</Link>
           </p>
         </div>
-        <div className="auth--errors-container">{errorMsgs && errorMsgs.map((msg) => <p key={msg}>*{msg}</p>)}</div>
+        <AuthErrorsContainer errorMsgs={errorMsgs} />
       </div>
     </AuthWrapper>
   );
