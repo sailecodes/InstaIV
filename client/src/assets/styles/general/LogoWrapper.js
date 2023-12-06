@@ -4,13 +4,13 @@ const LogoWrapper = styled.div`
   p {
     color: var(--color-white);
 
-    font-size: var(--font-md-4);
+    font-size: var(--font-md-3);
     font-weight: 600;
     font-style: italic;
   }
 
-  .logo.large {
-    font-size: var(--font-subheading-3);
+  .logo.auth {
+    font-size: var(--font-subheading-2);
   }
 
   @media (min-width: 425px) {
@@ -18,7 +18,7 @@ const LogoWrapper = styled.div`
       font-size: var(--font-lg-1);
     }
 
-    .logo.large {
+    .logo.auth {
       font-size: var(--font-heading-1);
     }
   }

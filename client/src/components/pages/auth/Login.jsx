@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <AuthWrapper>
       <div className="auth--container">
-        <Logo isLarge={true} />
+        <Logo isInAuthPage={true} />
         <div className="auth--input-container">
           <form onSubmit={handleLogin}>
             <AuthInput

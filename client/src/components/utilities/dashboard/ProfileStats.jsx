@@ -4,76 +4,106 @@ import { useContext } from "react";
 import { ProfileContext } from "../../pages/dashboard/Profile";
 
 const ProfileStatsWrapper = styled.div`
-  > section.mid-screen {
-    display: none;
+  grid-row: 3;
+  grid-column: 1 / -1;
+
+  display: grid;
+  place-items: center;
+
+  span {
+    color: var(--color-font-gray);
+
+    font-size: var(--font-sm-1);
   }
 
-  > section.small-screen {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  p,
+  button {
+    color: var(--color-font-white);
 
-    height: 6rem;
-
-    border-bottom: 1px solid var(--color-darker-gray);
-  }
-
-  > section.small-screen > button {
-    color: var(--color-white);
-  }
-
-  > section.small-screen > p,
-  > section.small-screen > button {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    width: 5.9rem;
+    width: 5.4rem;
 
     font-size: var(--font-sm-1);
-    font-family: inherit;
+    font-weight: 400;
   }
 
-  > section.small-screen > p span,
-  > section.small-screen > button span {
-    color: var(--color-gray);
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 100%;
+    width: 100%;
+
+    border-top: 1px solid var(--color-darker-gray);
   }
 
-  @media (min-width: 767px) {
-    > section.mid-screen {
-      display: flex;
-      align-items: flex-start;
-      gap: 3rem;
+  @media (min-width: 425px) {
+    span {
+      font-size: var(--font-sm-2);
+    }
 
+    p,
+    button {
+      font-size: var(--font-sm-2);
+    }
+  }
+
+  @media (min-width: 768px) {
+    grid-row: 2;
+    grid-column: 2;
+
+    span,
+    p,
+    button {
+      color: var(--color-font-white);
+    }
+
+    p,
+    button {
+      flex-direction: row;
+      gap: 0.5rem;
+
+      width: fit-content;
+    }
+
+    section {
       position: relative;
-      bottom: 20%;
+      bottom: 80%;
 
-      font-size: var(--font-sm-1);
-    }
+      justify-content: flex-start;
+      gap: 2rem;
 
-    > section.mid-screen > button {
-      color: var(--color-white);
+      border: none;
 
-      height: 2.1rem;
-
-      font-size: var(--font-sm-1);
-    }
-
-    > section.small-screen {
-      display: none;
+      padding-left: 0.8rem;
     }
   }
 `;
 
-const ProfileStats = ({ screenType }) => {
+const ProfileStats = () => {
   const { data } = useContext(ProfileContext);
 
   return (
     <ProfileStatsWrapper>
-      <section className={`${screenType}-screen`}>
-        <ProfileStat stat={data.numPosts} statOf={" posts"} />
-        <ProfileStat stat={data.followersInfo.length} statOf={" followers"} isLink={true} />
-        <ProfileStat stat={data.followingInfo.length} statOf={" following"} isLink={true} />
+      <section>
+        <ProfileStat
+          stat={data.numPosts}
+          statOf={" posts"}
+        />
+        <ProfileStat
+          stat={data.followersInfo.length}
+          statOf={" followers"}
+          isLink={true}
+        />
+        <ProfileStat
+          stat={data.followingInfo.length}
+          statOf={" following"}
+          isLink={true}
+        />
       </section>
     </ProfileStatsWrapper>
   );

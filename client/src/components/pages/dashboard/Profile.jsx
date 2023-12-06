@@ -5,7 +5,6 @@ import { Outlet, NavLink, useLoaderData, Link } from "react-router-dom";
 import { createContext } from "react";
 
 import axiosFetch from "../../../utilities/axiosFetch";
-import useScreenSize from "../../../hooks/useScreenSize";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import UserPostsIcon from "../../utilities/icons/UserPostsIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
@@ -18,7 +17,8 @@ const ProfileWrapper = styled.div`
 
   padding: 2rem 0 0 0;
 
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   > div {
     max-width: 99rem;
@@ -27,52 +27,46 @@ const ProfileWrapper = styled.div`
   .profile--user-information {
     display: grid;
     grid-template-columns: 7.7rem 1fr;
-    grid-template-rows: 7.8rem 1fr;
+    grid-template-rows: 7.8rem 1fr 6rem;
     column-gap: 2rem;
     row-gap: 1.5rem;
 
-    padding: 0 2rem 2rem 2rem;
-    border-bottom: 1px solid var(--color-darker-gray);
+    border-bottom: 1px solid var(--color-btn-hover);
   }
 
-  .profile--user-information > div:nth-child(2) {
+  .profile--user-information > img {
+    grid-row: 1;
+    grid-column: 1;
+
+    justify-self: center;
+    align-self: center;
+
+    width: 7rem;
+    height: 7rem;
+
+    margin-left: 2rem;
+  }
+
+  .profile--header {
+    grid-row: 1;
+    grid-column: 2;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
-  }
 
-  .profile--user-information > div:nth-child(2) > div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .profile--user-information > div:nth-child(2) button {
-    background-color: var(--color-blue);
-    color: var(--color-white);
-
-    width: 11.5rem;
-    height: 3.2rem;
-
-    font-size: var(--font-sm-1);
-    font-weight: 500;
-
-    border: none;
-    border-radius: 8px;
-  }
-
-  .profile--user-information > div:nth-child(2) button:nth-child(2) {
-    background-color: var(--color-dark-gray);
+    margin-left: 0.5rem;
   }
 
   .profile--username {
-    font-size: var(--font-sm-3);
+    font-size: var(--font-sm-2);
+    font-weight: 500;
   }
 
   .profile--username + a {
-    background-color: var(--color-dark-gray);
-    color: var(--color-white);
+    background-color: var(--color-border);
+    color: var(--color-font-white);
 
     display: grid;
     place-items: center;
@@ -92,12 +86,45 @@ const ProfileWrapper = styled.div`
   }
 
   .profile--bio {
+    grid-row: 2;
     grid-column: 1 / -1;
 
     font-size: var(--font-sm-1);
 
     max-width: 44.5rem;
+
+    padding: 0 0 1.5rem 2rem;
   }
+
+  ///////////////////////////////////////////////////////// TODO: REFACTOR
+
+  .profile--interact-btns {
+    background-color: blue;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .profile--interact-btns button {
+    background-color: var(--color-font-blue);
+    color: var(--color-font-white);
+
+    width: 11.5rem;
+    height: 3.2rem;
+
+    font-size: var(--font-sm-1);
+    font-weight: 500;
+
+    border: none;
+    border-radius: 8px;
+  }
+
+  .profile--interact-btns button:nth-child(2) {
+    background-color: var(--color-dark-gray);
+  }
+
+  /////////////////////////////////////////////////////////
 
   .profile--user-content > nav {
     display: flex;
@@ -108,16 +135,53 @@ const ProfileWrapper = styled.div`
     padding: 0.8rem 0 0.8rem 0;
   }
 
+  .profile--user-content svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
   .profile--user-content .active svg {
     stroke: var(--color-blue);
     fill: var(--color-blue);
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 425px) {
+    .profile--user-information > img {
+      width: 7.7rem;
+      height: 7.7rem;
+    }
+
+    .profile--header {
+      margin-left: 0.7rem;
+    }
+
+    .profile--interact-btns button {
+      font-size: var(--font-sm-2);
+    }
+
+    .profile--username {
+      font-size: var(--font-sm-3);
+    }
+
+    .profile--username + a {
+      font-size: var(--font-sm-2);
+    }
+
+    .profile--bio {
+      font-size: var(--font-sm-2);
+    }
+
+    .profile--user-content svg {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+  }
+
+  @media (min-width: 768px) {
     grid-row: 1 / -1;
     grid-column: 2 / -1;
 
-    padding: 0 2rem 2rem 2rem;
+    padding: 2rem;
 
     > div {
       margin: 0 auto;
@@ -125,21 +189,17 @@ const ProfileWrapper = styled.div`
 
     .profile--user-information {
       grid-template-columns: 15rem 1fr;
-      grid-template-rows: 7.8rem 6rem 5rem;
-      column-gap: 2rem;
-      row-gap: 1.5rem;
-
-      padding: 0 2rem 2rem 2rem;
     }
 
     .profile--user-information > img {
-      grid-row: 1 / -1;
-
       position: relative;
-      top: 11%;
+      top: 57%;
+
+      width: 15rem;
+      height: 15rem;
     }
 
-    .profile--user-information > div:nth-child(2) {
+    .profile--header {
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
@@ -147,19 +207,21 @@ const ProfileWrapper = styled.div`
     }
 
     .profile--bio {
-      grid-column: 2 / -1;
+      grid-row: 3;
+      grid-column: 2;
 
       position: relative;
-      bottom: 70%;
+      bottom: 15%;
 
       height: 7.2rem;
+
+      padding: 0 0 0 0.8rem;
     }
   }
 `;
 
 const Profile = () => {
   const queryClient = useQueryClient();
-  const screenSize = useScreenSize();
   const id = useLoaderData();
   const isLoggedUser = localStorage.getItem("userId") === id;
 
@@ -195,28 +257,24 @@ const Profile = () => {
     <ProfileContext.Provider value={{ data }}>
       <ProfileWrapper>
         {isError && (
-          <div className="perr-container">
+          <div style={{ display: "grid", placeItems: "center" }}>
             <Error />
           </div>
         )}
         {isPending && (
-          <div className="perr-container">
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <PulseLoader color="var(--color-blue)" />
           </div>
         )}
         {!isError && !isPending && (
           <div>
             <section className="profile--user-information">
-              <ProfilePicture
-                width={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-                height={screenSize.width >= 767 ? "15rem" : "7.7rem"}
-                userPfpUrl={data?.profilePictureInfo?.imageUrl}
-              />
-              <div>
+              <ProfilePicture userPfpUrl={data?.profilePictureInfo?.imageUrl} />
+              <header className="profile--header">
                 <p className="profile--username">{data.username}</p>
                 {isLoggedUser && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
                 {!isLoggedUser && (
-                  <div>
+                  <div className="profile--interact-btns">
                     <button onClick={() => followUserMutation.mutate()}>
                       {followUserMutation.isPending ? (
                         <ClipLoader
@@ -239,28 +297,19 @@ const Profile = () => {
                     </button>
                   </div>
                 )}
-              </div>
-              <ProfileStats screenType={"mid"} />
+              </header>
               <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
+              <ProfileStats />
             </section>
-            <ProfileStats screenType={"small"} />
             <section className="profile--user-content">
               <nav>
                 <NavLink
                   to={`/dashboard/profile/${id}`}
                   end>
-                  <UserPostsIcon
-                    width="2.5rem"
-                    height="2.5rem"
-                  />
+                  <UserPostsIcon stroke="var(--color-white)" />
                 </NavLink>
                 <NavLink to={`/dashboard/profile/${id}/saved-posts`}>
-                  <SavedPostsIcon
-                    fill="none"
-                    stroke="var(--color-white)"
-                    width="2.5rem"
-                    height="2.5rem"
-                  />
+                  <SavedPostsIcon stroke="var(--color-white)" />
                 </NavLink>
               </nav>
               <Outlet />
