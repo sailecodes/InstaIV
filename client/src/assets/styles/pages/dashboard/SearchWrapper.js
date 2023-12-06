@@ -21,17 +21,17 @@ const SearchWrapper = styled.div`
     align-items: center;
     justify-content: flex-start;
 
-    width: 35rem;
+    width: 30rem;
   }
 
   input {
     background-color: var(--color-border);
     color: var(--color-font-white);
 
-    width: 27rem;
+    width: 24rem;
     height: 4.1rem;
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
 
     padding: 0 2rem 0 2rem;
     border-radius: 8px;
@@ -40,7 +40,7 @@ const SearchWrapper = styled.div`
   > div > div:nth-child(1) button {
     color: var(--color-font-blue);
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
 
     margin-left: auto;
   }
@@ -57,8 +57,13 @@ const SearchWrapper = styled.div`
     gap: 1rem;
   }
 
+  .search-data--container img {
+    width: 3rem;
+    height: 3rem;
+  }
+
   .search-data--username {
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
   }
 
   .search-data--username + a {
@@ -71,10 +76,39 @@ const SearchWrapper = styled.div`
     width: 11rem;
     height: 3.2rem;
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
 
     margin-left: auto;
     border-radius: 5px;
+  }
+
+  @media (min-width: 425px) {
+    > div > div:nth-child(1) {
+      width: 35rem;
+    }
+
+    input {
+      width: 27rem;
+
+      font-size: var(--font-sm-2);
+    }
+
+    > div > div:nth-child(1) button {
+      font-size: var(--font-sm-2);
+    }
+
+    .search-data--container img {
+      width: 3.3rem;
+      height: 3.3rem;
+    }
+
+    .search-data--username {
+      font-size: var(--font-sm-2);
+    }
+
+    .search-data--username + a {
+      font-size: var(--font-sm-2);
+    }
   }
 
   @media (min-width: 768px) {
