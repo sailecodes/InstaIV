@@ -24,7 +24,7 @@ const Search = () => {
     },
   });
 
-  const handleInputChange = (e) => {
+  const handleSearchChange = (e) => {
     const newSearchQuery = e.target.value;
     setSearchQuery(newSearchQuery);
 
@@ -41,48 +41,50 @@ const Search = () => {
 
   return (
     <SearchWrapper>
-      <div>
-        <div>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleInputChange}
-            placeholder="Search for friends"
-          />
-          <button onClick={handleSeeAll}>See all</button>
+      {isError && (
+        <div style={{ height: "100%", display: "grid", placeItems: "center" }}>
+          <Error />
         </div>
-        {isError && (
-          <div
-            className="perr-container"
-            style={{ width: "auto", height: "auto", marginTop: "5rem" }}>
-            <Error />
+      )}
+      {!isError && (
+        <div>
+          <div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Search for friends"
+            />
+            <button onClick={handleSeeAll}>See all</button>
           </div>
-        )}
-        {isPending && (
-          <div
-            className="perr-container"
-            style={{ width: "auto", height: "auto", marginTop: "5rem" }}>
-            <PulseLoader color="var(--color-blue)" />
-          </div>
-        )}
-        {!isError && !isPending && (
-          <div className="search-data--container">
-            {searchData.length === 0 && <p>No friends yet!</p>}
-            {searchData.length !== 0 &&
-              searchData.map((user) => (
-                <div key={user._id}>
-                  <ProfilePicture
-                    width="3rem"
-                    height="3rem"
-                    userPfpUrl={user?.profilePictureInfo?.imageUrl}
-                  />
-                  <p>{user.username}</p>
-                  <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
-                </div>
-              ))}
-          </div>
-        )}
-      </div>
+
+          {isPending && (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <PulseLoader
+                color="var(--color-blue)"
+                size={10}
+              />
+            </div>
+          )}
+          {!isPending && (
+            <div className="search-data--container">
+              {searchData.length === 0 && <p>No friends yet!</p>}
+              {searchData.length !== 0 &&
+                searchData.map((user) => (
+                  <div key={user._id}>
+                    <ProfilePicture
+                      width="3.3rem"
+                      height="3.3rem"
+                      userPfpUrl={user?.profilePictureInfo?.imageUrl}
+                    />
+                    <p className="search-data--username">{user.username}</p>
+                    <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+      )}
       <Footer />
     </SearchWrapper>
   );

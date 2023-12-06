@@ -3,7 +3,7 @@ import styled from "styled-components";
 const FooterWrapper = styled.footer`
   display: none;
 
-  @media (min-width: 767px) {
+  @media (min-width: 940px) {
     display: unset;
 
     width: 25rem;
