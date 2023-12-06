@@ -5,7 +5,7 @@ const ProfilePicture = ({ width, height, userPfpUrl }) => {
     <img
       src={userPfpUrl ? userPfpUrl : pf}
       alt="profile picture"
-      style={{ width: width, height: height, borderRadius: "50%" }}
+      style={{ width: width, height: height, borderRadius: "50%", objectFit: "cover" }}
     />
   );
 };

@@ -29,7 +29,7 @@ const DashboardLowerNavWrapper = styled.nav`
     fill: var(--color-blue);
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;

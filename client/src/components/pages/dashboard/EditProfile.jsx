@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
 
 import CreatePostInput from "../../utilities/dashboard/CreatePostInput";

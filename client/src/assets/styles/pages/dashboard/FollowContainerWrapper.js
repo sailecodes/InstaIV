@@ -103,7 +103,7 @@ const FollowContainerWrapper = styled.div`
     border-radius: 0 0 8px 0;
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     > section {
       width: 40rem;
       height: 40rem;

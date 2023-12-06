@@ -9,6 +9,7 @@ import HeartIcon from "../../utilities/icons/HeartIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import DeleteIcon from "../../utilities/icons/DeleteIcon";
 import Footer from "../../utilities/dashboard/Footer";
+import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 
 const HomeWrapper = styled.div`
   position: relative;
@@ -27,17 +28,29 @@ const HomeWrapper = styled.div`
     gap: 5rem;
   }
 
+  .home--posts-empty {
+    font-size: var(--font-sm-2);
+    font-weight: 600;
+  }
+
   .home--post {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
     padding-bottom: 5rem;
-    border-bottom: 1px solid var(--color-dark-gray);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .home--post:last-child {
     border: none;
+  }
+
+  .home--post a {
+    color: var(--color-white);
+
+    font-size: var(--font-sm-2);
+    font-weight: 500;
   }
 
   .home--post > header {
@@ -46,16 +59,23 @@ const HomeWrapper = styled.div`
     gap: 1rem;
   }
 
-  .home--post > header > p {
-    color: var(--color-gray);
+  .home--post-pfp {
+    width: 4.2rem;
+    height: 4.2rem;
 
-    font-size: var(--font-sm-1);
+    border-radius: 50%;
+  }
+
+  .home--post-date {
+    color: var(--color-font-gray);
+
+    font-size: var(--font-sm-2);
   }
 
   .home--post-dot {
-    color: var(--color-gray);
+    color: var(--color-font-gray);
 
-    font-size: var(--font-sm-3);
+    font-size: var(--font-sm-2);
   }
 
   .home--post-mutations {
@@ -66,21 +86,8 @@ const HomeWrapper = styled.div`
     margin-left: auto;
   }
 
-  .home--post > header > button {
+  .home--post-btn {
     margin-left: auto;
-  }
-
-  .home--post-pp {
-    width: 4.2rem;
-    height: 4.2rem;
-
-    border-radius: 50%;
-  }
-
-  .home--post a {
-    color: var(--color-white);
-
-    font-size: var(--font-sm-1);
   }
 
   .home--post-content {
@@ -90,23 +97,13 @@ const HomeWrapper = styled.div`
     border-radius: 1%;
   }
 
+  ///////////////////////////////////////
+
   .home--post-btns {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8rem;
-  }
-
-  .home--post-btns > div {
-    color: var(--color-white);
-
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    width: 4.6rem;
-
-    font-size: var(--font-sm-1);
   }
 
   .home--post-btn {
@@ -118,8 +115,20 @@ const HomeWrapper = styled.div`
     transition: fill 0.3s;
   }
 
+  .home--post-btns > div {
+    color: var(--color-font-white);
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    width: 4.6rem;
+
+    font-size: var(--font-sm-2);
+  }
+
   .home--post-text {
-    font-size: var(--font-sm-1);
+    font-size: var(--font-sm-2);
   }
 
   .home--post-text a {
@@ -128,12 +137,7 @@ const HomeWrapper = styled.div`
     margin-right: 1rem;
   }
 
-  .home--posts-empty {
-    font-size: var(--font-sm-3);
-    font-weight: 600;
-  }
-
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     grid-row: 1 / -1;
     grid-column: 2;
   }
@@ -163,7 +167,7 @@ const Home = () => {
     },
   });
 
-  const updateLikes = useMutation({
+  const updatePostLikes = useMutation({
     mutationFn: (data) => {
       return axiosFetch.patch(`/posts/${data.id}/like`, { statFlag: data.statFlag });
     },
@@ -172,7 +176,7 @@ const Home = () => {
     },
   });
 
-  const updateSaves = useMutation({
+  const updatePostSaves = useMutation({
     mutationFn: (data) => {
       return axiosFetch.patch(`/posts/${data.id}/save`, { statFlag: data.statFlag });
     },
@@ -184,7 +188,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       {isError && (
-        <div style={{ height: "100%", display: "grid", placeItems: "center" }}>
+        <div style={{ display: "grid", placeItems: "center" }}>
           <Error />
         </div>
       )}
@@ -196,7 +200,7 @@ const Home = () => {
       {!isError && !isPending && (
         <div className="home--posts-container">
           {data.length === 0 && (
-            <div style={{ height: "100%", display: "grid", placeItems: "center" }}>
+            <div style={{ display: "grid", placeItems: "center" }}>
               <p className="home--posts-empty">No posts yet!</p>
             </div>
           )}
@@ -207,13 +211,16 @@ const Home = () => {
                   className="home--post"
                   key={post._id}>
                   <header>
-                    <img
-                      className="home--post-pp"
-                      src={post.userInfo.imageUrl}
+                    <ProfilePicture
+                      width="4rem"
+                      height="4rem"
+                      userPfpUrl={post.userInfo.imageUrl}
                     />
                     <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
                     <div className="home--post-dot">&middot;</div>
-                    <p>{new Date(post.createdAt).toLocaleDateString("en-us", { month: "short", day: "numeric" })}</p>
+                    <p className="home--post-date">
+                      {new Date(post.createdAt).toLocaleDateString("en-us", { month: "short", day: "numeric" })}
+                    </p>
                     {localStorage.getItem("userId") === post.userInfo.userId && (
                       <div className="home--post-mutations">
                         <button
@@ -222,8 +229,8 @@ const Home = () => {
                           <DeleteIcon
                             fill="var(--color-white)"
                             stroke="none"
-                            width="3rem"
-                            height="3rem"
+                            width="3.1rem"
+                            height="3.1rem"
                           />
                         </button>
                       </div>
@@ -238,7 +245,7 @@ const Home = () => {
                       <button
                         className="home--post-btn"
                         onClick={() =>
-                          updateLikes.mutate({
+                          updatePostLikes.mutate({
                             statFlag: !post.likesInfo.users[localStorage.getItem("userId")],
                             id: post._id,
                           })
@@ -246,8 +253,8 @@ const Home = () => {
                         <HeartIcon
                           fill={post.likesInfo.users[localStorage.getItem("userId")] ? "var(--color-red)" : ""}
                           stroke="var(--color-red)"
-                          width="2.7rem"
-                          height="2.7rem"
+                          width="2.8rem"
+                          height="2.8rem"
                         />
                       </button>
                       <div>{post.likesInfo.num}</div>
@@ -256,7 +263,7 @@ const Home = () => {
                       <button
                         className="home--post-btn"
                         onClick={() =>
-                          updateSaves.mutate({
+                          updatePostSaves.mutate({
                             statFlag: !post.savesInfo.users[localStorage.getItem("userId")],
                             id: post._id,
                           })
@@ -264,8 +271,8 @@ const Home = () => {
                         <SavedPostsIcon
                           fill={post.savesInfo.users[localStorage.getItem("userId")] ? "var(--color-yellow)" : ""}
                           stroke="var(--color-yellow)"
-                          width="2.5rem"
-                          height="2.5rem"
+                          width="2.4rem"
+                          height="2.4rem"
                         />
                       </button>
                       <div>{post.savesInfo.num}</div>

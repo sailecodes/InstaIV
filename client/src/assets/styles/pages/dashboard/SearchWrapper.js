@@ -29,7 +29,7 @@ const SearchWrapper = styled.div`
     color: var(--color-font-white);
 
     width: 27rem;
-    height: 3.6rem;
+    height: 4.1rem;
 
     font-size: var(--font-sm-2);
 

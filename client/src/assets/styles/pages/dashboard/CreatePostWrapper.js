@@ -24,7 +24,7 @@ const CreatePostWrapper = styled.div`
     width: 9rem;
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     grid-row: 1 / -1;
     grid-column: 2 / -1;
   }
