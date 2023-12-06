@@ -42,7 +42,7 @@ const Search = () => {
   return (
     <SearchWrapper>
       {isError && (
-        <div style={{ height: "100%", display: "grid", placeItems: "center" }}>
+        <div style={{ display: "grid", placeItems: "center" }}>
           <Error />
         </div>
       )}

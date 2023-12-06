@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 const CreatePostInputWrapper = styled.div`
   > input[type="text"] {
+    background-color: var(--color-border);
+    color: var(--color-font-white);
+
     width: 35rem;
+    height: 4.1rem;
 
     font-size: var(--font-sm-2);
 
-    padding: 1rem;
+    padding: 0 2rem 0 2rem;
     border-radius: 8px;
   }
 

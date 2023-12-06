@@ -20,7 +20,7 @@ const Footer = () => {
         </a>
         <div>&middot;</div>
         <a
-          href="https://youtu.be/dQw4w9WgXcQ?si=KayBtNU2jAc3Kaop"
+          href="https://eliasiv-portfolio.netlify.app/"
           target="_blank"
           rel="noopener noreferrer">
           Portfolio

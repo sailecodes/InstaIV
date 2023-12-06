@@ -15,7 +15,7 @@ const CreatePostWrapper = styled.div`
     justify-content: center;
     gap: 2rem;
 
-    width: 36rem;
+    width: 35rem;
 
     padding-top: 4rem;
   }

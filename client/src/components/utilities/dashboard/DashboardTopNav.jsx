@@ -19,7 +19,7 @@ const DashboardTopNavWrapper = styled.nav`
   padding: 2rem;
   border-bottom: 1px solid var(--color-dark-gray);
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;

@@ -25,7 +25,7 @@ const SearchWrapper = styled.div`
   }
 
   input {
-    background-color: var(--color-dark-gray);
+    background-color: var(--color-border);
     color: var(--color-font-white);
 
     width: 27rem;

@@ -20,7 +20,7 @@ const HomeWrapper = styled.div`
   padding: 2rem;
 
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .home--posts-container {
     display: flex;
