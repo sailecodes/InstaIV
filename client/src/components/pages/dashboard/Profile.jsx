@@ -10,7 +10,7 @@ import UserPostsIcon from "../../utilities/icons/UserPostsIcon";
 import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
 import ProfileStats from "../../utilities/dashboard/ProfileStats";
 import Error from "../../utilities/general/Error";
-import ClipLoader from "react-spinners/ClipLoader";
+import ProfileInteractBtns from "../../utilities/dashboard/ProfileInteractBtns";
 
 const ProfileWrapper = styled.div`
   position: relative;
@@ -96,36 +96,6 @@ const ProfileWrapper = styled.div`
     padding: 0 0 1.5rem 2rem;
   }
 
-  ///////////////////////////////////////////////////////// TODO: REFACTOR
-
-  .profile--interact-btns {
-    background-color: blue;
-
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .profile--interact-btns button {
-    background-color: var(--color-font-blue);
-    color: var(--color-font-white);
-
-    width: 11.5rem;
-    height: 3.2rem;
-
-    font-size: var(--font-sm-1);
-    font-weight: 500;
-
-    border: none;
-    border-radius: 8px;
-  }
-
-  .profile--interact-btns button:nth-child(2) {
-    background-color: var(--color-dark-gray);
-  }
-
-  /////////////////////////////////////////////////////////
-
   .profile--user-content > nav {
     display: flex;
     align-items: center;
@@ -153,10 +123,6 @@ const ProfileWrapper = styled.div`
 
     .profile--header {
       margin-left: 0.7rem;
-    }
-
-    .profile--interact-btns button {
-      font-size: var(--font-sm-2);
     }
 
     .profile--username {
@@ -274,28 +240,10 @@ const Profile = () => {
                 <p className="profile--username">{data.username}</p>
                 {isLoggedUser && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
                 {!isLoggedUser && (
-                  <div className="profile--interact-btns">
-                    <button onClick={() => followUserMutation.mutate()}>
-                      {followUserMutation.isPending ? (
-                        <ClipLoader
-                          size={13}
-                          color="var(--color-white)"
-                        />
-                      ) : (
-                        "Follow"
-                      )}
-                    </button>
-                    <button onClick={() => unfollowUserMutation.mutate()}>
-                      {unfollowUserMutation.isPending ? (
-                        <ClipLoader
-                          size={13}
-                          color="var(--color-white)"
-                        />
-                      ) : (
-                        "Unfollow"
-                      )}
-                    </button>
-                  </div>
+                  <ProfileInteractBtns
+                    followUserMutation={followUserMutation}
+                    unfollowUserMutation={unfollowUserMutation}
+                  />
                 )}
               </header>
               <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
