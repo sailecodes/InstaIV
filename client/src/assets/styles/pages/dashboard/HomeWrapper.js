@@ -72,13 +72,6 @@ const HomeWrapper = styled.div`
     border-radius: 1%;
   }
 
-  .home--post-btns {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8rem;
-  }
-
   .home--post-text {
     font-size: var(--font-sm-1);
   }

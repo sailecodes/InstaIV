@@ -8,6 +8,7 @@ import Footer from "../../utilities/dashboard/Footer";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
 import HomeWrapper from "../../../assets/styles/pages/dashboard/HomeWrapper";
 import HomePostBtn from "../../utilities/dashboard/HomePostBtn";
+import HomePostInteractBtns from "../../utilities/dashboard/HomePostInteractBtns";
 
 const Home = () => {
   const queryClient = useQueryClient();
@@ -95,32 +96,13 @@ const Home = () => {
                     className="home--post-content"
                     src={post?.contentInfo?.imageUrl}
                   />
-                  <div className="home--post-btns">
-                    <HomePostBtn
-                      type="heart"
-                      onClick={() =>
-                        updatePostLikes.mutate({
-                          statFlag: !post.likesInfo.users[localStorage.getItem("userId")],
-                          id: post._id,
-                        })
-                      }
-                      fill={post.likesInfo.users[localStorage.getItem("userId")] ? "var(--color-red)" : ""}
-                      stroke="var(--color-red)"
-                      typeNum={post.likesInfo.num}
-                    />
-                    <HomePostBtn
-                      type="save"
-                      onClick={() =>
-                        updatePostSaves.mutate({
-                          statFlag: !post.savesInfo.users[localStorage.getItem("userId")],
-                          id: post._id,
-                        })
-                      }
-                      fill={post.savesInfo.users[localStorage.getItem("userId")] ? "var(--color-yellow)" : ""}
-                      stroke="var(--color-yellow)"
-                      typeNum={post.savesInfo.num}
-                    />
-                  </div>
+                  <HomePostInteractBtns
+                    id={post._id}
+                    updatePostLikes={updatePostLikes}
+                    likesInfo={post.likesInfo}
+                    updatePostSaves={updatePostSaves}
+                    savesInfo={post.savesInfo}
+                  />
                   <p className="home--post-text">
                     <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
                     {post.caption}

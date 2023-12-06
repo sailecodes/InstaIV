@@ -11,6 +11,11 @@ const HomePostBtnWrapper = styled.div`
 
   font-size: var(--font-sm-2);
 
+  &:has(.home-post-btn.heart-btn),
+  &:has(.home-post-btn.save-btn) {
+    justify-content: space-between;
+  }
+
   &:has(.home-post-btn.delete-btn) {
     display: block;
 
@@ -19,12 +24,8 @@ const HomePostBtnWrapper = styled.div`
     width: auto;
   }
 
-  &:has(.home-post-btn.heart-btn) {
-    justify-content: flex-start;
-  }
-
   &:has(.home-post-btn.save-btn) {
-    justify-content: flex-end;
+    width: 4.2rem;
   }
 
   .home-post-btn {
@@ -32,17 +33,17 @@ const HomePostBtnWrapper = styled.div`
     place-items: center;
   }
 
-  .home-post-btn.delete-btn {
+  .home-post-btn.delete-btn svg {
     width: 3rem;
     height: 3rem;
   }
 
-  .home-post-btn.heart-btn {
+  .home-post-btn.heart-btn svg {
     width: 2.4rem;
     height: 2.4rem;
   }
 
-  .home-post-btn.save-btn {
+  .home-post-btn.save-btn svg {
     width: 2.1rem;
     height: 2.1rem;
   }
@@ -52,17 +53,17 @@ const HomePostBtnWrapper = styled.div`
   }
 
   @media (min-width: 425px) {
-    .home-post-btn.delete-btn {
+    .home-post-btn.delete-btn svg {
       width: 3.4rem;
       height: 3.4rem;
     }
 
-    .home-post-btn.heart-btn {
+    .home-post-btn.heart-btn svg {
       width: 2.8rem;
       height: 2.8rem;
     }
 
-    .home-post-btn.save-btn {
+    .home-post-btn.save-btn svg {
       width: 2.5rem;
       height: 2.5rem;
     }
