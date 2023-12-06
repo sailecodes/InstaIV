@@ -7,7 +7,7 @@ const SubmitBtnWrapper = styled.button`
   width: 100%;
   height: 3.2rem;
 
-  font-size: var(--font-sm-2);
+  font-size: var(--font-sm-1);
   font-family: inherit;
 
   margin-top: 1rem;
@@ -16,6 +16,10 @@ const SubmitBtnWrapper = styled.button`
 
   :hover {
     cursor: pointer;
+  }
+
+  @media (min-width: 425px) {
+    font-size: var(--font-sm-2);
   }
 `;
 

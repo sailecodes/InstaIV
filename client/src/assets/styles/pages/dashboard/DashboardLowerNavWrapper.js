@@ -5,28 +5,55 @@ const DashboardLowerNavWrapper = styled.nav`
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
-  padding: 2rem;
-  border-top: 1px solid var(--color-dark-gray);
+  border-top: 1px solid var(--color-border);
 
   .lower-nav--links-container {
     display: flex;
     align-items: center;
-    gap: 8rem;
-
-    margin: 0 auto;
+    gap: 6.5rem;
   }
 
   a {
+    display: grid;
+    place-items: center;
+
     transition: scale 0.2s;
   }
 
-  .lower-nav--links-container > a:hover {
+  a:hover {
     scale: 1.05;
   }
 
-  .lower-nav--links-container .active svg {
-    fill: var(--color-blue);
+  svg {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .active svg {
+    fill: var(--color-font-blue);
+  }
+
+  a > img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  @media (min-width: 425px) {
+    svg {
+      width: 3.3rem;
+      height: 3.3rem;
+    }
+
+    a > img {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .lower-nav--links-container {
+      gap: 8rem;
+    }
   }
 
   @media (min-width: 768px) {

@@ -14,14 +14,16 @@ const CreatePostWrapper = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2rem;
-
-    width: 35rem;
-
-    padding-top: 4rem;
   }
 
   .create-post--form > button {
     width: 9rem;
+  }
+
+  @media (min-width: 425px) {
+    .create-post--form > button {
+      width: 9rem;
+    }
   }
 
   @media (min-width: 768px) {

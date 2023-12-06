@@ -57,8 +57,14 @@ const DashboardSideNavWrapper = styled.nav`
       margin-top: auto;
     }
 
-    .side-nav--link {
+    .side-nav--link-text {
       display: none;
+    }
+
+    .side-nav--links-container svg,
+    .side-nav--links-container img {
+      width: 3.3rem;
+      height: 3.3rem;
     }
 
     .active svg {
@@ -80,7 +86,7 @@ const DashboardSideNavWrapper = styled.nav`
         width: 19.9rem;
       }
 
-      .side-nav--link {
+      .side-nav--link-text {
         display: block;
 
         font-size: var(--font-sm-4);

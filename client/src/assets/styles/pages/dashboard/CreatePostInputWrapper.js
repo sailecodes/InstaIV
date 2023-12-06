@@ -5,10 +5,10 @@ const CreatePostInputWrapper = styled.div`
     background-color: var(--color-border);
     color: var(--color-font-white);
 
-    width: 35rem;
+    width: 30rem;
     height: 4.1rem;
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
 
     padding: 0 2rem 0 2rem;
     border-radius: 8px;
@@ -18,15 +18,29 @@ const CreatePostInputWrapper = styled.div`
     display: grid;
     place-items: center;
 
-    width: 35rem;
+    width: 30rem;
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
   }
 
   > input[type="file"]::file-selector-button {
     color: var(--color-bg);
 
     border-radius: 6px;
+  }
+
+  @media (min-width: 425px) {
+    > input[type="text"] {
+      width: 35rem;
+
+      font-size: var(--font-sm-2);
+    }
+
+    > input[type="file"] {
+      width: 35rem;
+
+      font-size: var(--font-sm-2);
+    }
   }
 `;
 

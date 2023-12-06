@@ -17,35 +17,16 @@ const DashboardLowerNav = () => {
         <NavLink
           to="/dashboard"
           end>
-          <HomeIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
+          <HomeIcon fill="var(--color-white)" />
         </NavLink>
         <NavLink to="/dashboard/search">
-          <SearchIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
+          <SearchIcon fill="var(--color-white)" />
         </NavLink>
         <NavLink to="/dashboard/create-post">
-          <CreateIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
+          <CreateIcon fill="var(--color-white)" />
         </NavLink>
         <NavLink to={`/dashboard/profile/${localStorage.getItem("userId")}`}>
-          <ProfilePicture
-            width="2.8rem"
-            height="2.8rem"
-            userPfpUrl={userPfpUrl}
-          />
+          <ProfilePicture userPfpUrl={userPfpUrl} />
         </NavLink>
       </div>
     </DashboardLowerNavWrapper>

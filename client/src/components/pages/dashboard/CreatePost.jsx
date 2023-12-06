@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
@@ -6,7 +7,6 @@ import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
 import CreatePostWrapper from "../../../assets/styles/pages/dashboard/CreatePostWrapper";
 import Footer from "../../utilities/dashboard/Footer";
 import SubmitBtn from "../../utilities/general/SubmitBtn";
-import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const navigate = useNavigate();

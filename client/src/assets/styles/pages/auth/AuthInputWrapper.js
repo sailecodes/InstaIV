@@ -12,7 +12,7 @@ const AuthInputWrapper = styled.div`
     width: 28rem;
     height: 4rem;
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
     font-family: inherit;
 
     padding: 0.7rem 4rem 0.7rem 0.7rem;
@@ -29,6 +29,12 @@ const AuthInputWrapper = styled.div`
 
     width: 4rem;
     height: 4rem;
+  }
+
+  @media (min-width: 425px) {
+    input {
+      font-size: var(--font-sm-2);
+    }
   }
 `;
 

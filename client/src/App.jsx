@@ -72,7 +72,7 @@ const App = () => {
       <AppContext.Provider value={{ userPfpUrl, setUserPfpUrl }}>
         <RouterProvider router={router} />
       </AppContext.Provider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 };

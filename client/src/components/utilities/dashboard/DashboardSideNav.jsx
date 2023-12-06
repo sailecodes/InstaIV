@@ -31,52 +31,28 @@ const DashboardSideNav = () => {
         <NavLink
           to="/dashboard"
           end>
-          <HomeIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
-          <p className="side-nav--link">Home</p>
+          <HomeIcon fill="var(--color-white)" />
+          <p className="side-nav--link-text">Home</p>
         </NavLink>
         <NavLink to="/dashboard/search">
-          <SearchIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
-          <p className="side-nav--link">Search</p>
+          <SearchIcon fill="var(--color-white)" />
+          <p className="side-nav--link-text">Search</p>
         </NavLink>
         <NavLink to="/dashboard/create-post">
-          <CreateIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
-          <p className="side-nav--link">Create</p>
+          <CreateIcon fill="var(--color-white)" />
+          <p className="side-nav--link-text">Create</p>
         </NavLink>
         <NavLink
           to={`/dashboard/profile/${localStorage.getItem("userId")}`}
           reloadDocument={true}>
-          <ProfilePicture
-            width={"3.3rem"}
-            height={"3.3rem"}
-            userPfpUrl={userPfpUrl}
-          />
-          <p className="side-nav--link">Profile</p>
+          <ProfilePicture userPfpUrl={userPfpUrl} />
+          <p className="side-nav--link-text">Profile</p>
         </NavLink>
         <NavLink
           to={`/`}
           onClick={logout.mutate}>
-          <LogoutIcon
-            fill="var(--color-white)"
-            stroke="none"
-            width="3.3rem"
-            height="3.3rem"
-          />
-          <p className="side-nav--link">Logout</p>
+          <LogoutIcon fill="var(--color-white)" />
+          <p className="side-nav--link-text">Logout</p>
         </NavLink>
       </div>
     </DashboardSideNavWrapper>

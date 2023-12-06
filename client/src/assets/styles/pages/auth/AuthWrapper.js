@@ -41,13 +41,19 @@ const AuthWrapper = styled.div`
   .auth--input-container > p {
     color: var(--color-font-white);
 
-    font-size: var(--font-sm-2);
+    font-size: var(--font-sm-1);
   }
 
   .auth--input-container > p a {
     color: var(--color-font-blue);
 
     text-decoration: none;
+  }
+
+  @media (min-width: 425px) {
+    .auth--input-container > p {
+      font-size: var(--font-sm-2);
+    }
   }
 `;
 
