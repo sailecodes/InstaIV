@@ -73,7 +73,7 @@ const SearchWrapper = styled.div`
     display: grid;
     place-items: center;
 
-    width: 11rem;
+    width: 9rem;
     height: 3.2rem;
 
     font-size: var(--font-sm-1);
@@ -107,6 +107,8 @@ const SearchWrapper = styled.div`
     }
 
     .search-data--username + a {
+      width: 10.5rem;
+
       font-size: var(--font-sm-2);
     }
   }
