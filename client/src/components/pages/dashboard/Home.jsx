@@ -1,147 +1,13 @@
-import styled from "styled-components";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
 import PulseLoader from "react-spinners/PulseLoader";
-import HeartIcon from "../../utilities/icons/HeartIcon";
-import SavedPostsIcon from "../../utilities/icons/SavedPostsIcon";
-import DeleteIcon from "../../utilities/icons/DeleteIcon";
 import Footer from "../../utilities/dashboard/Footer";
 import ProfilePicture from "../../utilities/dashboard/ProfilePicture";
-
-const HomeWrapper = styled.div`
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-
-  padding: 2rem;
-
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  .home--posts-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5rem;
-  }
-
-  .home--posts-empty {
-    font-size: var(--font-sm-2);
-    font-weight: 600;
-  }
-
-  .home--post {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    padding-bottom: 5rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .home--post:last-child {
-    border: none;
-  }
-
-  .home--post a {
-    color: var(--color-white);
-
-    font-size: var(--font-sm-2);
-    font-weight: 500;
-  }
-
-  .home--post > header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .home--post-pfp {
-    width: 4.2rem;
-    height: 4.2rem;
-
-    border-radius: 50%;
-  }
-
-  .home--post-date {
-    color: var(--color-font-gray);
-
-    font-size: var(--font-sm-2);
-  }
-
-  .home--post-dot {
-    color: var(--color-font-gray);
-
-    font-size: var(--font-sm-2);
-  }
-
-  .home--post-mutations {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    margin-left: auto;
-  }
-
-  .home--post-btn {
-    margin-left: auto;
-  }
-
-  .home--post-content {
-    width: 46.8rem;
-    height: auto;
-
-    border-radius: 1%;
-  }
-
-  ///////////////////////////////////////
-
-  .home--post-btns {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8rem;
-  }
-
-  .home--post-btn {
-    display: grid;
-    place-items: center;
-  }
-
-  .home--post-btn svg {
-    transition: fill 0.3s;
-  }
-
-  .home--post-btns > div {
-    color: var(--color-font-white);
-
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    width: 4.6rem;
-
-    font-size: var(--font-sm-2);
-  }
-
-  .home--post-text {
-    font-size: var(--font-sm-2);
-  }
-
-  .home--post-text a {
-    font-weight: 600;
-
-    margin-right: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    grid-row: 1 / -1;
-    grid-column: 2;
-  }
-`;
+import HomeWrapper from "../../../assets/styles/pages/dashboard/HomeWrapper";
+import HomePostBtn from "../../utilities/dashboard/HomePostBtn";
 
 const Home = () => {
   const queryClient = useQueryClient();
@@ -201,7 +67,7 @@ const Home = () => {
         <div className="home--posts-container">
           {data.length === 0 && (
             <div style={{ display: "grid", placeItems: "center" }}>
-              <p className="home--posts-empty">No posts yet!</p>
+              <h1>No posts yet!</h1>
             </div>
           )}
           {data.length !== 0 && (
@@ -211,29 +77,18 @@ const Home = () => {
                   className="home--post"
                   key={post._id}>
                   <header>
-                    <ProfilePicture
-                      width="4rem"
-                      height="4rem"
-                      userPfpUrl={post.userInfo.imageUrl}
-                    />
+                    <ProfilePicture userPfpUrl={post.userInfo.imageUrl} />
                     <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
                     <div className="home--post-dot">&middot;</div>
                     <p className="home--post-date">
                       {new Date(post.createdAt).toLocaleDateString("en-us", { month: "short", day: "numeric" })}
                     </p>
                     {localStorage.getItem("userId") === post.userInfo.userId && (
-                      <div className="home--post-mutations">
-                        <button
-                          className="home--post-btn"
-                          onClick={() => deletePost.mutate({ id: post._id })}>
-                          <DeleteIcon
-                            fill="var(--color-white)"
-                            stroke="none"
-                            width="3.1rem"
-                            height="3.1rem"
-                          />
-                        </button>
-                      </div>
+                      <HomePostBtn
+                        type="delete"
+                        onClick={() => deletePost.mutate({ id: post._id })}
+                        fill="var(--color-white)"
+                      />
                     )}
                   </header>
                   <img
@@ -241,42 +96,30 @@ const Home = () => {
                     src={post?.contentInfo?.imageUrl}
                   />
                   <div className="home--post-btns">
-                    <div>
-                      <button
-                        className="home--post-btn"
-                        onClick={() =>
-                          updatePostLikes.mutate({
-                            statFlag: !post.likesInfo.users[localStorage.getItem("userId")],
-                            id: post._id,
-                          })
-                        }>
-                        <HeartIcon
-                          fill={post.likesInfo.users[localStorage.getItem("userId")] ? "var(--color-red)" : ""}
-                          stroke="var(--color-red)"
-                          width="2.8rem"
-                          height="2.8rem"
-                        />
-                      </button>
-                      <div>{post.likesInfo.num}</div>
-                    </div>
-                    <div>
-                      <button
-                        className="home--post-btn"
-                        onClick={() =>
-                          updatePostSaves.mutate({
-                            statFlag: !post.savesInfo.users[localStorage.getItem("userId")],
-                            id: post._id,
-                          })
-                        }>
-                        <SavedPostsIcon
-                          fill={post.savesInfo.users[localStorage.getItem("userId")] ? "var(--color-yellow)" : ""}
-                          stroke="var(--color-yellow)"
-                          width="2.4rem"
-                          height="2.4rem"
-                        />
-                      </button>
-                      <div>{post.savesInfo.num}</div>
-                    </div>
+                    <HomePostBtn
+                      type="heart"
+                      onClick={() =>
+                        updatePostLikes.mutate({
+                          statFlag: !post.likesInfo.users[localStorage.getItem("userId")],
+                          id: post._id,
+                        })
+                      }
+                      fill={post.likesInfo.users[localStorage.getItem("userId")] ? "var(--color-red)" : ""}
+                      stroke="var(--color-red)"
+                      typeNum={post.likesInfo.num}
+                    />
+                    <HomePostBtn
+                      type="save"
+                      onClick={() =>
+                        updatePostSaves.mutate({
+                          statFlag: !post.savesInfo.users[localStorage.getItem("userId")],
+                          id: post._id,
+                        })
+                      }
+                      fill={post.savesInfo.users[localStorage.getItem("userId")] ? "var(--color-yellow)" : ""}
+                      stroke="var(--color-yellow)"
+                      typeNum={post.savesInfo.num}
+                    />
                   </div>
                   <p className="home--post-text">
                     <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
