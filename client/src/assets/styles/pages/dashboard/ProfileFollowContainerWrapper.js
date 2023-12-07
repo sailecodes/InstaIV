@@ -92,13 +92,13 @@ const ProfileFollowContainerWrapper = styled.div`
     display: grid;
     place-items: center;
 
-    width: 8rem;
-    height: 3rem;
+    width: 7.5rem;
+    height: 2.5rem;
 
     font-size: var(--font-sm-0);
 
     margin-left: auto;
-    border-radius: 5px;
+    border-radius: 6px;
   }
 
   .follow-container--users::-webkit-scrollbar-track {
@@ -119,12 +119,17 @@ const ProfileFollowContainerWrapper = styled.div`
       height: 40rem;
     }
 
+    .follow-container--users img {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+
     .follow-container--nav > p {
       font-size: var(--font-sm-2);
     }
 
     .follow-container--users {
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
 
     .follow-container--users > div p {
@@ -133,6 +138,7 @@ const ProfileFollowContainerWrapper = styled.div`
 
     .follow-container--users > div a {
       width: 9rem;
+      height: 3rem;
 
       font-size: var(--font-sm-1);
     }
@@ -142,6 +148,25 @@ const ProfileFollowContainerWrapper = styled.div`
     > section {
       width: 40rem;
       height: 40rem;
+    }
+
+    .follow-container--nav > p {
+      font-size: var(--font-sm-3);
+    }
+
+    .follow-container--users {
+      padding: 2rem;
+    }
+
+    .follow-container--users > div p {
+      font-size: var(--font-sm-2);
+    }
+
+    .follow-container--users > div a {
+      width: 11rem;
+      height: 3.5rem;
+
+      font-size: var(--font-sm-2);
     }
   }
 `;
