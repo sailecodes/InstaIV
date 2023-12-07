@@ -10,7 +10,7 @@ import EditProfileWrapper from "../../../assets/styles/pages/dashboard/EditProfi
 import { AppContext } from "../../../App";
 
 const EditProfile = () => {
-  const { setUserProfilePictureUrl } = useContext(AppContext);
+  const { setUserPfpUrl } = useContext(AppContext);
   const navigate = useNavigate();
 
   const editProfile = useMutation({
@@ -23,7 +23,13 @@ const EditProfile = () => {
     },
     onSuccess: (data) => {
       navigate(`/dashboard/profile/${localStorage.getItem("userId")}`);
-      setUserProfilePictureUrl(data?.data?.data.profilePictureInfo.imageUrl);
+      localStorage.setItem(
+        "userPfpUrl",
+        data?.data?.data?.profilePictureInfo?.imageUrl
+          ? data.data.data.profilePictureInfo.imageUrl
+          : localStorage.getItem("userPfpUrl")
+      );
+      setUserPfpUrl(data?.data?.data.profilePictureInfo.imageUrl);
     },
   });
 

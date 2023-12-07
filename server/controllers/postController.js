@@ -11,8 +11,6 @@ import { NotFoundError, UnauthorizedError } from "../errors/customErrors.js";
 // General CRUDs
 // ==============================================
 
-// TODO: Must dynamically change the profile picture for home posts, i.e. whenever the profile picture changes,
-//       so should the profile picture in corresponding home posts
 export const getAllPosts = async (req, res) => {
   const posts = await postModel.find({});
 
