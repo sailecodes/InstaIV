@@ -7,7 +7,7 @@ const SubmitBtn = ({ isPending, text }) => {
       {isPending ? (
         <ClipLoader
           size={10}
-          color={"var(--color-white)"}
+          color={"var(--color-font-white)"}
         />
       ) : (
         text

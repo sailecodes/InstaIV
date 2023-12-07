@@ -2,10 +2,9 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import ProfilePicture from "./ProfilePicture";
-import Exit from "../icons/ExitIcon";
 import ProfileFollowContainerWrapper from "../../../assets/styles/pages/dashboard/ProfileFollowContainerWrapper";
-import { DashboardContext } from "../../pages/dashboard/Dashboard";
 import DeleteIcon from "../icons/DeleteIcon";
+import { DashboardContext } from "../../pages/dashboard/Dashboard";
 
 const ProfileFollowContainer = ({ followData }) => {
   const { isFollowContainerVisible, setIsFollowContainerVisible, isFollowingClicked, setIsFollowingClicked } =

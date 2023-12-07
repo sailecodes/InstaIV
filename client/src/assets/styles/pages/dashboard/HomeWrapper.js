@@ -32,7 +32,7 @@ const HomeWrapper = styled.div`
   }
 
   .home--post a {
-    color: var(--color-white);
+    color: var(--color-font-white);
 
     font-size: var(--font-sm-1);
     font-weight: 500;

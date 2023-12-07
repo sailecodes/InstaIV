@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const LogoWrapper = styled.div`
   p {
-    color: var(--color-white);
+    color: var(--color-font-white);
 
     font-size: var(--font-md-3);
     font-weight: 600;

@@ -35,7 +35,7 @@ const ProfileStatsWrapper = styled.div`
     height: 100%;
     width: 100%;
 
-    border-top: 1px solid var(--color-darker-gray);
+    border-top: 1px solid var(--color-btn-hover);
   }
 
   @media (min-width: 425px) {

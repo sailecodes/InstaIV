@@ -7,7 +7,8 @@ const AuthInputWrapper = styled.div`
   align-items: center;
 
   input {
-    background-color: var(--color-dark-white);
+    background-color: var(--color-border);
+    color: var(--color-font-white);
 
     width: 25rem;
     height: 4rem;
@@ -15,8 +16,7 @@ const AuthInputWrapper = styled.div`
     font-size: var(--font-sm-1);
     font-family: inherit;
 
-    padding: 0.7rem 4rem 0.7rem 0.7rem;
-    border: 1px solid var(--color-light-gray);
+    padding: 0.7rem 4rem 0.7rem 1.5rem;
     border-radius: 5px;
   }
 

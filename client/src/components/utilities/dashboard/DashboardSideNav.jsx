@@ -31,15 +31,15 @@ const DashboardSideNav = () => {
         <NavLink
           to="/dashboard"
           end>
-          <HomeIcon fill="var(--color-white)" />
+          <HomeIcon fill="var(--color-font-white)" />
           <p className="side-nav--link-text">Home</p>
         </NavLink>
         <NavLink to="/dashboard/search">
-          <SearchIcon fill="var(--color-white)" />
+          <SearchIcon fill="var(--color-font-white)" />
           <p className="side-nav--link-text">Search</p>
         </NavLink>
         <NavLink to="/dashboard/create-post">
-          <CreateIcon fill="var(--color-white)" />
+          <CreateIcon fill="var(--color-font-white)" />
           <p className="side-nav--link-text">Create</p>
         </NavLink>
         <NavLink
@@ -51,7 +51,7 @@ const DashboardSideNav = () => {
         <NavLink
           to={`/`}
           onClick={logout.mutate}>
-          <LogoutIcon fill="var(--color-white)" />
+          <LogoutIcon fill="var(--color-font-white)" />
           <p className="side-nav--link-text">Logout</p>
         </NavLink>
       </div>

@@ -254,10 +254,10 @@ const Profile = () => {
                 <NavLink
                   to={`/dashboard/profile/${id}`}
                   end>
-                  <UserPostsIcon stroke="var(--color-white)" />
+                  <UserPostsIcon stroke="var(--color-font-white)" />
                 </NavLink>
                 <NavLink to={`/dashboard/profile/${id}/saved-posts`}>
-                  <SavedPostsIcon stroke="var(--color-white)" />
+                  <SavedPostsIcon stroke="var(--color-font-white)" />
                 </NavLink>
               </nav>
               <Outlet />

@@ -8,8 +8,8 @@ import DashboardSideNav from "../../utilities/dashboard/DashboardSideNav";
 import ProfileFollowContainer from "../../utilities/dashboard/ProfileFollowContainer";
 
 const DashboardWrapper = styled.div`
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--color-bg);
+  color: var(--color-font-white);
 
   display: grid;
   grid-template-rows: 6rem 1fr 5rem;

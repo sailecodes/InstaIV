@@ -88,7 +88,7 @@ const Home = () => {
                       <HomePostBtn
                         type="delete"
                         onClick={() => deletePost.mutate({ id: post._id })}
-                        fill="var(--color-white)"
+                        fill="var(--color-font-white)"
                       />
                     )}
                   </header>
