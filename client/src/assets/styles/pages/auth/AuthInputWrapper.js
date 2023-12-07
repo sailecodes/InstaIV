@@ -20,6 +20,16 @@ const AuthInputWrapper = styled.div`
     border-radius: 5px;
   }
 
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
+
+  input[data-autocompleted] {
+    background-color: var(--color-border) !important;
+    color: var(--color-white);
+  }
+
   .input--error-box {
     position: absolute;
     left: 85%;
