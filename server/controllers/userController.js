@@ -5,6 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import userModel from "../models/userModel.js";
 import contentModel from "../models/contentModel.js";
 import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
+import postModel from "../models/postModel.js";
 
 export const getAllUsers = async (req, res) => {
   const users = await userModel.find({ _id: { $ne: req.userInfo.userId } });
@@ -25,30 +26,38 @@ export const updateProfile = async (req, res) => {
 
   if (!user) throw new NotFoundError(`No user with id ${req.params.id} found`);
 
+  // Updates bio if user changed bio
   if (req.body.bio) {
     user.bio = req.body.bio;
     await user.save();
   }
 
+  // Updates pfp if user changed pfp
   if (req.files?.profilePicture) {
+    let url;
+
     if (user.profilePictureInfo) {
+      // Replaces previous pfp
       const content = await contentModel.findById(user.profilePictureInfo.contentId);
 
       if (!content) throw new NotFoundError(`No profile picture with id ${user.profilePictureInfo.contentId} found`);
 
       await cloudinary.uploader.destroy(content.publicId);
-      const result = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
+      const cloudinaryResult = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
         use_filename: true,
         folder: "InstaIV/Profile-pictures",
       });
 
-      content.imageUrl = result.secure_url;
-      content.publicId = result.public_id;
+      content.imageUrl = cloudinaryResult.secure_url;
+      content.publicId = cloudinaryResult.public_id;
       await content.save();
 
-      user.profilePictureInfo.imageUrl = result.secure_url;
+      user.profilePictureInfo.imageUrl = cloudinaryResult.secure_url;
       await user.save();
+
+      url = cloudinaryResult.secure_url;
     } else {
+      // Creates a pfp
       const cloudinaryResult = await cloudinary.uploader.upload(req.files.profilePicture.tempFilePath, {
         use_filename: true,
         folder: "InstaIV/Profile-pictures",
@@ -61,7 +70,12 @@ export const updateProfile = async (req, res) => {
 
       user.profilePictureInfo = { imageUrl: cloudinaryResult.secure_url, contentId: content._id };
       await user.save();
+
+      url = cloudinaryResult.secure_url;
     }
+
+    // Updates the linked pfp (i.e. imageUrl) for all of user's posts
+    await postModel.updateMany({ "userInfo.userId": req.userInfo.userId }, { "userInfo.imageUrl": url });
 
     fs.unlinkSync(req.files.profilePicture.tempFilePath);
   }
