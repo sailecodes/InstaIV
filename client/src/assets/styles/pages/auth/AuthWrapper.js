@@ -14,7 +14,6 @@ const AuthWrapper = styled.div`
     align-items: center;
     gap: 2rem;
 
-    width: 35rem;
     height: 40rem;
 
     padding: 1rem;

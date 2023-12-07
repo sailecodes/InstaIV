@@ -7,6 +7,7 @@ const CreatePostWrapper = styled.div`
   justify-content: center;
 
   padding: 2rem;
+  padding-top: 2.6rem;
 
   .create-post--form {
     display: flex;

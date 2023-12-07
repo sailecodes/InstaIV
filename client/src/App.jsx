@@ -10,8 +10,8 @@ import Home from "./components/pages/dashboard/Home";
 import Search from "./components/pages/dashboard/Search";
 import CreatePost from "./components/pages/dashboard/CreatePost";
 import Profile, { ProfileLoader } from "./components/pages/dashboard/Profile";
-import Posts from "./components/pages/dashboard/Posts";
-import SavedPosts from "./components/pages/dashboard/SavedPosts";
+import ProfilePosts from "./components/pages/dashboard/ProfilePosts";
+import ProfileSavedPosts from "./components/pages/dashboard/ProfileSavedPosts";
 import EditProfile from "./components/pages/dashboard/EditProfile";
 
 const queryClient = new QueryClient();
@@ -48,11 +48,11 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Posts />,
+            element: <ProfilePosts />,
           },
           {
             path: "saved-posts",
-            element: <SavedPosts />,
+            element: <ProfileSavedPosts />,
           },
         ],
       },

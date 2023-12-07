@@ -7,7 +7,7 @@ const HomeWrapper = styled.div`
   justify-content: center;
 
   padding: 2rem;
-  padding-top: 2.5rem;
+  padding-top: 2.6rem;
 
   overflow-x: hidden;
   overflow-y: auto;

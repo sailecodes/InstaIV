@@ -228,7 +228,7 @@ const Profile = () => {
           </div>
         )}
         {isPending && (
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <PulseLoader color="var(--color-blue)" />
           </div>
         )}

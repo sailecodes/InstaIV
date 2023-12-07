@@ -9,7 +9,7 @@ const AuthInputWrapper = styled.div`
   input {
     background-color: var(--color-dark-white);
 
-    width: 28rem;
+    width: 25rem;
     height: 4rem;
 
     font-size: var(--font-sm-1);
@@ -33,6 +33,8 @@ const AuthInputWrapper = styled.div`
 
   @media (min-width: 425px) {
     input {
+      width: 28rem;
+
       font-size: var(--font-sm-2);
     }
   }

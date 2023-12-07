@@ -5,6 +5,7 @@ const SearchWrapper = styled.div`
   justify-content: center;
 
   padding: 2rem;
+  padding-top: 2.6rem;
 
   overflow-y: auto;
 
