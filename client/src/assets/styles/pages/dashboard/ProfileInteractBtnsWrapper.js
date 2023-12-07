@@ -6,7 +6,6 @@ const ProfileInteractBtnsWrapper = styled.div`
   gap: 1rem;
 
   button {
-    background-color: var(--color-blue);
     color: var(--color-white);
 
     width: 11.5rem;
@@ -17,6 +16,14 @@ const ProfileInteractBtnsWrapper = styled.div`
 
     border: none;
     border-radius: 8px;
+  }
+
+  button.Follow {
+    background-color: var(--color-blue);
+  }
+
+  button.Unfollow {
+    background-color: var(--color-border);
   }
 
   @media (min-width: 425px) {
