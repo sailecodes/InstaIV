@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FollowContainerWrapper = styled.div`
+const ProfileFollowContainerWrapper = styled.div`
   background-color: var(--color-shaded-bg);
 
   position: absolute;
@@ -12,13 +12,13 @@ const FollowContainerWrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  padding: 8rem;
+  padding: 9rem 2rem;
 
   overflow: hidden;
 
   > section {
-    background-color: var(--color-dark-gray);
-    color: var(--color-white);
+    background-color: var(--color-border);
+    color: var(--color-font-white);
 
     position: relative;
     bottom: 10%;
@@ -26,8 +26,8 @@ const FollowContainerWrapper = styled.div`
     display: flex;
     flex-direction: column;
 
-    width: 30rem;
-    height: 40rem;
+    width: 25rem;
+    height: 35rem;
 
     border-radius: 8px;
   }
@@ -39,12 +39,12 @@ const FollowContainerWrapper = styled.div`
     place-items: center;
 
     padding: 1rem;
-    border-bottom: 1px solid var(--color-darker-gray);
+    border-bottom: 1px solid var(--color-btn-hover);
   }
 
   .follow-container--nav > p {
-    font-size: var(--font-sm-2);
-    font-weight: 600;
+    font-size: var(--font-sm-1);
+    font-weight: 500;
   }
 
   .follow-container--nav > button {
@@ -55,14 +55,19 @@ const FollowContainerWrapper = styled.div`
     place-items: center;
   }
 
+  .follow-container--nav svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
   .follow-container--users {
     display: flex;
     flex-direction: column;
     gap: 3rem;
 
-    padding: 2rem;
+    padding: 2rem 1rem;
 
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .follow-container--users > div {
@@ -71,36 +76,66 @@ const FollowContainerWrapper = styled.div`
     gap: 1rem;
   }
 
+  .follow-container--users img {
+    width: 3rem;
+    height: 3rem;
+  }
+
   .follow-container--users > div p {
-    font-size: var(--font-sm-1);
+    font-size: var(--font-sm-0);
   }
 
   .follow-container--users > div a {
-    background-color: var(--color-blue);
-    color: var(--color-white);
+    background-color: var(--color-font-blue);
+    color: var(--color-font-white);
 
     display: grid;
     place-items: center;
 
-    width: 9rem;
+    width: 8rem;
     height: 3rem;
 
-    font-size: var(--font-sm-1);
+    font-size: var(--font-sm-0);
 
     margin-left: auto;
     border-radius: 5px;
   }
 
   .follow-container--users::-webkit-scrollbar-track {
-    background-color: var(--color-darker-gray);
+    background-color: var(--color-btn-hover);
 
     border-radius: 0 0 8px 0;
   }
 
   .follow-container--users::-webkit-scrollbar-thumb {
-    background: var(--color-dark-gray);
+    background: var(--color-border);
 
     border-radius: 0 0 8px 0;
+  }
+
+  @media (min-width: 425px) {
+    > section {
+      width: 30rem;
+      height: 40rem;
+    }
+
+    .follow-container--nav > p {
+      font-size: var(--font-sm-2);
+    }
+
+    .follow-container--users {
+      padding: 2rem;
+    }
+
+    .follow-container--users > div p {
+      font-size: var(--font-sm-1);
+    }
+
+    .follow-container--users > div a {
+      width: 9rem;
+
+      font-size: var(--font-sm-1);
+    }
   }
 
   @media (min-width: 768px) {
@@ -111,4 +146,4 @@ const FollowContainerWrapper = styled.div`
   }
 `;
 
-export default FollowContainerWrapper;
+export default ProfileFollowContainerWrapper;

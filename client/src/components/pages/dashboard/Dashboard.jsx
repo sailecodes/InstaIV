@@ -5,7 +5,7 @@ import { createContext, useState } from "react";
 import DashboardTopNav from "../../utilities/dashboard/DashboardTopNav";
 import DashboardLowerNav from "../../utilities/dashboard/DashboardLowerNav";
 import DashboardSideNav from "../../utilities/dashboard/DashboardSideNav";
-import FollowContainer from "../../utilities/dashboard/FollowContainer";
+import ProfileFollowContainer from "../../utilities/dashboard/ProfileFollowContainer";
 
 const DashboardWrapper = styled.div`
   background-color: var(--color-black);
@@ -40,7 +40,7 @@ const Dashboard = () => {
         setIsFollowingClicked,
         setFollowData,
       }}>
-      {isFollowContainerVisible && <FollowContainer followData={followData} />}
+      {isFollowContainerVisible && <ProfileFollowContainer followData={followData} />}
       <DashboardWrapper>
         <DashboardTopNav />
         <DashboardSideNav />
