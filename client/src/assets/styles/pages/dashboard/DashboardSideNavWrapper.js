@@ -33,7 +33,7 @@ const DashboardSideNavWrapper = styled.nav`
     }
 
     .side-nav--links-container a {
-      color: var(--color-font-white);
+      color: var(--color-white);
 
       display: grid;
       place-items: center;
@@ -68,11 +68,11 @@ const DashboardSideNavWrapper = styled.nav`
     }
 
     .active svg {
-      fill: var(--color-font-blue);
+      fill: var(--color-blue);
     }
 
     .active p {
-      color: var(--color-font-blue);
+      color: var(--color-blue);
 
       font-weight: 600;
     }

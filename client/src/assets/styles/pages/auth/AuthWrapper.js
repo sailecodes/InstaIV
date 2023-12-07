@@ -38,13 +38,13 @@ const AuthWrapper = styled.div`
   }
 
   .auth--input-container > p {
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     font-size: var(--font-sm-1);
   }
 
   .auth--input-container > p a {
-    color: var(--color-font-blue);
+    color: var(--color-blue);
 
     text-decoration: none;
   }

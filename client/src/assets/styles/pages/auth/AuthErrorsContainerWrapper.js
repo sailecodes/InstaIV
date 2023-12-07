@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const AuthErrorsContainerWrapper = styled.div`
-  color: var(--color-font-error);
+  color: var(--color-error);
 
   display: flex;
   flex-direction: column;

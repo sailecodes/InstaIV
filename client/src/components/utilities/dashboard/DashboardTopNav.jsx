@@ -22,7 +22,7 @@ const DashboardTopNav = () => {
       <NavLink
         to={`/`}
         onClick={logout.mutate}>
-        <LogoutIcon fill="var(--color-font-white)" />
+        <LogoutIcon fill="var(--color-white)" />
       </NavLink>
     </DashboardTopNavWrapper>
   );

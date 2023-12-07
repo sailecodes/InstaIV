@@ -7,8 +7,8 @@ const DashboardTopNavWrapper = styled.nav`
   align-items: center;
   justify-content: space-between;
 
-  background-color: var(--color-bg);
-  color: var(--color-font-white);
+  background-color: var(--color-black);
+  color: var(--color-white);
 
   padding: 2rem;
   border-bottom: 1px solid var(--color-border);

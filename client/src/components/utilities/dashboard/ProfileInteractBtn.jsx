@@ -6,7 +6,7 @@ const ProfileInteractBtn = ({ mutation, text }) => {
       {mutation.isPending ? (
         <ClipLoader
           size={13}
-          color="var(--color-font-white)"
+          color="var(--color-white)"
         />
       ) : (
         text

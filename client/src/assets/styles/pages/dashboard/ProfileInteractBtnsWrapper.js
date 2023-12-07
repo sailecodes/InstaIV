@@ -6,8 +6,8 @@ const ProfileInteractBtnsWrapper = styled.div`
   gap: 1rem;
 
   button {
-    background-color: var(--color-font-blue);
-    color: var(--color-font-white);
+    background-color: var(--color-blue);
+    color: var(--color-white);
 
     width: 11.5rem;
     height: 3.2rem;

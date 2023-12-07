@@ -66,7 +66,7 @@ const ProfileWrapper = styled.div`
 
   .profile--username + a {
     background-color: var(--color-border);
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     display: grid;
     place-items: center;
@@ -254,10 +254,10 @@ const Profile = () => {
                 <NavLink
                   to={`/dashboard/profile/${id}`}
                   end>
-                  <UserPostsIcon stroke="var(--color-font-white)" />
+                  <UserPostsIcon stroke="var(--color-white)" />
                 </NavLink>
                 <NavLink to={`/dashboard/profile/${id}/saved-posts`}>
-                  <SavedPostsIcon stroke="var(--color-font-white)" />
+                  <SavedPostsIcon stroke="var(--color-white)" />
                 </NavLink>
               </nav>
               <Outlet />

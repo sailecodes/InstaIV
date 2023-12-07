@@ -12,8 +12,8 @@ const HomePostInteractBtns = ({ id, updatePostLikes, likesInfo, updatePostSaves,
             id: id,
           })
         }
-        fill={likesInfo.users[localStorage.getItem("userId")] ? "var(--color-font-red)" : ""}
-        stroke="var(--color-font-red)"
+        fill={likesInfo.users[localStorage.getItem("userId")] ? "var(--color-red)" : ""}
+        stroke="var(--color-red)"
         typeNum={likesInfo.num}
       />
       <HomePostBtn
@@ -24,8 +24,8 @@ const HomePostInteractBtns = ({ id, updatePostLikes, likesInfo, updatePostSaves,
             id: id,
           })
         }
-        fill={savesInfo.users[localStorage.getItem("userId")] ? "var(--color-font-yellow)" : ""}
-        stroke="var(--color-font-yellow)"
+        fill={savesInfo.users[localStorage.getItem("userId")] ? "var(--color-yellow)" : ""}
+        stroke="var(--color-yellow)"
         typeNum={savesInfo.num}
       />
     </HomePostInteractBtnsWrapper>

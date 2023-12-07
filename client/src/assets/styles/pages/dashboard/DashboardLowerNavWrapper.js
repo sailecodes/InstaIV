@@ -32,7 +32,7 @@ const DashboardLowerNavWrapper = styled.nav`
   }
 
   .active svg {
-    fill: var(--color-font-blue);
+    fill: var(--color-blue);
   }
 
   a > img {

@@ -18,7 +18,7 @@ const ProfileFollowContainerWrapper = styled.div`
 
   > section {
     background-color: var(--color-border);
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     position: relative;
     bottom: 10%;
@@ -86,8 +86,8 @@ const ProfileFollowContainerWrapper = styled.div`
   }
 
   .follow-container--users > div a {
-    background-color: var(--color-font-blue);
-    color: var(--color-font-white);
+    background-color: var(--color-blue);
+    color: var(--color-white);
 
     display: grid;
     place-items: center;

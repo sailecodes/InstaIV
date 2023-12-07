@@ -11,7 +11,7 @@ const FooterWrapper = styled.footer`
     margin-left: 7rem;
 
     > p {
-      color: var(--color-font-gray);
+      color: var(--color-gray);
 
       font-size: var(--font-sm-1);
     }
@@ -23,11 +23,11 @@ const FooterWrapper = styled.footer`
     }
 
     > div div {
-      color: var(--color-font-blue);
+      color: var(--color-blue);
     }
 
     a {
-      color: var(--color-font-blue);
+      color: var(--color-blue);
 
       font-size: var(--font-sm-1);
     }

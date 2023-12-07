@@ -3,7 +3,7 @@ import styled from "styled-components";
 const CreatePostInputWrapper = styled.div`
   > input[type="text"] {
     background-color: var(--color-border);
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     width: 30rem;
     height: 4.1rem;
@@ -24,7 +24,7 @@ const CreatePostInputWrapper = styled.div`
   }
 
   > input[type="file"]::file-selector-button {
-    color: var(--color-bg);
+    color: var(--color-black);
 
     border-radius: 6px;
   }

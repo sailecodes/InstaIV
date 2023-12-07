@@ -17,13 +17,13 @@ const DashboardLowerNav = () => {
         <NavLink
           to="/dashboard"
           end>
-          <HomeIcon fill="var(--color-font-white)" />
+          <HomeIcon fill="var(--color-white)" />
         </NavLink>
         <NavLink to="/dashboard/search">
-          <SearchIcon fill="var(--color-font-white)" />
+          <SearchIcon fill="var(--color-white)" />
         </NavLink>
         <NavLink to="/dashboard/create-post">
-          <CreateIcon fill="var(--color-font-white)" />
+          <CreateIcon fill="var(--color-white)" />
         </NavLink>
         <NavLink to={`/dashboard/profile/${localStorage.getItem("userId")}`}>
           <ProfilePicture userPfpUrl={userPfpUrl} />

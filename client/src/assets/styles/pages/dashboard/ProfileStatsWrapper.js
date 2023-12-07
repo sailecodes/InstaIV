@@ -8,14 +8,14 @@ const ProfileStatsWrapper = styled.div`
   place-items: center;
 
   span {
-    color: var(--color-font-gray);
+    color: var(--color-gray);
 
     font-size: var(--font-sm-1);
   }
 
   p,
   button {
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     display: flex;
     flex-direction: column;
@@ -56,7 +56,7 @@ const ProfileStatsWrapper = styled.div`
     span,
     p,
     button {
-      color: var(--color-font-white);
+      color: var(--color-white);
     }
 
     p,

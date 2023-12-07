@@ -21,7 +21,7 @@ const ProfileFollowContainer = ({ followData }) => {
         <nav className="follow-container--nav">
           <p>{isFollowingClicked ? "Following" : "Followers"}</p>
           <button onClick={handleClick}>
-            <DeleteIcon fill="var(--color-font-white)" />
+            <DeleteIcon fill="var(--color-white)" />
           </button>
         </nav>
         <div className="follow-container--users">

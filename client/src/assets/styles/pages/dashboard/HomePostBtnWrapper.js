@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const HomePostBtnWrapper = styled.div`
-  color: var(--color-font-white);
+  color: var(--color-white);
 
   display: flex;
   align-items: center;

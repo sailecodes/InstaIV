@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const SubmitBtnWrapper = styled.button`
-  background-color: var(--color-font-blue);
-  color: var(--color-font-white);
+  background-color: var(--color-blue);
+  color: var(--color-white);
 
   width: 100%;
   height: 3.2rem;

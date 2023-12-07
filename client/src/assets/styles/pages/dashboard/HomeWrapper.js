@@ -32,7 +32,7 @@ const HomeWrapper = styled.div`
   }
 
   .home--post a {
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     font-size: var(--font-sm-1);
     font-weight: 500;
@@ -50,13 +50,13 @@ const HomeWrapper = styled.div`
   }
 
   .home--post-date {
-    color: var(--color-font-gray);
+    color: var(--color-gray);
 
     font-size: var(--font-sm-1);
   }
 
   .home--post-dot {
-    color: var(--color-font-gray);
+    color: var(--color-gray);
 
     font-size: var(--font-sm-1);
   }

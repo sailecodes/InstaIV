@@ -8,7 +8,7 @@ const AuthInputWrapper = styled.div`
 
   input {
     background-color: var(--color-border);
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     width: 25rem;
     height: 4rem;

@@ -27,7 +27,7 @@ const SearchWrapper = styled.div`
 
   input {
     background-color: var(--color-border);
-    color: var(--color-font-white);
+    color: var(--color-white);
 
     width: 24rem;
     height: 4.1rem;
@@ -39,7 +39,7 @@ const SearchWrapper = styled.div`
   }
 
   > div > div:nth-child(1) button {
-    color: var(--color-font-blue);
+    color: var(--color-blue);
 
     font-size: var(--font-sm-1);
 
@@ -68,8 +68,8 @@ const SearchWrapper = styled.div`
   }
 
   .search-data--username + a {
-    background-color: var(--color-font-blue);
-    color: var(--color-font-white);
+    background-color: var(--color-blue);
+    color: var(--color-white);
 
     display: grid;
     place-items: center;
