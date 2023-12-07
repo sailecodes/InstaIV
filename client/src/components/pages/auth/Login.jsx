@@ -26,9 +26,7 @@ const Login = () => {
       localStorage.setItem("userId", data?.data?.data._id);
       localStorage.setItem(
         "userPfpUrl",
-        data?.data?.data?.profilePictureInfo?.imageUrl
-          ? data.data.data.profilePictureInfo.imageUrl
-          : "../../../assets/imgs/default-pf"
+        data?.data?.data?.pfpInfo?.contentUrl ? data.data.data.pfpInfo.contentUrl : ""
       );
       setUserPfpUrl(localStorage.getItem("userPfpUrl"));
     },

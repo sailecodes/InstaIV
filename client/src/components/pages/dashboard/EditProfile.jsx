@@ -25,11 +25,9 @@ const EditProfile = () => {
       navigate(`/dashboard/profile/${localStorage.getItem("userId")}`);
       localStorage.setItem(
         "userPfpUrl",
-        data?.data?.data?.profilePictureInfo?.imageUrl
-          ? data.data.data.profilePictureInfo.imageUrl
-          : localStorage.getItem("userPfpUrl")
+        data?.data?.data?.pfpInfo?.contentUrl ? data.data.data.pfpInfo.contentUrl : localStorage.getItem("userPfpUrl")
       );
-      setUserPfpUrl(data?.data?.data.profilePictureInfo.imageUrl);
+      setUserPfpUrl(data?.data?.data.pfpInfo.contentUrl);
     },
   });
 
@@ -56,7 +54,7 @@ const EditProfile = () => {
             encType="multipart/form-data">
             <CreatePostInput
               type="file"
-              name="profilePicture"
+              name="pfp"
             />
             <CreatePostInput
               type="text"

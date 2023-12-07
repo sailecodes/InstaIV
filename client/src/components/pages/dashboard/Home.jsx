@@ -67,7 +67,7 @@ const Home = () => {
       {!isError && !isPending && (
         <div className="home--posts-container">
           {data.length === 0 && (
-            <div style={{ display: "grid", placeItems: "center" }}>
+            <div style={{ width: "46.8rem", height: "100%", display: "grid", placeItems: "center" }}>
               <h1>No posts yet!</h1>
             </div>
           )}
@@ -78,7 +78,7 @@ const Home = () => {
                   className="home--post"
                   key={post._id}>
                   <header>
-                    <ProfilePicture userPfpUrl={post.userInfo.imageUrl} />
+                    <ProfilePicture userPfpUrl={post.userInfo.contentUrl} />
                     <Link to={`/dashboard/profile/${post.userInfo.userId}`}>{post.userInfo.username}</Link>
                     <div className="home--post-dot">&middot;</div>
                     <p className="home--post-date">
@@ -94,7 +94,7 @@ const Home = () => {
                   </header>
                   <img
                     className="home--post-content"
-                    src={post?.contentInfo?.imageUrl}
+                    src={post?.contentInfo?.contentUrl}
                   />
                   <HomePostInteractBtns
                     id={post._id}

@@ -26,27 +26,27 @@ export const createPost = async (req, res) => {
 
   const cloudinaryResult = await cloudinary.uploader.upload(req.files.content.tempFilePath, {
     use_filename: true,
-    folder: "InstaIV/Posts",
+    folder: `InstaIV/Posts/${user.username}`,
   });
 
   const content = await contentModel.create({
-    imageUrl: cloudinaryResult.secure_url,
+    contentUrl: cloudinaryResult.secure_url,
     publicId: cloudinaryResult.public_id,
   });
   const post = await postModel.create({
     contentInfo: {
-      imageUrl: cloudinaryResult.secure_url,
+      contentUrl: cloudinaryResult.secure_url,
       contentId: content._id,
     },
     userInfo: {
-      imageUrl: user?.profilePictureInfo?.imageUrl ? user.profilePictureInfo.imageUrl : "",
+      contentUrl: user?.pfpInfo?.contentUrl ? user.pfpInfo.contentUrl : "",
       username: user.username,
       userId: user._id,
     },
     caption: req.body.caption,
   });
 
-  user.postsInfo.push({ imageUrl: cloudinaryResult.secure_url, contentId: content._id, postId: post._id });
+  user.postsInfo.push({ contentUrl: cloudinaryResult.secure_url, contentId: content._id, postId: post._id });
   user.numPosts += 1;
   await user.save();
 
@@ -158,7 +158,7 @@ export const updateSaveCount = async (req, res) => {
     post.savesInfo.num += 1;
     post.savesInfo.users.set(req.userInfo.userId, true);
     user.savedPostsInfo.push({
-      imageUrl: post.contentInfo.imageUrl,
+      contentUrl: post.contentInfo.contentUrl,
       contentId: post.contentInfo.contentId,
       postId: post._id,
     });

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const userProfilePictureInfoSubSchema = mongoose.Schema({
-  imageUrl: {
+const pfpInfoSubSchema = mongoose.Schema({
+  contentUrl: {
     type: String,
     default: "",
   },
@@ -12,8 +12,8 @@ const userProfilePictureInfoSubSchema = mongoose.Schema({
   },
 });
 
-const userFollowInfoSubSchema = mongoose.Schema({
-  imageUrl: {
+const followInfoSubSchema = mongoose.Schema({
+  contentUrl: {
     type: String,
     default: "",
   },
@@ -28,8 +28,8 @@ const userFollowInfoSubSchema = mongoose.Schema({
   },
 });
 
-const userPostsInfoSubSchema = mongoose.Schema({
-  imageUrl: {
+const postsInfoSubSchema = mongoose.Schema({
+  contentUrl: {
     type: String,
     default: "",
   },
@@ -56,8 +56,8 @@ const userSchema = mongoose.Schema(
     username: {
       type: String,
     },
-    profilePictureInfo: {
-      type: userProfilePictureInfoSubSchema,
+    pfpInfo: {
+      type: pfpInfoSubSchema,
     },
     bio: {
       type: String,
@@ -68,19 +68,19 @@ const userSchema = mongoose.Schema(
       default: 0,
     },
     followersInfo: {
-      type: [userFollowInfoSubSchema],
+      type: [followInfoSubSchema],
       default: [],
     },
     followingInfo: {
-      type: [userFollowInfoSubSchema],
+      type: [followInfoSubSchema],
       default: [],
     },
     postsInfo: {
-      type: [userPostsInfoSubSchema],
+      type: [postsInfoSubSchema],
       default: [],
     },
     savedPostsInfo: {
-      type: [userPostsInfoSubSchema],
+      type: [postsInfoSubSchema],
       default: [],
     },
   },

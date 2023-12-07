@@ -14,7 +14,7 @@ const validate = (validationValues) => {
       if (!errors.isEmpty()) {
         const errorMessages = errors.array().map((error) => error.msg);
 
-        if (errorMessages[0].startsWith("Authentication")) throw new UnauthenticatedError("Authentication invalid.");
+        if (errorMessages[0].startsWith("Authentication")) throw new UnauthenticatedError("Authentication invalid");
         else throw new BadRequestError(errorMessages);
       }
 
@@ -103,7 +103,8 @@ export const validateUpdateProfileInput = validate([
     .custom((_, { req, res }) => {
       // Note: Must use a custom validator for req.files since req.files is not currently supported
       //       by express-validator
-      return !req.files?.profilePicture || req.files.profilePicture.mimetype.includes("image");
+      // TODO: Double-check left condition
+      return !req.files?.pfp || req.files.pfp.mimetype.includes("image");
     }),
 ]);
 

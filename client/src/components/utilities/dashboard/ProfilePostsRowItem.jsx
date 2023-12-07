@@ -1,7 +1,7 @@
-const PostsRow = ({ imageUrl }) => {
+const PostsRow = ({ contentUrl }) => {
   return (
     <div>
-      <img src={imageUrl} />
+      <img src={contentUrl} />
     </div>
   );
 };

@@ -68,15 +68,11 @@ const Search = () => {
           )}
           {!isPending && (
             <div className="search-data--container">
-              {searchData.length === 0 && <p>No friends yet!</p>}
+              {searchData.length === 0 && <h2 style={{ textAlign: "center" }}>No friends yet!</h2>}
               {searchData.length !== 0 &&
                 searchData.map((user) => (
                   <div key={user._id}>
-                    <ProfilePicture
-                      width="3.3rem"
-                      height="3.3rem"
-                      userPfpUrl={user?.profilePictureInfo?.imageUrl}
-                    />
+                    <ProfilePicture userPfpUrl={user?.pfpInfo?.contentUrl} />
                     <p className="search-data--username">{user.username}</p>
                     <Link to={`/dashboard/profile/${user._id}`}>See profile</Link>
                   </div>

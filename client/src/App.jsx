@@ -65,14 +65,16 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [userPfpUrl, setUserPfpUrl] = useState(localStorage.getItem("userPfpUrl"));
+  const [userPfpUrl, setUserPfpUrl] = useState(
+    localStorage.getItem("userPfpUrl") !== "" ? localStorage.getItem("userPfpUrl") : undefined
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
       <AppContext.Provider value={{ userPfpUrl, setUserPfpUrl }}>
         <RouterProvider router={router} />
       </AppContext.Provider>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

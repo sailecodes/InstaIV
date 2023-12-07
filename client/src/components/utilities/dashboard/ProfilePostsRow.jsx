@@ -6,7 +6,7 @@ const ProfilePostsRow = ({ rowData, rowNumItems }) => {
       {rowData.map((post) => (
         <ProfilePostsRowItem
           key={post._id}
-          imageUrl={post.imageUrl}
+          contentUrl={post.contentUrl}
         />
       ))}
       {rowNumItems === 1 && (

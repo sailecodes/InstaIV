@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const postContentInfoSubSchema = mongoose.Schema({
-  imageUrl: {
+const contentInfoSubSchema = mongoose.Schema({
+  contentUrl: {
     type: String,
     required: [true, "Image url required"],
   },
@@ -12,8 +12,8 @@ const postContentInfoSubSchema = mongoose.Schema({
   },
 });
 
-const postUserInfoSubSchema = mongoose.Schema({
-  imageUrl: {
+const userInfoSubSchema = mongoose.Schema({
+  contentUrl: {
     type: String,
     default: "",
   },
@@ -27,7 +27,7 @@ const postUserInfoSubSchema = mongoose.Schema({
   },
 });
 
-const postStatInfoSubSchema = mongoose.Schema({
+const statInfoSubSchema = mongoose.Schema({
   users: {
     type: Map,
     of: String,
@@ -42,11 +42,11 @@ const postStatInfoSubSchema = mongoose.Schema({
 const postSchema = mongoose.Schema(
   {
     contentInfo: {
-      type: postContentInfoSubSchema,
+      type: contentInfoSubSchema,
       required: true,
     },
     userInfo: {
-      type: postUserInfoSubSchema,
+      type: userInfoSubSchema,
       required: true,
     },
     caption: {
@@ -54,11 +54,11 @@ const postSchema = mongoose.Schema(
       default: "",
     },
     likesInfo: {
-      type: postStatInfoSubSchema,
+      type: statInfoSubSchema,
       default: {},
     },
     savesInfo: {
-      type: postStatInfoSubSchema,
+      type: statInfoSubSchema,
       default: {},
     },
   },

@@ -5,14 +5,16 @@
 ### Client-side
 
 - **Pages/Components**
-  - Login (`/login`)
+  - Login (`/`)
+  - Register (`/register`)
   - Dashboard (`/dashboard`)
     - Home (`/`)
     - Search (`/search`)
     - Create post (`/create-post`)
-    - Profile (`/profile`)
+    - Profile (`/profile/:id`)
       - Posts (`/`)
       - Saved posts (`/saved-posts`)
+    - Edit profile `/profile/:id/edit`
 
 ### Server-side
 
@@ -24,53 +26,73 @@
     - Profile picture info
     - Bio
     - Number of posts
-    - Followers
-    - Following
+    - Followers info
+    - Following info
     - Posts info
     - Saved posts info
-    - Chats
   - Content
-    - Public id
     - Image url
+    - Public id
   - Post
     - Content info
-    - User id
+    - User info
     - Caption
-    - Number of likes
-    - Comments
-  - Comment
-    - User
-    - Comment
-  - Chat
-    - Name
-    - Users
-    - Messages
-  - Message
-    - User
-    - Message
+    - Likes info
+    - Saves info
 - **Routes**
   - Authentication routes
     - Public routes
     - 3 routes (`/api/v1/auth`)
       - Register (_POST_, `/register`)
       - Login (_POST_, `/login`)
+        - Compares unhashed and hashed (database) passwords
+        - Returns jwt for authentication in restricted routes
       - Logout (_GET_, `/logout`)
+        - Clears jwt
   - User routes
     - Restricted routes
-    - 6 routes (`/api/v1/users`)
+    - 7 routes (`/api/v1/users`)
+      - Users
+        - Get all users (_GET_, `/`)
+          - TODO: Finds and returns all users in alphabetical order
       - Profile
         - Get profile (_GET_, `/:id`)
         - Update profile (_PATCH_, `/:id`)
+          - Updates pfp and/or bio
+          - Replaces or creates pfp in cloudinary
+          - Updates pfp url in all user posts
+          - TODO: Removes content pfp from cloudinary and deletes any document created on error
       - Follow
         - Get followers (_GET_, `/followers`)
         - Get following (_GET_, `/following`)
         - Follow user (_UPDATE_, `/follow/:id`)
+          - Updates user follow list
+          - Updates other user's follower list
         - Unfollow user (_UPDATE_ `/unfollow/:id`)
+          - Updates user follow list
+          - Updates other user's follower list
   - Post routes
     - Restricted routes
-    - 5 routes (`/api/v1/posts`)
+    - 7 routes (`/api/v1/posts`)
       - Get all posts (_GET_, `/`)
+        - TODO: Finds and returns all posts in most recent order
       - Create post (_POST_, `/`)
+        - Uploads content on cloudinary
+        - Updates user's postsInfo and numPosts
       - Get post (_GET_, `/:id`)
-      - Update post (_UPDATE_, `/:id`)
+      - TODO: Update post (_UPDATE_, `/:id`)
       - Delete post (_DELETE_, `/:id`)
+        - Removes post from saved collections of other users
+        - Removes content from cloudinary
+        - Updates user's postsInfo, savedPostsInfo, and numPosts
+      - Update post like count (_UPDATE_, `/:id/like`)
+        - On like,
+          - Adds user to post's list of 'likers'
+        - On unlike,
+          - The converse
+      - Update post save count (_UPDATE_, `/:id/save`)
+        - On save,
+          - Adds user to post's list of 'savers'
+          - Updates user's savedPostsInfo
+        - On unsave,
+          - The converse

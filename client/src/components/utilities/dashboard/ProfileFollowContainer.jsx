@@ -28,7 +28,7 @@ const ProfileFollowContainer = ({ followData }) => {
           {followData.map((user) => {
             return (
               <div key={user._id}>
-                <ProfilePicture userPfpUrl={user.imageUrl} />
+                <ProfilePicture userPfpUrl={user.contentUrl} />
                 <p>{user.username}</p>
                 <Link
                   to={`/dashboard/profile/${user.userId}`}
