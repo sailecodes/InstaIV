@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import ProfilePicture from "./ProfilePicture";
-import Exit from "../icons/Exit";
+import Exit from "../icons/ExitIcon";
 import FollowContainerWrapper from "../../../assets/styles/pages/dashboard/FollowContainerWrapper";
 import { DashboardContext } from "../../pages/dashboard/Dashboard";
 

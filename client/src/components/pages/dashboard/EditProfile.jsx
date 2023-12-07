@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import ClipLoader from "react-spinners/ClipLoader";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CreatePostInput from "../../utilities/dashboard/CreatePostInput";
 import axiosFetch from "../../../utilities/axiosFetch";
 import Error from "../../utilities/general/Error";
+import SubmitBtn from "../../utilities/general/SubmitBtn";
 import { AppContext } from "../../../App";
-import { useNavigate } from "react-router-dom";
 
 const EditProfileWrapper = styled.div`
   position: relative;
@@ -16,22 +16,16 @@ const EditProfileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5rem;
 
-  padding: 5rem 2rem 5rem 2rem;
+  padding: 2rem;
 
   form {
-    position: relative;
-    bottom: 10%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2rem;
-  }
-
-  form > div:nth-child(2) {
-    margin-bottom: 2rem;
   }
 
   > p {
@@ -40,19 +34,17 @@ const EditProfileWrapper = styled.div`
   }
 
   button {
-    background-color: var(--color-blue);
-    color: var(--color-white);
-
-    display: grid;
-    place-items: center;
-
     width: 9rem;
-    height: 3rem;
-
-    border-radius: 8px;
   }
 
-  @media (min-width: 767px) {
+  @media (min-width: 425px) {
+    > p {
+      font-size: var(--font-sm-2);
+      font-style: italic;
+    }
+  }
+
+  @media (min-width: 768px) {
     grid-row: 1 / -1;
     grid-column: 2;
   }
@@ -88,7 +80,7 @@ const EditProfile = () => {
   return (
     <EditProfileWrapper>
       {isError && (
-        <div className="perr-container">
+        <div style={{ display: "grid", placeItems: "center" }}>
           <Error />
         </div>
       )}
@@ -106,16 +98,10 @@ const EditProfile = () => {
               name="bio"
               placeholder="Enter bio"
             />
-            <button type="submit">
-              {isPending ? (
-                <ClipLoader
-                  size={13}
-                  color="var(--color-white)"
-                />
-              ) : (
-                "Submit"
-              )}
-            </button>
+            <SubmitBtn
+              isPending={isPending}
+              text="Submit"
+            />
           </form>
           <p>*Can only change profile picture and/or bio (for now)</p>
         </>

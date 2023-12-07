@@ -1,4 +1,4 @@
-const Exit = ({ width, height }) => {
+const ExitIcon = ({ width, height }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,4 +9,4 @@ const Exit = ({ width, height }) => {
     </svg>
   );
 };
-export default Exit;
+export default ExitIcon;
