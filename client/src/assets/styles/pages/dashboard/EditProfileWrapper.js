@@ -25,13 +25,19 @@ const EditProfileWrapper = styled.div`
   }
 
   button {
-    width: 9rem;
+    width: 7.5rem;
+    height: 3.1rem;
   }
 
   @media (min-width: 425px) {
     > p {
       font-size: var(--font-sm-2);
       font-style: italic;
+    }
+
+    button {
+      width: 9rem;
+      height: 3.5rem;
     }
   }
 

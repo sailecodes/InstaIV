@@ -75,7 +75,7 @@ const SearchWrapper = styled.div`
     place-items: center;
 
     width: 9rem;
-    height: 3.2rem;
+    height: 3.1rem;
 
     font-size: var(--font-sm-1);
 
@@ -109,6 +109,8 @@ const SearchWrapper = styled.div`
 
     .search-data--username + a {
       width: 10.5rem;
+
+      height: 3.5rem;
 
       font-size: var(--font-sm-2);
     }

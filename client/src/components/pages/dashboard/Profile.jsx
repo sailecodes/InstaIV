@@ -48,7 +48,7 @@ const Profile = () => {
   console.log(data);
 
   return (
-    <ProfileContext.Provider value={{ data, followUserMutation, unfollowUserMutation }}>
+    <ProfileContext.Provider value={{ data }}>
       <ProfileWrapper>
         {isError && (
           <div style={{ height: "100%", display: "grid", placeItems: "center", padding: "0.6rem 2rem 2rem 2rem" }}>
@@ -67,7 +67,13 @@ const Profile = () => {
               <header className="profile--header">
                 <p className="profile--username">{data.username}</p>
                 {isLoggedUser && <Link to={`/dashboard/profile/${id}/edit`}>Edit profile</Link>}
-                {!isLoggedUser && <ProfileInteractBtns />}
+                {!isLoggedUser && (
+                  <ProfileInteractBtns
+                    followersInfo={data.followersInfo}
+                    followUserMutation={followUserMutation}
+                    unfollowUserMutation={unfollowUserMutation}
+                  />
+                )}
               </header>
               <p className="profile--bio">{!data.bio ? "No bio yet." : data.bio}</p>
               <ProfileStats />

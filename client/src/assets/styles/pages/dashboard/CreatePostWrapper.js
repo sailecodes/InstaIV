@@ -18,12 +18,14 @@ const CreatePostWrapper = styled.div`
   }
 
   .create-post--form > button {
-    width: 9rem;
+    width: 6rem;
+    height: 3.1rem;
   }
 
   @media (min-width: 425px) {
     .create-post--form > button {
-      width: 9rem;
+      width: 8rem;
+      height: 3.5rem;
     }
   }
 

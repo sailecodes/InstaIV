@@ -78,7 +78,7 @@ const ProfileFollowContainerWrapper = styled.div`
 
   .follow-container--users img {
     width: 3rem;
-    height: 3rem;
+    height: 3.2rem;
   }
 
   .follow-container--users > div p {
@@ -121,7 +121,6 @@ const ProfileFollowContainerWrapper = styled.div`
 
     .follow-container--users img {
       width: 3.2rem;
-      height: 3.2rem;
     }
 
     .follow-container--nav > p {
@@ -138,7 +137,7 @@ const ProfileFollowContainerWrapper = styled.div`
 
     .follow-container--users > div a {
       width: 9rem;
-      height: 3rem;
+      height: 3.1rem;
 
       font-size: var(--font-sm-1);
     }

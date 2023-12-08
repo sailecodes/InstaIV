@@ -59,8 +59,8 @@ const ProfileWrapper = styled.div`
     display: grid;
     place-items: center;
 
-    width: 11.5rem;
-    height: 3.2rem;
+    width: 10rem;
+    height: 3.1rem;
 
     font-size: var(--font-sm-1);
     font-weight: 500;
@@ -118,6 +118,9 @@ const ProfileWrapper = styled.div`
     }
 
     .profile--username + a {
+      width: 11.5rem;
+      height: 3.5rem;
+
       font-size: var(--font-sm-2);
     }
 
