@@ -45,6 +45,16 @@ app.use(cookieParser());
 app.use(fileUpload({ useTempFiles: true }));
 app.use(cors());
 app.use(helmet());
+// FIXME: Temporary fix for `Refused to load the image '<URL>' because it violates
+//        the following Content Security Policy directive: "img-src 'self' data:"`
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "https: data: blob:"],
+    },
+  })
+);
 app.use(ExpressMongoSanitize());
 
 // ==============================================
