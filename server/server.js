@@ -1,9 +1,14 @@
 import "express-async-errors";
 import express from "express";
+import url from "url";
+import path from "path";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
+import cors from "cors";
+import helmet from "helmet";
+import ExpressMongoSanitize from "express-mongo-sanitize";
 import { v2 as cloudinary } from "cloudinary";
 import { StatusCodes } from "http-status-codes";
 import * as dotenv from "dotenv";
@@ -13,6 +18,7 @@ import userRouter from "./routers/userRouter.js";
 import postRouter from "./routers/postRouter.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 import { validateUser } from "./middleware/validationMiddleware.js";
+import { dirname } from "path";
 
 // ==============================================
 // Initialization
@@ -26,15 +32,20 @@ cloudinary.config({
 });
 const app = express();
 const port = process.env.PORT || 5100;
+const __dirname = dirname(url.fileURLToPath(import.meta.url));
 
 // ==============================================
 // Middleware
 // ==============================================
 
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+app.use(express.static(path.resolve(__dirname, "./public")));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload({ useTempFiles: true }));
+app.use(cors());
+app.use(helmet());
+app.use(ExpressMongoSanitize());
 
 // ==============================================
 // Routes
@@ -47,6 +58,10 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", validateUser, userRouter);
 app.use("/api/v1/posts", validateUser, postRouter);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public", "index.html"));
+});
 
 app.use("*", (req, res) => {
   res.status(StatusCodes.NOT_FOUND).json({ msg: "(Server message) Route not found" });

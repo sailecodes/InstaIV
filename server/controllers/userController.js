@@ -17,6 +17,7 @@ export const getAllUsers = async (req, res) => {
 // Profile
 // ==============================================
 
+// TODO: Return posts/saved posts in most recent order
 export const getProfile = async (req, res) => {
   const user = await userModel.findById(req.params.id).select("-email -password -chats -__v");
 

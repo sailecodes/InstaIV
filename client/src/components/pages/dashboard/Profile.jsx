@@ -45,8 +45,6 @@ const Profile = () => {
     },
   });
 
-  console.log(data);
-
   return (
     <ProfileContext.Provider value={{ data }}>
       <ProfileWrapper>

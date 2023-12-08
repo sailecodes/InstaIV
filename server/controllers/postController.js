@@ -12,7 +12,7 @@ import { NotFoundError, UnauthorizedError } from "../errors/customErrors.js";
 // ==============================================
 
 export const getAllPosts = async (req, res) => {
-  const posts = await postModel.find({});
+  const posts = await postModel.find({}).sort({ createdAt: -1 });
 
   res
     .status(StatusCodes.OK)
