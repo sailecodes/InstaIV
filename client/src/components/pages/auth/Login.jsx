@@ -86,6 +86,10 @@ const Login = () => {
           <p>
             Don&apos;t have an account? <Link to="/register">Sign up</Link>
           </p>
+          <p>Or, testing the app? Try:</p>
+          <p>
+            Email: <span>admin@gmail.com</span> | Password: <span>asdfasdfasdf</span>
+          </p>
         </div>
         <AuthErrorsContainer errorMsgs={errorMsgs} />
       </div>

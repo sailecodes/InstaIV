@@ -49,6 +49,10 @@ const AuthWrapper = styled.div`
     text-decoration: none;
   }
 
+  .auth--input-container > p span {
+    text-decoration: underline;
+  }
+
   @media (min-width: 425px) {
     .auth--input-container > p {
       font-size: var(--font-sm-2);
