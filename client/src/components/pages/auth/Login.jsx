@@ -88,7 +88,7 @@ const Login = () => {
           </p>
           <p>Or, testing the app? Try:</p>
           <p>
-            Email: <span>admin@gmail.com</span> | Password: <span>asdfasdfasdf</span>
+            Email: <span>admin@gmail.com</span> | P/w: <span>asdfasdfasdf</span>
           </p>
         </div>
         <AuthErrorsContainer errorMsgs={errorMsgs} />
